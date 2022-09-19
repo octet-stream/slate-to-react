@@ -1,0 +1,20 @@
+{
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": [
+    "src/**/__helper__/**/*.ts",
+    "src/**/__helper__/**/*.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx"
+  ],
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "lib",
+    "jsx": "react-jsx"
+  },
+  "ts-node": {
+    "transpileOnly": true
+  }
+}
