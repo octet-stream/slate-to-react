@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
+
 import type {ReactNode, ReactElement} from "react"
 import {Text, Element} from "slate"
 
@@ -13,7 +14,9 @@ import {
   ELEMENT_LINK,
   ELEMENT_PARAGRAPH,
   ELEMENT_BLOCKQUOTE
-} from "./constants.js"
+} from "./util/constants.js"
+
+export type Descendant = ElementNode | Text
 
 export interface ElementNode<T extends string = string> extends Element {
   type: T
@@ -23,9 +26,12 @@ export interface ElementNode<T extends string = string> extends Element {
 export type Alignemnt = "left" | "right" | "center" | "justify"
 
 interface WithAlignment {
-  align: Alignemnt
+  align?: Alignemnt
 }
 
+/**
+ * @deprecated use ElementNode as root element
+ */
 export type Node = Text | ElementNode
 
 export interface RichText extends Text {
@@ -48,7 +54,8 @@ export type Headings =
   | typeof ELEMENT_H5
   | typeof ELEMENT_H6
 
-export type Heading<T extends Headings> = ElementNode<T> & WithAlignment
+export type Heading<T extends Headings = Headings> =
+  ElementNode<T> & WithAlignment
 
 export type Blockquote = ElementNode<typeof ELEMENT_BLOCKQUOTE>
 

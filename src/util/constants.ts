@@ -10,3 +10,12 @@ export const ELEMENT_H3 = "h3"
 export const ELEMENT_H4 = "h4"
 export const ELEMENT_H5 = "h5"
 export const ELEMENT_H6 = "h6"
+
+export const HEADINGS_LIST = [
+  ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
+  ELEMENT_H5,
+  ELEMENT_H6
+] as const
