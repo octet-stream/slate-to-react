@@ -169,7 +169,6 @@ const blockquote = createNodeTransform<Blockquote>(
   )
 )
 
-export const defaultTransforms: Record<string, Transform> = Object
-  .fromEntries([
-    text, blockquote, paragraph, link, h1, h2, h3, h4, h5, h6
-  ])
+export const defaultTransforms: Record<string, Transform> = Object.fromEntries([
+  text, blockquote, paragraph, link, h1, h2, h3, h4, h5, h6
+])
