@@ -1,12 +1,25 @@
 {
+  "type": "module",
   "name": "slate-to-react",
   "version": "0.1.0",
   "author": "Nick K.",
   "license": "MIT",
   "description": "React component to render Slate data format",
-  "main": "index.js",
+  "source": "src/slate-to-react.ts",
+  "main": "lib/slate-to-react.mjs",
+  "umd:main": "lib/slate-to-react.umd.js",
+  "module": "lib/slate-to-react.legacy.mjs",
+  "types": "@type/slate-to-react.d.ts",
+  "exports": {
+    "import": "./lib/slate-to-react.mjs",
+    "require": "./lib/slate-to-react.cjs",
+    "types": "./@type/slate-to-react.d.ts",
+    "default": "./lib/slate-to-react.mjs"
+  },
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "build": "microbundle",
+    "cleanup": "del-cli @types lib"
   },
   "keywords": [
     "slate",
@@ -20,6 +33,7 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "ava": "5.2.0",
+    "del-cli": "^5.0.0",
     "global-jsdom": "8.7.0",
     "jsdom": "21.1.0",
     "microbundle": "^0.15.1",
