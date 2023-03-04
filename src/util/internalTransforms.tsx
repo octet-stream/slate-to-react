@@ -1,8 +1,14 @@
-import React from "react"
+import React, {createElement} from "react"
 
 import {createElementTransform, createLeafTransform} from "./createTransform.js"
 
-import {isText, isLink, isParagraph, isBlockquote} from "./matchers.js"
+import {
+  isText,
+  isLink,
+  isParagraph,
+  isBlockquote,
+  isHeading
+} from "./matchers.js"
 
 const text = createLeafTransform(isText, ({attributes, children}) => (
   <span {...attributes}>{children}</span>
@@ -38,9 +44,24 @@ const blockquote = createElementTransform(
   )
 )
 
+const heading = createElementTransform(
+  isHeading,
+
+  ({key, element, attributes, children}) => createElement(
+    element.type,
+
+    {
+      ...attributes, key
+    },
+
+    children
+  )
+)
+
 export const defaultTransforms = {
   text,
   link,
   paragraph,
-  blockquote
+  blockquote,
+  heading
 }
