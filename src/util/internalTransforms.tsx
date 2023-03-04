@@ -1,18 +1,52 @@
 import React, {createElement} from "react"
+import type {ReactNode} from "react"
 
 import {createElementTransform, createLeafTransform} from "./createTransform.js"
 
 import {
-  isText,
   isLink,
   isParagraph,
   isBlockquote,
   isHeading
 } from "./matchers.js"
+import {isRichText} from "./internalMatchers.js"
 
-const text = createLeafTransform(isText, ({attributes, children}) => (
-  <span {...attributes}>{children}</span>
-))
+const text = createLeafTransform(
+  isRichText,
+
+  ({key, attributes, leaf, children}) => {
+    // Render <br /> for empty text blocks as it's probably just an empty line
+    let element: ReactNode = children || <br />
+
+    if (leaf.bold) {
+      element = <strong>{element}</strong>
+    }
+
+    if (leaf.italic) {
+      element = <i>{element}</i>
+    }
+
+    if (leaf.underline) {
+      element = <u>{element}</u>
+    }
+
+    if (leaf.strikethrough) {
+      element = <s>{element}</s>
+    }
+
+    if (leaf.superscript) {
+      element = <sup>{element}</sup>
+    } else if (leaf.subscript) {
+      element = <sub>{element}</sub>
+    }
+
+    if (leaf.code) {
+      element = <code>{element}</code>
+    }
+
+    return <span {...attributes} key={key}>{element}</span>
+  }
+)
 
 const link = createElementTransform(
   isLink,
