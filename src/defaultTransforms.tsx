@@ -1,4 +1,5 @@
 import type {ReactNode} from "react"
+import {createElement} from "react"
 
 import {createNodeTransform} from "./createNodeTransform"
 import {

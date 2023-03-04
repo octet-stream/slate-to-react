@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "ava",
-    "build": "microbundle",
+    "build": "microbundle --jsx createElement --jsxFragment Fragment",
     "cleanup": "del-cli @types lib"
   },
   "keywords": [

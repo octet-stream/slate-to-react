@@ -7,12 +7,14 @@
     "src/**/*.test.tsx"
   ],
   "compilerOptions": {
-    "target": "es2019",
-    "module": "CommonJS",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",
-    "jsx": "react-jsx"
+    "jsx": "react",
+    "jsxFactory": "createElement",
+    "jsxFragmentFactory": "Fragment"
   },
   "ts-node": {
     "transpileOnly": true
