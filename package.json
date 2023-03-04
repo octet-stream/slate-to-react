@@ -6,7 +6,7 @@
   "license": "MIT",
   "description": "React component to render Slate data format",
   "source": "src/slate-to-react.ts",
-  "main": "lib/slate-to-react.mjs",
+  "main": "lib/slate-to-react.cjs",
   "umd:main": "lib/slate-to-react.umd.js",
   "module": "lib/slate-to-react.legacy.mjs",
   "types": "@type/slate-to-react.d.ts",
