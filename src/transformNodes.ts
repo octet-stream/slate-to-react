@@ -1,49 +1,54 @@
-import {Text, Element} from "slate"
-import {createElement} from "react"
-import {ReactNode} from "react"
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
 
-interface ElementNode extends Element {
-  type: string
-  children: Node[]
-}
+import type {ReactElement} from "react"
+import type {Text} from "slate"
+import {nanoid} from "nanoid"
+import {Element} from "slate"
 
-type Node = Text | ElementNode
+import type {Transform, NodeTransform, Node} from "./types"
+import {
+  text,
+  link,
+  paragraph,
+  blockquote,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+} from "./defaultTransforms"
 
-interface NodeTransformContext<T extends string> {
-  type: T
-  node: Node
-  children: ReactNode
-}
+const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
+  text, link, paragraph, blockquote, h1, h2, h3, h4, h5, h6
+])
 
-interface NodeTransform<T extends string = string> {
-  (ctx: NodeTransformContext<T>): JSX.Element
-}
-
-type CreateNodeTransformResult<T extends string = string> = [
-  type: T, transform: NodeTransform<T>
-]
-
-const createNodeTransform = <T extends string>(
-  type: T,
-  transform: NodeTransform<T>
-): CreateNodeTransformResult<T> => [type, transform]
-
+/**
+ * Iterates over given Slate nodes and applies transforms from the list
+ */
 function iterateNodes<R extends Node[]>(
   root: R,
   transforms: Map<string, NodeTransform>
-): JSX.Element[] {
+): ReactElement<any, any>[] {
   const res = []
 
   for (const node of root) {
-    if (Element.isElement(node)) { // element node
-      const transform = transforms.get(node.type)
+    // * This whole function is intended to be used in static pages, so I probably can just use nanoid for keys.
+    // ? Maybe keys should be preserved in datanase from `createNodeIdPlugin`. But it does seem to work for initial state and for first paragraph
+    const key = nanoid()
 
-      // TODO: Add default transforms
+    if (Element.isElement(node)) { // element node
+      const transform = (
+        transforms.get(node.type) || defaultTransforms[node.type]
+      ) as unknown as NodeTransform
+
       if (!transform) {
         throw new Error(`Can't find transform for node type: ${node.type}`)
       }
 
       const element = transform({
+        key,
         node,
         type: node.type,
         children: iterateNodes(
@@ -54,8 +59,15 @@ function iterateNodes<R extends Node[]>(
 
       res.push(element)
     } else { // text node
-      const transform = transforms.get("text")
-      const element = transform({node, type: "text", children: node.text})
+      const transform = (
+        transforms.get("text") || defaultTransforms.text
+      ) as unknown as NodeTransform<Text>
+
+      if (!transform) {
+        throw new Error("Can't find transform for text node")
+      }
+
+      const element = transform({key, node, type: "text", children: node.text})
 
       res.push(element)
     }
@@ -65,7 +77,7 @@ function iterateNodes<R extends Node[]>(
 }
 
 function normalizeTransforms(
-  transforms: CreateNodeTransformResult[]
+  transforms: Transform[] = []
 ): Map<string, NodeTransform> {
   const result = new Map<string, NodeTransform>()
 
@@ -78,36 +90,13 @@ function normalizeTransforms(
   return result
 }
 
-const transformNodes = <R extends Node[], T extends CreateNodeTransformResult[]>(
+/**
+ * Transforms Slate nodes to React elements
+ *
+ * @param root Slate root element
+ * @param transforms Transformation functions
+ */
+export const transformNodes = <R extends Node[], T extends Transform[]>(
   root: R,
-  transforms: T
+  transforms?: T
 ) => iterateNodes(root, normalizeTransforms(transforms))
-
-const text = createNodeTransform(
-  "text",
-
-  ({children}) => createElement("span", null, children)
-)
-
-const paragraph = createNodeTransform(
-  "p",
-
-  ({children}) => createElement("p", null, children)
-)
-
-const elements = transformNodes(
-  [
-    {
-      type: "p",
-      children: [
-        {
-          text: "Some text"
-        }
-      ]
-    }
-  ],
-
-  [paragraph, text]
-)
-
-console.log(elements)
