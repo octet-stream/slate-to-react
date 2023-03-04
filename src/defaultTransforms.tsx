@@ -15,7 +15,7 @@ import {
 } from "./constants"
 import type {RichText, Paragraph, Heading, Blockquote, Link} from "./types"
 
-export const text = createNodeTransform<RichText>(
+const text = createNodeTransform<RichText>(
   "text",
 
   ({key, node, children}) => {
@@ -52,7 +52,7 @@ export const text = createNodeTransform<RichText>(
   }
 )
 
-export const paragraph = createNodeTransform<Paragraph>(
+const paragraph = createNodeTransform<Paragraph>(
   ELEMENT_PARAGRAPH,
 
   ({key, node, children}) => (
@@ -62,7 +62,7 @@ export const paragraph = createNodeTransform<Paragraph>(
   )
 )
 
-export const h1 = createNodeTransform<Heading<"h1">>(
+const h1 = createNodeTransform<Heading<"h1">>(
   ELEMENT_H1,
 
   ({key, node, children}) => (
@@ -75,7 +75,7 @@ export const h1 = createNodeTransform<Heading<"h1">>(
   )
 )
 
-export const h2 = createNodeTransform<Heading<"h2">>(
+const h2 = createNodeTransform<Heading<"h2">>(
   ELEMENT_H2,
 
   ({key, node, children}) => (
@@ -88,7 +88,7 @@ export const h2 = createNodeTransform<Heading<"h2">>(
   )
 )
 
-export const h3 = createNodeTransform<Heading<"h3">>(
+const h3 = createNodeTransform<Heading<"h3">>(
   ELEMENT_H3,
 
   ({key, node, children}) => (
@@ -101,7 +101,7 @@ export const h3 = createNodeTransform<Heading<"h3">>(
   )
 )
 
-export const h4 = createNodeTransform<Heading<"h4">>(
+const h4 = createNodeTransform<Heading<"h4">>(
   ELEMENT_H4,
 
   ({key, node, children}) => (
@@ -114,7 +114,7 @@ export const h4 = createNodeTransform<Heading<"h4">>(
   )
 )
 
-export const h5 = createNodeTransform<Heading<"h5">>(
+const h5 = createNodeTransform<Heading<"h5">>(
   ELEMENT_H5,
 
   ({key, node, children}) => (
@@ -127,7 +127,7 @@ export const h5 = createNodeTransform<Heading<"h5">>(
   )
 )
 
-export const h6 = createNodeTransform<Heading<"h6">>(
+const h6 = createNodeTransform<Heading<"h6">>(
   ELEMENT_H6,
 
   ({key, node, children}) => (
@@ -140,7 +140,7 @@ export const h6 = createNodeTransform<Heading<"h6">>(
   )
 )
 
-export const link = createNodeTransform<Link>(
+const link = createNodeTransform<Link>(
   ELEMENT_LINK,
 
   ({key, node, children}) => (
@@ -150,7 +150,7 @@ export const link = createNodeTransform<Link>(
   )
 )
 
-export const blockquote = createNodeTransform<Blockquote>(
+const blockquote = createNodeTransform<Blockquote>(
   ELEMENT_BLOCKQUOTE,
 
   ({key, children}) => (
@@ -159,3 +159,16 @@ export const blockquote = createNodeTransform<Blockquote>(
     </blockquote>
   )
 )
+
+export const defaultTransforms = {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  paragraph,
+  blockquote,
+  link,
+  text
+} as const

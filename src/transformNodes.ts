@@ -7,22 +7,7 @@ import {nanoid} from "nanoid"
 import {Element} from "slate"
 
 import type {Transform, NodeTransform, Node} from "./types"
-import {
-  text,
-  link,
-  paragraph,
-  blockquote,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6
-} from "./defaultTransforms"
-
-const defaultTransforms: Record<string, NodeTransform> = Object.fromEntries([
-  text, link, paragraph, blockquote, h1, h2, h3, h4, h5, h6
-])
+import {defaultTransforms} from "./defaultTransforms"
 
 /**
  * Iterates over given Slate nodes and applies transforms from the list
