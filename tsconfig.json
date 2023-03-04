@@ -13,10 +13,5 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",
     "jsx": "react",
-    "jsxFactory": "createElement",
-    "jsxFragmentFactory": "Fragment"
-  },
-  "ts-node": {
-    "transpileOnly": true
   }
 }

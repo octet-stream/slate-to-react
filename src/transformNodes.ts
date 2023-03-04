@@ -6,8 +6,8 @@ import type {Text} from "slate"
 import {nanoid} from "nanoid"
 import {Element} from "slate"
 
-import type {Transform, NodeTransform, Node} from "./types"
-import {defaultTransforms} from "./defaultTransforms"
+import type {Transform, NodeTransform, Node} from "./types.js"
+import {defaultTransforms} from "./defaultTransforms.js"
 
 /**
  * Iterates over given Slate nodes and applies transforms from the list

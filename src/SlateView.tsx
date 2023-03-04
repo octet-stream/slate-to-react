@@ -1,8 +1,8 @@
-import {createElement, useMemo, Fragment} from "react"
+import React, {useMemo, Fragment} from "react"
 import type {FC} from "react"
 
-import type {Node} from "./types"
-import {transformNodes} from "./transformNodes"
+import type {Node} from "./types.js"
+import {transformNodes} from "./transformNodes.js"
 
 export interface SlateViewProps {
   nodes: Node[]

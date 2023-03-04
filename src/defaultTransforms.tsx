@@ -1,7 +1,8 @@
-import type {ReactNode} from "react"
-import {createElement} from "react"
+import React from "react"
 
-import {createNodeTransform} from "./createNodeTransform"
+import type {ReactNode} from "react"
+
+import {createNodeTransform} from "./createNodeTransform.js"
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -13,8 +14,15 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_PARAGRAPH,
   ELEMENT_LINK,
-} from "./constants"
-import type {RichText, Paragraph, Heading, Blockquote, Link} from "./types"
+} from "./constants.js"
+import type {
+  RichText,
+  Paragraph,
+  Heading,
+  Blockquote,
+  Link,
+  Transform
+} from "./types.js"
 
 const text = createNodeTransform<RichText>(
   "text",
@@ -161,15 +169,7 @@ const blockquote = createNodeTransform<Blockquote>(
   )
 )
 
-export const defaultTransforms = {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  paragraph,
-  blockquote,
-  link,
-  text
-} as const
+export const defaultTransforms: Record<string, Transform> = Object
+  .fromEntries([
+    text, blockquote, paragraph, link, h1, h2, h3, h4, h5, h6
+  ])

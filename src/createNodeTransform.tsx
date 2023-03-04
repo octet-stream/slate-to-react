@@ -3,7 +3,7 @@ import type {
   Node,
   GetNodeType,
   NodeTransform
-} from "./types"
+} from "./types.js"
 
 /**
  * Create transform function for given Slate Node type.

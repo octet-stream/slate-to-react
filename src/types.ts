@@ -13,7 +13,7 @@ import {
   ELEMENT_LINK,
   ELEMENT_PARAGRAPH,
   ELEMENT_BLOCKQUOTE
-} from "./constants"
+} from "./constants.js"
 
 export interface ElementNode<T extends string = string> extends Element {
   type: T
