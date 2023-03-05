@@ -73,7 +73,7 @@ export const transformNodes = (nodes: Node[]): ReactElement => {
 
       result.push(element)
     } else {
-      throw new TypeError("Root element must be of Element type.")
+      throw new TypeError("Root element must be of Element type")
     }
   }
 
