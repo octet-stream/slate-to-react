@@ -108,9 +108,9 @@ React component that will render given `nodes` as React elements.
 
 This component takes following props:
 
-| Name  | Type   | Required  | Default |
-|-------|--------|:---------:|:-------:|
-| nodes | Node[] | Yes       | —       |
+| Name  | Type   | Required  | Default | Description                        |
+|-------|--------|:---------:|:-------:|------------------------------------|
+| nodes | Node[] | Yes       | —       | List of `Slate` nodes to transform |
 
 ### `transformNodes(nodes: Node[]): ReactElement`
 
@@ -118,8 +118,8 @@ Transforms given Slate `nodes` to react elements.
 
 This function takes following arguments:
 
-| Name  | Type   | Required  | Default |
-|-------|--------|:---------:|:-------:|
-| nodes | Node[] | Yes       | —       |
+| Name  | Type   | Required  | Default | Description                        |
+|-------|--------|:---------:|:-------:|------------------------------------|
+| nodes | Node[] | Yes       | —       | List of `Slate` nodes to transform |
 
 Returns `ReactElement`. All nodes will be wrapped within `React.Fragment`, so you can even return them from your components as-is.

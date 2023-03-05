@@ -14,8 +14,14 @@ import {createElementProps} from "../internal/createElementProps.js"
 import type {CreateTransformResult} from "./createTransform.js"
 import type {Node} from "./Node.js"
 
+/**
+ * @api private
+ */
 type Descendant = Node | Text
 
+/**
+ * @api private
+ */
 function getComponent<
   TTransforms extends readonly CreateTransformResult[],
   TProps extends ElementProps | LeafProps
@@ -32,10 +38,19 @@ function getComponent<
   return transform.componnet
 }
 
+/**
+ * @api private
+ */
 const getLeafComponent = (props: LeafProps) => getComponent(leaves, props)
 
+/**
+ * @api private
+ */
 const getElementComponent = (props: ElementProps) => getComponent(elements, props)
 
+/**
+ * @api private
+ */
 function compileNodes(nodes: Descendant[]): ReactElement {
   const result: ReactElement[] = []
 
@@ -60,6 +75,13 @@ function compileNodes(nodes: Descendant[]): ReactElement {
   return createElement(Fragment, undefined, result)
 }
 
+/**
+ * Transforms given Slate `nodes` to react elements.
+ *
+ * @param nodes List of `Slate` nodes to transform
+ *
+ * @api public
+ */
 export const transformNodes = (nodes: Node[]): ReactElement => {
   const result: ReactElement[] = []
 

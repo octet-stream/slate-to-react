@@ -5,6 +5,9 @@ import {transformNodes} from "./transformNodes.js"
 import {Node} from "./Node.js"
 
 export interface SlateViewProps {
+  /**
+   * List of `Slate` nodes to transform
+   */
   nodes: Node[]
 }
 
