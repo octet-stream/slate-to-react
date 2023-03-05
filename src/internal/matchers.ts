@@ -28,6 +28,11 @@ export const isRichText = createLeafNodeMatcher<RichText>(
   )
 )
 
+/**
+ * Matches **only** plain text nodes
+ *
+ * @api private
+ */
 export const isPlainText = createLeafNodeMatcher<Text>(
   (node): node is LeafTransformProps<Text> => (
     typeof node.leaf.text === "string" && !isRichText(node)
