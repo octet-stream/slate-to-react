@@ -1,4 +1,4 @@
-import {Element, Text} from "slate"
+import {Text} from "slate"
 
 import type {
   LeafTransformProps,
