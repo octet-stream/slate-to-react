@@ -1,15 +1,18 @@
 import React, {createElement} from "react"
 import type {ReactNode} from "react"
 
-import {createElementTransform, createLeafTransform} from "./createTransform.js"
-
+import {
+  createElementTransform,
+  createLeafTransform
+} from "../public/createTransform.js"
 import {
   isLink,
   isParagraph,
   isBlockquote,
   isHeading
-} from "./matchers.js"
-import {isRichText} from "./internalMatchers.js"
+} from "../public/matchers.js"
+
+import {isRichText} from "./matchers.js"
 
 const text = createLeafTransform(
   isRichText,

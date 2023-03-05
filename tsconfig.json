@@ -2,16 +2,15 @@
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "src/**/__helper__/**/*.ts",
-    "src/**/__helper__/**/*.tsx",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx"
+    "src/**/__helper__/**/*.tsx"
   ],
   "compilerOptions": {
+    "baseUrl": "src",
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",
-    "jsx": "react",
+    "jsx": "react"
   }
 }

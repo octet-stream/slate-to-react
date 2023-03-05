@@ -1,11 +1,13 @@
+import type {Text} from "slate"
+
 import {
   createLeafNodeMatcher
-} from "./createNodeMatcher.js"
+} from "../public/createNodeMatcher.js"
 import type {
   LeafTransformProps
-} from "./createTransform.js"
+} from "../public/createTransform.js"
 
-import type {RichText, Link} from "../types.js"
+import type {RichText} from "../types.js"
 
 /**
  * Checks if given node is of `RichText` type
@@ -14,7 +16,7 @@ import type {RichText, Link} from "../types.js"
  */
 export const isRichText = createLeafNodeMatcher<RichText>(
   (node): node is LeafTransformProps<RichText> => (
-    typeof node.leaf.text === "string" && (
+    typeof node.leaf.text === "string" && !!(
       typeof node.leaf.bold === "boolean"
         || typeof node.leaf.italic === "boolean"
         || typeof node.leaf.strikethrough === "boolean"
@@ -23,5 +25,11 @@ export const isRichText = createLeafNodeMatcher<RichText>(
         || typeof node.leaf.superscript === "boolean"
         || typeof node.leaf.code === "boolean"
     )
+  )
+)
+
+export const isPlainText = createLeafNodeMatcher<Text>(
+  (node): node is LeafTransformProps<Text> => (
+    typeof node.leaf.text === "string" && !isRichText(node)
   )
 )

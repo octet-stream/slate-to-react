@@ -9,7 +9,11 @@ import type {
   ElementTransformProps
 } from "./createTransform.js"
 
-import type {Link, Paragraph, Blockquote, Heading} from "../types.js"
+import type {Blockquote} from "../internal/type/Blockquote.js"
+import type {Paragraph} from "../internal/type/Paragraph.js"
+import type {Heading} from "../internal/type/Heading.js"
+import type {Link} from "../internal/type/Link.js"
+
 import {
   ELEMENT_LINK,
   ELEMENT_PARAGRAPH,
@@ -21,7 +25,7 @@ import {
   ELEMENT_H4,
   ELEMENT_H5,
   ELEMENT_H6
-} from "./constants.js"
+} from "../internal/constants.js"
 
 /**
  * Checks if given node is of `Text` type

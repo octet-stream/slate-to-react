@@ -1,14 +1,16 @@
 import type {RenderLeafProps, RenderElementProps} from "slate-react"
 import {createElement, ReactNode} from "react"
-import type {Text, Element} from "slate"
+import type {Text} from "slate"
 import type {FC} from "react"
 
-import type {SwapObjectProps} from "./SwapObjectProps.js"
+import type {SwapObjectProps} from "../internal/type/SwapObjectProps.js"
+
 import type {
   NodeMatcher,
   LeafNodeMatcher,
   ElementNodeMatcher
 } from "./createNodeMatcher.js"
+import type {Node} from "./Node.js"
 
 interface BaseTransformProps {
   key: string
@@ -21,7 +23,7 @@ export type LeafTransformProps<N extends Text = Text> =
     leaf: N
   }>
 
-export type ElementTransformProps<N extends Element = Element> =
+export type ElementTransformProps<N extends Node = Node> =
   SwapObjectProps<RenderElementProps, BaseTransformProps & {
     element: N
   }>
@@ -82,6 +84,6 @@ export const createElementTransform = <
   component: FC<
     TMatcher extends ElementNodeMatcher<infer P>
     ? ElementTransformProps<P>
-    : ElementTransformProps<Element>
+    : ElementTransformProps<Node>
   >
 ) => createTransform(matcher, component)

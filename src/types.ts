@@ -14,7 +14,7 @@ import {
   ELEMENT_LINK,
   ELEMENT_PARAGRAPH,
   ELEMENT_BLOCKQUOTE
-} from "./util/constants.js"
+} from "./internal/constants.js"
 
 export type Descendant = ElementNode | Text
 

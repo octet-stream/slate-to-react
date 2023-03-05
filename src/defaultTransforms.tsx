@@ -14,7 +14,7 @@ import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_PARAGRAPH,
   ELEMENT_LINK,
-} from "./util/constants.js"
+} from "./internal/constants.js"
 import type {
   RichText,
   Paragraph,

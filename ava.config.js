@@ -1,4 +1,5 @@
 export default {
+  failFast: true,
   require: "global-jsdom/register",
   nodeArguments: [
     "--no-warnings",

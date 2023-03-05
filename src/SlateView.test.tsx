@@ -4,7 +4,7 @@ import test from "ava"
 import {withRender} from "./__macro__/withRender.js"
 
 import {SlateView} from "./SlateView.js"
-import {ELEMENT_PARAGRAPH, ELEMENT_LINK} from "./util/constants.js"
+import {ELEMENT_PARAGRAPH, ELEMENT_LINK} from "./internal/constants.js"
 
 test("Renders root element as <p>", withRender, async (t, render) => {
   const {container} = render(<SlateView

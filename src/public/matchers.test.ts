@@ -1,6 +1,9 @@
 import test from "ava"
 
-import type {RichText, Paragraph, Blockquote, Link} from "../types.js"
+import type {Link} from "../internal/type/Link.js"
+import type {RichText} from "../internal/type/RichText.js"
+import type {Paragraph} from "../internal/type/Paragraph.js"
+import type {Blockquote} from "../internal/type/Blockquote.js"
 
 import {
   isText,
