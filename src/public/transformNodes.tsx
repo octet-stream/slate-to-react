@@ -43,7 +43,9 @@ function compileNodes(nodes: Descendant[]): ReactElement {
     if (Element.isElement(node)) {
       const props = createElementProps(node)
       const component = getElementComponent(props)
-      const element = createElement(component, props, compileNodes(node.children))
+      const element = createElement(
+        component, props, compileNodes(node.children)
+      )
 
       result.push(element)
     } else {
@@ -66,9 +68,7 @@ export const transformNodes = (nodes: Node[]): ReactElement => {
       const props = createElementProps(node)
       const componnet = getElementComponent(props)
       const element = createElement(
-        componnet,
-        props as any,
-        compileNodes(node.children)
+        componnet, props, compileNodes(node.children)
       )
 
       result.push(element)
