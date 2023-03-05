@@ -32,6 +32,7 @@
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "@types/uuid": "^9.0.1",
     "ava": "5.2.0",
     "del-cli": "^5.0.0",
     "global-jsdom": "8.7.0",
@@ -42,7 +43,8 @@
     "slate": "0.91.4",
     "slate-react": "^0.91.8",
     "ts-node": "10.9.1",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "uuid": "^9.0.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
