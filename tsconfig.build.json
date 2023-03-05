@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "src/**/__helper__/**/*.ts",
+    "src/**/__helper__/**/*.tsx",
+    "src/**/__macro__/**/*.ts",
+    "src/**/__macro__/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+}

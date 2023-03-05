@@ -19,8 +19,8 @@
   "scripts": {
     "lint:types": "tsc --noEmit",
     "test": "ava",
-    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment",
-    "cleanup": "del-cli @types lib"
+    "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment",
+    "cleanup": "del-cli @type lib"
   },
   "keywords": [
     "slate",
