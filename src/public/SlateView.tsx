@@ -16,3 +16,5 @@ export const SlateView: FC<SlateViewProps> = ({nodes}) => {
 
   return view
 }
+
+SlateView.displayName = "SlateView"
