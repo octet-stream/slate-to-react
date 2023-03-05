@@ -19,6 +19,8 @@
   "scripts": {
     "lint:types": "tsc --noEmit",
     "test": "ava",
+    "coverage": "c8 npm test",
+    "report": "c8 -r=html npm test",
     "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment",
     "cleanup": "del-cli @type lib"
   },
@@ -35,6 +37,7 @@
     "@types/react-dom": "18.0.11",
     "@types/uuid": "^9.0.1",
     "ava": "5.2.0",
+    "c8": "^7.13.0",
     "del-cli": "^5.0.0",
     "global-jsdom": "8.7.0",
     "jsdom": "21.1.0",

@@ -4,6 +4,7 @@ node_modules
 
 /@type
 /lib
+/coverage
 
 # Unwanted lockfiles
 yarn.lock
