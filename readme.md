@@ -2,6 +2,12 @@
 
 React component and utilities to transform [Slate](https://github.com/ianstormtaylor/slate) nodes to React.
 
+## Roadmap
+
+- [x] Minimal implementation with default transforms;
+- [ ] Support custom transforms;
+- [ ] Make `SlateView` and `transformNodes` generic functions
+
 ## Installation
 
 To install, run one of the following commands:
