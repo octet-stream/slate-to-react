@@ -7,10 +7,10 @@ import {createNodeProps} from "./createNodeProps.js"
 
 import type {Node} from "../public/Node.js"
 
-export type ElementProps = SwapObjectProps<
+export type ElementProps<T extends Node = Node> = SwapObjectProps<
   RenderElementProps,
   CreateNodePropsResult<RenderElementProps["attributes"]> & {
-    element: Node
+    element: T
   }
 >
 
@@ -19,13 +19,13 @@ interface CreateElementPropsOptions {
   void?: boolean
 }
 
-export function createElementProps(
-  node: Node,
+export function createElementProps<T extends Node = Node>(
+  node: T,
   options: CreateElementPropsOptions = {}
-): ElementProps {
+): ElementProps<T> {
   const {key, attributes} = createNodeProps()
 
-  const props: ElementProps = {
+  const props: ElementProps<T> = {
     key,
     element: node,
     children: node.children,

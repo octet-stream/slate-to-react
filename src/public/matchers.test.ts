@@ -4,13 +4,36 @@ import type {Link} from "../internal/type/Link.js"
 import type {RichText} from "../internal/type/RichText.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {Blockquote} from "../internal/type/Blockquote.js"
+import type {Heading, Headings} from "../internal/type/Heading.js"
+
+import {createElementProps} from "../internal/createElementProps.js"
+import {createLeafProps} from "../internal/createLeafProps.js"
+import {
+  ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
+  ELEMENT_H5,
+  ELEMENT_H6,
+  HEADINGS_LIST
+} from "../internal/constants.js"
 
 import {
   isText,
   isParagraph,
   isBlockquote,
-  isLink
+  isHeading,
+  isLink,
+
+  isH1,
+  isH2,
+  isH3,
+  isH4,
+  isH5,
+  isH6
 } from "./matchers.js"
+
+const omitHeading = (type: Headings) => HEADINGS_LIST.filter(h => h != type)
 
 test("isText matches any Text node", t => {
   const node: RichText = {
@@ -18,17 +41,7 @@ test("isText matches any Text node", t => {
     bold: true
   }
 
-  const actual = isText({
-    key: "123",
-    text: node,
-    leaf: node,
-    children: "Some text",
-    attributes: {
-      "data-slate-leaf": true
-    }
-  })
-
-  t.true(actual)
+  t.true(isText(createLeafProps(node)))
 })
 
 test("isParagraph matches paragraph node", t => {
@@ -39,15 +52,7 @@ test("isParagraph matches paragraph node", t => {
     }]
   }
 
-  const actual = isParagraph({
-    key: "123",
-    element: node,
-    children: ["Some text"],
-    attributes: {
-      "data-slate-node": "element",
-      ref: null
-    }
-  })
+  const actual = isParagraph(createElementProps(node))
 
   t.true(actual)
 })
@@ -61,15 +66,7 @@ test("isLink matches link node", t => {
     }]
   }
 
-  const actual = isLink({
-    key: "123",
-    element: node,
-    children: ["Some text"],
-    attributes: {
-      "data-slate-node": "element",
-      ref: null
-    }
-  })
+  const actual = isLink(createElementProps(node))
 
   t.true(actual)
 })
@@ -82,15 +79,170 @@ test("isBlockquote matches blockquote node", t => {
     }]
   }
 
-  const actual = isBlockquote({
-    key: "123",
-    element: node,
-    children: ["Some blockquote"],
-    attributes: {
-      "data-slate-node": "element",
-      ref: null
-    }
-  })
+  const actual = isBlockquote(createElementProps(node))
 
   t.true(actual)
+})
+
+test("isHeading matches any heading", t => {
+  t.plan(HEADINGS_LIST.length)
+
+  HEADINGS_LIST
+    .map(heading => ({
+      type: heading,
+      children: [{
+        text: `Heading H${heading}`
+      }]
+    }) as Heading<typeof heading>)
+    .forEach(node => t.true(isHeading(createElementProps(node))))
+})
+
+test("isH1 matches H1 heading node", t => {
+  const node: Heading<typeof ELEMENT_H1> = {
+    type: ELEMENT_H1,
+    children: [{
+      text: "Heading H1"
+    }]
+  }
+
+  t.true(isH1(createElementProps(node)))
+})
+
+test("isH1 does not match other headings", t => {
+  const headings = omitHeading(ELEMENT_H1)
+
+  const nodes = headings.map(heading => ({
+    type: heading,
+    children: [{
+      text: `Heading ${heading}`
+    }]
+  }) as Heading<typeof heading>)
+
+  // @ts-expect-error
+  t.false(nodes.every(node => isH1(createElementProps(node))))
+})
+
+test("isH2 matches H2 heading node", t => {
+  const node: Heading<typeof ELEMENT_H2> = {
+    type: ELEMENT_H2,
+    children: [{
+      text: "Heading H2"
+    }]
+  }
+
+  t.true(isH2(createElementProps(node)))
+})
+
+test("isH2 does not match other headings", t => {
+  const headings = omitHeading(ELEMENT_H2)
+
+  const nodes = headings.map(heading => ({
+    type: heading,
+    children: [{
+      text: `Heading ${heading}`
+    }]
+  }) as Heading<typeof heading>)
+
+  // @ts-expect-error
+  t.false(nodes.every(node => isH2(createElementProps(node))))
+})
+
+test("isH3 matches H3 heading node", t => {
+  const node: Heading<typeof ELEMENT_H3> = {
+    type: ELEMENT_H3,
+    children: [{
+      text: "Heading H3"
+    }]
+  }
+
+  t.true(isH3(createElementProps(node)))
+})
+
+test("isH3 does not match other headings", t => {
+  const headings = omitHeading(ELEMENT_H3)
+
+  const nodes = headings.map(heading => ({
+    type: heading,
+    children: [{
+      text: `Heading ${heading}`
+    }]
+  }) as Heading<typeof heading>)
+
+  // @ts-expect-error
+  t.false(nodes.every(node => isH3(createElementProps(node))))
+})
+
+test("isH4 matches H4 heading node", t => {
+  const node: Heading<typeof ELEMENT_H4> = {
+    type: ELEMENT_H4,
+    children: [{
+      text: "Heading H4"
+    }]
+  }
+
+  t.true(isH4(createElementProps(node)))
+})
+
+test("isH4 does not match other headings", t => {
+  const headings = omitHeading(ELEMENT_H4)
+
+  const nodes = headings.map(heading => ({
+    type: heading,
+    children: [{
+      text: `Heading ${heading}`
+    }]
+  }) as Heading<typeof heading>)
+
+  // @ts-expect-error
+  t.false(nodes.every(node => isH4(createElementProps(node))))
+})
+
+test("isH5 matches H5 heading node", t => {
+  const node: Heading<typeof ELEMENT_H5> = {
+    type: ELEMENT_H5,
+    children: [{
+      text: "Heading H5"
+    }]
+  }
+
+  t.true(isH5(createElementProps(node)))
+})
+
+test("isH5 does not match other headings", t => {
+  const headings = omitHeading(ELEMENT_H5)
+
+  const nodes = headings.map(heading => ({
+    type: heading,
+    children: [{
+      text: `Heading ${heading}`
+    }]
+  }) as Heading<typeof heading>)
+
+  // @ts-expect-error
+  t.false(nodes.every(node => isH5(createElementProps(node))))
+})
+
+test("isH6 matches H6 heading node", t => {
+  const node: Heading<typeof ELEMENT_H6> = {
+    type: ELEMENT_H6,
+    children: [{
+      text: "Heading H6"
+    }]
+  }
+
+  t.true(isH6(createElementProps(node)))
+})
+
+test("isH6 does not match other headings", t => {
+  const headings = omitHeading(ELEMENT_H6)
+
+  const nodes = headings.map(heading => ({
+    type: heading,
+    children: [{
+      text: `Heading ${heading}`
+    }]
+  }) as Heading<typeof heading>)
+
+  // @ts-expect-error
+  t.false(nodes.every(node => isH6(createElementProps(node))))
 })

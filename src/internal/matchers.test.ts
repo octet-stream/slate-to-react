@@ -4,6 +4,7 @@ import test from "ava"
 
 import type {RichText} from "./type/RichText.js"
 
+import {createLeafProps} from "./createLeafProps.js"
 import {isRichText, isPlainText} from "./matchers.js"
 
 test("isRichText matches rich text", t => {
@@ -12,17 +13,7 @@ test("isRichText matches rich text", t => {
     bold: true
   }
 
-  const actual = isRichText({
-    key: "123",
-    children: "Some bold text",
-    leaf: node,
-    text: node,
-    attributes: {
-      "data-slate-leaf": true
-    }
-  })
-
-  t.true(actual)
+  t.true(isRichText(createLeafProps(node)))
 })
 
 test("isRichText does not match plain text", t => {
@@ -30,17 +21,7 @@ test("isRichText does not match plain text", t => {
     text: "Some bold text"
   }
 
-  const actual = isRichText({
-    key: "123",
-    children: "Some bold text",
-    leaf: node,
-    text: node,
-    attributes: {
-      "data-slate-leaf": true
-    }
-  })
-
-  t.false(actual)
+  t.false(isRichText(createLeafProps(node)))
 })
 
 test("isPlainText matches plain text", t => {
@@ -48,17 +29,7 @@ test("isPlainText matches plain text", t => {
     text: "Some bold text"
   }
 
-  const actual = isPlainText({
-    key: "123",
-    children: "Some bold text",
-    leaf: node,
-    text: node,
-    attributes: {
-      "data-slate-leaf": true
-    }
-  })
-
-  t.true(actual)
+  t.true(isPlainText(createLeafProps(node)))
 })
 
 test("isPlainText does not match rich text", t => {
@@ -67,15 +38,5 @@ test("isPlainText does not match rich text", t => {
     bold: true
   }
 
-  const actual = isPlainText({
-    key: "123",
-    children: "Some bold text",
-    leaf: node,
-    text: node,
-    attributes: {
-      "data-slate-leaf": true
-    }
-  })
-
-  t.false(actual)
+  t.false(isPlainText(createLeafProps(node)))
 })
