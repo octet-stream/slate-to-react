@@ -3,10 +3,14 @@ import {validate} from "uuid"
 
 import test from "ava"
 
+import type {Paragraph} from "./type/Paragraph.js"
+
+import {ELEMENT_PARAGRAPH} from "./constants.js"
 import {createElementProps} from "./createElementProps.js"
 
 test("Creates valid props for Element node", t => {
-  const node: Element = {
+  const node: Paragraph = {
+    type: ELEMENT_PARAGRAPH,
     children: [{
       text: "Some text"
     }]
@@ -20,7 +24,8 @@ test("Creates valid props for Element node", t => {
 })
 
 test("Creates data-slate-inline attribute for inline Element node", t => {
-  const node: Element = {
+  const node: Paragraph = {
+    type: ELEMENT_PARAGRAPH,
     children: [{
       text: "Some text"
     }]
@@ -32,7 +37,8 @@ test("Creates data-slate-inline attribute for inline Element node", t => {
 })
 
 test("Creates data-slate-void attribute for inline Element node", t => {
-  const node: Element = {
+  const node: Paragraph = {
+    type: ELEMENT_PARAGRAPH,
     children: [{
       text: "Some text"
     }]
