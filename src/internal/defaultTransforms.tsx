@@ -12,9 +12,9 @@ import {
   isHeading
 } from "../public/matchers.js"
 
-import {isRichText} from "./matchers.js"
+import {isRichText, isPlainText} from "./matchers.js"
 
-const text = createLeafTransform(
+const RichText = createLeafTransform(
   isRichText,
 
   ({key, attributes, leaf, children}) => {
@@ -51,7 +51,17 @@ const text = createLeafTransform(
   }
 )
 
-const link = createElementTransform(
+const PlainText = createLeafTransform(
+  isPlainText,
+
+  ({key, attributes, children}) => (
+    <span {...attributes} key={key}>
+      {children}
+    </span>
+  )
+)
+
+const Link = createElementTransform(
   isLink,
 
   ({key, attributes, element, children}) => (
@@ -61,7 +71,7 @@ const link = createElementTransform(
   )
 )
 
-const paragraph = createElementTransform(
+const Paragraph = createElementTransform(
   isParagraph,
 
   ({key, attributes, element, children}) => (
@@ -71,7 +81,7 @@ const paragraph = createElementTransform(
   )
 )
 
-const blockquote = createElementTransform(
+const Blockquote = createElementTransform(
   isBlockquote,
 
   ({key, attributes, children}) => (
@@ -81,7 +91,7 @@ const blockquote = createElementTransform(
   )
 )
 
-const heading = createElementTransform(
+const Heading = createElementTransform(
   isHeading,
 
   ({key, element, attributes, children}) => createElement(
@@ -95,10 +105,6 @@ const heading = createElementTransform(
   )
 )
 
-export const defaultTransforms = {
-  text,
-  link,
-  paragraph,
-  blockquote,
-  heading
-}
+export const leaves = [RichText, PlainText] as const
+
+export const elements = [Paragraph, Link, Blockquote, Heading] as const

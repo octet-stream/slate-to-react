@@ -1,13 +1,17 @@
 import type {RenderElementProps} from "slate-react"
-import type {Element} from "slate"
 
 import type {SwapObjectProps} from "./type/SwapObjectProps.js"
 import type {CreateNodePropsResult} from "./createNodeProps.js"
+
 import {createNodeProps} from "./createNodeProps.js"
 
-type CreateElementPropsResult = SwapObjectProps<
+import type {Node} from "../public/Node.js"
+
+export type ElementProps = SwapObjectProps<
   RenderElementProps,
-  CreateNodePropsResult<RenderElementProps["attributes"]>
+  CreateNodePropsResult<RenderElementProps["attributes"]> & {
+    element: Node
+  }
 >
 
 interface CreateElementPropsOptions {
@@ -16,12 +20,12 @@ interface CreateElementPropsOptions {
 }
 
 export function createElementProps(
-  node: Element,
+  node: Node,
   options: CreateElementPropsOptions = {}
-): CreateElementPropsResult {
+): ElementProps {
   const {key, attributes} = createNodeProps()
 
-  const props: CreateElementPropsResult = {
+  const props: ElementProps = {
     key,
     element: node,
     children: node.children,

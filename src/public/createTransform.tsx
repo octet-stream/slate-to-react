@@ -33,8 +33,8 @@ export type CreateTransformProps =
   | ElementTransformProps
 
 export interface CreateTransformResult<
-  TProps extends CreateTransformProps,
-  TMatcher extends NodeMatcher
+  TProps extends CreateTransformProps = CreateTransformProps,
+  TMatcher extends NodeMatcher = NodeMatcher
 > {
   matcher: TMatcher
   componnet: FC<TProps>

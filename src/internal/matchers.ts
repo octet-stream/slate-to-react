@@ -7,7 +7,7 @@ import type {
   LeafTransformProps
 } from "../public/createTransform.js"
 
-import type {RichText} from "../types.js"
+import type {RichText} from "./type/RichText"
 
 /**
  * Checks if given node is of `RichText` type
