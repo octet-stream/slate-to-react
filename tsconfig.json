@@ -8,6 +8,8 @@
     "baseUrl": "src",
     "target": "esnext",
     "module": "esnext",
+    "strict": false, // TODO: Enable strict mode and fix types
+    "noImplicitAny": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",
