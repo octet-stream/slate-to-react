@@ -93,3 +93,15 @@ const root = document.querySelector("#root")
 
 createRoot(root).render(<App />)
 ```
+
+## API
+
+### `SlateView`
+
+React component that will render given `nodes` as React elements.
+
+This component takes following props:
+
+| Name  | Type   | Required  | Default |
+|-------|--------|:---------:|:-------:|
+| nodes | Node[] | Yes       | —       |
