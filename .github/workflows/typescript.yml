@@ -1,4 +1,4 @@
-name: ESLint
+name: TypeScript types lint
 
 on:
   push:
