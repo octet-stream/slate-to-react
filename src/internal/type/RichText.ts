@@ -1,11 +1,23 @@
 import type {Text} from "slate"
 
-export interface RichText extends Text {
+export interface Superscript {
+  superscript?: boolean
+}
+
+export interface Subscript {
+  subscript?: boolean
+}
+
+export interface RichTextBase extends Text {
   bold?: boolean
   italic?: boolean
   underline?: boolean
   strikethrough?: boolean
-  superscript?: boolean
-  subscript?: boolean
   code?: boolean
 }
+
+export type RichText = RichTextBase & (Superscript | Subscript)
+
+export type SubscriptRichText = RichTextBase & Subscript
+
+export type SuperscriptRichText = RichTextBase & Superscript

@@ -32,6 +32,178 @@ test("Renders a simple paragraph node", withRender, async (t, render) => {
   t.true(actual.parentElement instanceof HTMLParagraphElement)
 })
 
+test("Renders empty text nodes as <br />", withRender, (t, render) => {
+  const expected = ["span", "br", "span"] as const
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [
+      {
+        text: "A"
+      },
+      {
+        text: ""
+      },
+      {
+        text: "B"
+      }
+    ]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  t.true(expected.every(element => {
+    const actual = container.querySelector(element)
+
+    return actual && actual.tagName.toLowerCase() === element
+  }))
+})
+
+test("Renders empty rich text nodes as <br />", withRender, (t, render) => {
+  const expected = ["span", "br", "span"] as const
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [
+      {
+        text: "A"
+      },
+      {
+        text: "",
+        bold: true
+      },
+      {
+        text: "B"
+      }
+    ]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  t.true(expected.every(element => {
+    const actual = container.querySelector(element)
+
+    return actual && actual.tagName.toLowerCase() === element
+  }))
+})
+
+test("Renders bold rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Bold text",
+      bold: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("strong")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "strong")
+})
+
+test("Renders italic rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Italic text",
+      italic: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("i")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "i")
+})
+
+test("Renders underline rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Underline text",
+      underline: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("u")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "u")
+})
+
+test("Renders strikethrough rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Strikethrough text",
+      strikethrough: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("s")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "s")
+})
+
+test("Renders superscript rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Superscript text",
+      superscript: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("sup")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "sup")
+})
+
+test("Renders subscript rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Subscript text",
+      subscript: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("sub")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "sub")
+})
+
+test("Renders code rich text", withRender, (t, render) => {
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Code text",
+      code: true
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes))
+
+  const actual = container.querySelector("code")
+
+  t.true(actual instanceof HTMLElement)
+  t.is(actual.tagName.toLowerCase(), "code")
+})
+
 test("Renders link element", withRender, async (t, render) => {
   const expectedUrl = "https://example.com/"
   const expectedText = "Example URL"

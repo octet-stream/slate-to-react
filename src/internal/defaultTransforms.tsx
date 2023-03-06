@@ -12,14 +12,20 @@ import {
   isHeading
 } from "../public/matchers.js"
 
+import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
+import {isSubscriptRichText} from "./isSubscriptRichText.js"
 import {isRichText, isPlainText} from "./matchers.js"
 
 const RichText = createLeafTransform(
   isRichText,
 
-  ({key, attributes, leaf, children}) => {
+  ({attributes, leaf, children}) => {
     // Render <br /> for empty text blocks as it's probably just an empty line
-    let element: ReactNode = children || <br />
+    if (!children) {
+      return <br />
+    }
+
+    let element: ReactNode = children
 
     if (leaf.bold) {
       element = <strong>{element}</strong>
@@ -37,9 +43,9 @@ const RichText = createLeafTransform(
       element = <s>{element}</s>
     }
 
-    if (leaf.superscript) {
+    if (isSuperscriptRichText(leaf)) {
       element = <sup>{element}</sup>
-    } else if (leaf.subscript) {
+    } else if (isSubscriptRichText(leaf)) {
       element = <sub>{element}</sub>
     }
 
@@ -47,17 +53,21 @@ const RichText = createLeafTransform(
       element = <code>{element}</code>
     }
 
-    return <span {...attributes} key={key}>{element}</span>
+    return <span {...attributes}>{element}</span>
   }
 )
 
 const PlainText = createLeafTransform(
   isPlainText,
 
-  ({key, attributes, children}) => (
-    <span {...attributes} key={key}>
-      {children}
-    </span>
+  ({attributes, children}) => (
+    children ? (
+      <span {...attributes}>
+        {children}
+      </span>
+    ) : (
+      <br />
+    )
   )
 )
 
