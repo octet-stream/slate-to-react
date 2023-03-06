@@ -6,7 +6,7 @@ import {
   createLeafNodeMatcher
 } from "../public/createNodeMatcher.js"
 
-import type {RichText} from "./type/RichText"
+import type {RichText} from "./type/RichText.js"
 
 /**
  * Checks if given node is of `RichText` type
