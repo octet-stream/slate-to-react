@@ -1,10 +1,18 @@
 {
   "type": "module",
   "name": "slate-to-react",
+  "description": "React component and utilities to transform Slate nodes to React.",
   "version": "0.1.0",
   "author": "Nick K.",
   "license": "MIT",
-  "description": "React component to render Slate data format",
+  "keywords": [
+    "slate",
+    "react",
+    "render",
+    "view",
+    "react-component",
+    "component"
+  ],
   "source": "src/slate-to-react.ts",
   "main": "lib/slate-to-react.cjs",
   "umd:main": "lib/slate-to-react.umd.js",
@@ -28,12 +36,6 @@
     "prepublishOnly": "pinst --disable && npm run eslint && npm run lint:types && npm run cleanup && npm run build",
     "postpublish": "pinst --enable"
   },
-  "keywords": [
-    "slate",
-    "react",
-    "render",
-    "view"
-  ],
   "devDependencies": {
     "@octetstream/eslint-config": "^6.2.2",
     "@testing-library/react": "14.0.0",
