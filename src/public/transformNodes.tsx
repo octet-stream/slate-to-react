@@ -28,7 +28,7 @@ function getTransform<
   transforms: TTransforms,
   props: TProps
 ) {
-  const transform = transforms.find(({matcher}) => matcher(props))
+  const transform = transforms.find(({matcher}) => matcher(props as any))
 
   if (!transform) {
     throw new NoMatcherError(props)
@@ -41,13 +41,13 @@ function getTransform<
  * @api private
  */
 const getLeafTransform = (props: LeafProps) =>
-  getTransform(leaves, props)
+  getTransform(leaves as any, props)
 
 /**
  * @api private
  */
 const getElementTransform = (props: ElementProps) =>
-  getTransform(elements, props)
+  getTransform(elements as any, props)
 
 /**
  * @api private

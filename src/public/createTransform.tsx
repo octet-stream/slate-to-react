@@ -15,20 +15,16 @@ type Transform<TProps> = (props: TProps) => ReactElement
 export type CreateTransformProps = LeafProps | ElementProps
 
 export interface CreateTransformResult<
-  TProps extends CreateTransformProps = CreateTransformProps,
-  TMatcher extends NodeMatcher = NodeMatcher
+  TProps extends CreateTransformProps = CreateTransformProps
 > {
-  matcher: TMatcher
+  matcher: NodeMatcher<TProps>
   transform: Transform<TProps>
 }
 
-export const createTransform = <
-  TProps extends CreateTransformProps,
-  TMatcher extends NodeMatcher,
->(
-  matcher: TMatcher,
+const createTransform = <TProps extends CreateTransformProps>(
+  matcher: NodeMatcher<TProps>,
   transform: Transform<TProps>
-): CreateTransformResult<TProps, TMatcher> => ({matcher, transform})
+): CreateTransformResult<TProps> => ({matcher, transform})
 
 /**
  * Creates a `Text` node transform
@@ -36,13 +32,9 @@ export const createTransform = <
  * @param matcher An `LeafNodeMatcher` implementation
  * @param transform Transform implementation to render this node with
  */
-export const createLeafTransform = <TMatcher extends LeafNodeMatcher>(
-  matcher: TMatcher,
-  transform: Transform<
-    TMatcher extends LeafNodeMatcher<infer P>
-      ? LeafProps<P>
-      : LeafProps<Text>
-  >
+export const createLeafTransform = <TLeaf extends Text>(
+  matcher: LeafNodeMatcher<TLeaf>,
+  transform: Transform<LeafProps<TLeaf>>
 ) => createTransform(matcher, transform)
 
 /**
@@ -51,11 +43,7 @@ export const createLeafTransform = <TMatcher extends LeafNodeMatcher>(
  * @param matcher An `ElementNodeMatcher` implementation
  * @param transform Transform implementation to render this node with
  */
-export const createElementTransform = <TMatcher extends ElementNodeMatcher>(
-  matcher: TMatcher,
-  transform: Transform<
-    TMatcher extends ElementNodeMatcher<infer P>
-      ? ElementProps<P>
-      : ElementProps<Node>
-  >
+export const createElementTransform = <TElement extends Node>(
+  matcher: ElementNodeMatcher<TElement>,
+  transform: Transform<ElementProps<TElement>>
 ) => createTransform(matcher, transform)
