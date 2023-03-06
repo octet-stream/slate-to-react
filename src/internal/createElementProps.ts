@@ -1,7 +1,7 @@
 import type {RenderElementProps} from "slate-react"
 
 import type {SwapObjectProps} from "./type/SwapObjectProps.js"
-import type {CreateNodePropsResult} from "./createNodeProps.js"
+import type {NodeProps} from "./createNodeProps.js"
 
 import {createNodeProps} from "./createNodeProps.js"
 
@@ -9,7 +9,7 @@ import type {Node} from "../public/Node.js"
 
 export type ElementProps<T extends Node = Node> = SwapObjectProps<
   RenderElementProps,
-  CreateNodePropsResult<RenderElementProps["attributes"]> & {
+  NodeProps<RenderElementProps["attributes"]> & {
     element: T
   }
 >

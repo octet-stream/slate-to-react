@@ -1,11 +1,10 @@
 import type {Text} from "slate"
 
+import type {LeafProps} from "../internal/createLeafProps.js"
+
 import {
   createLeafNodeMatcher
 } from "../public/createNodeMatcher.js"
-import type {
-  LeafTransformProps
-} from "../public/createTransform.js"
 
 import type {RichText} from "./type/RichText"
 
@@ -15,7 +14,7 @@ import type {RichText} from "./type/RichText"
  * @api private
  */
 export const isRichText = createLeafNodeMatcher<RichText>(
-  (node): node is LeafTransformProps<RichText> => (
+  (node): node is LeafProps<RichText> => (
     typeof node.leaf.text === "string" && !!(
       typeof node.leaf.bold === "boolean"
         || typeof node.leaf.italic === "boolean"
@@ -34,7 +33,7 @@ export const isRichText = createLeafNodeMatcher<RichText>(
  * @api private
  */
 export const isPlainText = createLeafNodeMatcher<Text>(
-  (node): node is LeafTransformProps<Text> => (
+  (node): node is LeafProps<Text> => (
     typeof node.leaf.text === "string" && !isRichText(node)
   )
 )

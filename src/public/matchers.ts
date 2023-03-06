@@ -4,12 +4,10 @@ import {
   createLeafNodeMatcher,
   createElementNodeMatcher
 } from "./createNodeMatcher.js"
-import type {
-  LeafTransformProps,
-  ElementTransformProps
-} from "./createTransform.js"
 
+import type {ElementProps} from "../internal/createElementProps.js"
 import type {Blockquote} from "../internal/type/Blockquote.js"
+import type {LeafProps} from "../internal/createLeafProps.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {Heading} from "../internal/type/Heading.js"
 import type {Link} from "../internal/type/Link.js"
@@ -33,7 +31,7 @@ import {
  * @api public
  */
 export const isText = createLeafNodeMatcher<Text>(
-  (node): node is LeafTransformProps<Text> => (
+  (node): node is LeafProps<Text> => (
     typeof node.leaf.text === "string"
   )
 )
@@ -44,7 +42,7 @@ export const isText = createLeafNodeMatcher<Text>(
  * @api public
  */
 export const isLink = createElementNodeMatcher<Link>(
-  (node): node is ElementTransformProps<Link> => (
+  (node): node is ElementProps<Link> => (
     node.element.type === ELEMENT_LINK && typeof node.element.url === "string"
   )
 )
@@ -55,7 +53,7 @@ export const isLink = createElementNodeMatcher<Link>(
  * @api public
  */
 export const isParagraph = createElementNodeMatcher<Paragraph>(
-  (node): node is ElementTransformProps<Paragraph> => (
+  (node): node is ElementProps<Paragraph> => (
     node.element.type === ELEMENT_PARAGRAPH
   )
 )
@@ -66,7 +64,7 @@ export const isParagraph = createElementNodeMatcher<Paragraph>(
  * @api public
  */
 export const isBlockquote = createElementNodeMatcher<Blockquote>(
-  (node): node is ElementTransformProps<Blockquote> => (
+  (node): node is ElementProps<Blockquote> => (
     node.element.type === ELEMENT_BLOCKQUOTE
   )
 )
@@ -77,7 +75,7 @@ export const isBlockquote = createElementNodeMatcher<Blockquote>(
  * @api public
  */
 export const isHeading = createElementNodeMatcher<Heading>(
-  (node): node is ElementTransformProps<Heading> => (
+  (node): node is ElementProps<Heading> => (
     HEADINGS_LIST.includes(node.element.type)
   )
 )
@@ -88,7 +86,7 @@ export const isHeading = createElementNodeMatcher<Heading>(
  * @api public
  */
 export const isH1 = createElementNodeMatcher<Heading<typeof ELEMENT_H1>>(
-  (node): node is ElementTransformProps<Heading<typeof ELEMENT_H1>> => (
+  (node): node is ElementProps<Heading<typeof ELEMENT_H1>> => (
     node.element.type === ELEMENT_H1
   )
 )
@@ -99,7 +97,7 @@ export const isH1 = createElementNodeMatcher<Heading<typeof ELEMENT_H1>>(
  * @api public
  */
 export const isH2 = createElementNodeMatcher<Heading<typeof ELEMENT_H2>>(
-  (node): node is ElementTransformProps<Heading<typeof ELEMENT_H2>> => (
+  (node): node is ElementProps<Heading<typeof ELEMENT_H2>> => (
     node.element.type === ELEMENT_H2
   )
 )
@@ -110,7 +108,7 @@ export const isH2 = createElementNodeMatcher<Heading<typeof ELEMENT_H2>>(
  * @api public
  */
 export const isH3 = createElementNodeMatcher<Heading<typeof ELEMENT_H3>>(
-  (node): node is ElementTransformProps<Heading<typeof ELEMENT_H3>> => (
+  (node): node is ElementProps<Heading<typeof ELEMENT_H3>> => (
     node.element.type === ELEMENT_H3
   )
 )
@@ -121,7 +119,7 @@ export const isH3 = createElementNodeMatcher<Heading<typeof ELEMENT_H3>>(
  * @api public
  */
 export const isH4 = createElementNodeMatcher<Heading<typeof ELEMENT_H4>>(
-  (node): node is ElementTransformProps<Heading<typeof ELEMENT_H4>> => (
+  (node): node is ElementProps<Heading<typeof ELEMENT_H4>> => (
     node.element.type === ELEMENT_H4
   )
 )
@@ -132,7 +130,7 @@ export const isH4 = createElementNodeMatcher<Heading<typeof ELEMENT_H4>>(
  * @api public
  */
 export const isH5 = createElementNodeMatcher<Heading<typeof ELEMENT_H5>>(
-  (node): node is ElementTransformProps<Heading<typeof ELEMENT_H5>> => (
+  (node): node is ElementProps<Heading<typeof ELEMENT_H5>> => (
     node.element.type === ELEMENT_H5
   )
 )
@@ -143,7 +141,7 @@ export const isH5 = createElementNodeMatcher<Heading<typeof ELEMENT_H5>>(
  * @api public
  */
 export const isH6 = createElementNodeMatcher<Heading<typeof ELEMENT_H6>>(
-  (node): node is ElementTransformProps<Heading<typeof ELEMENT_H6>> => (
+  (node): node is ElementProps<Heading<typeof ELEMENT_H6>> => (
     node.element.type === ELEMENT_H6
   )
 )

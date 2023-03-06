@@ -1,10 +1,4 @@
-import type {ReactNode} from "react"
-
-export interface BaseNodeInput {
-  children: ReactNode
-}
-
-export interface CreateNodePropsResult<TAttributes extends object = object> {
+export interface NodeProps<TAttributes extends object = object> {
   /**
    * @deprecated use attributes.key isntead
    */
@@ -14,7 +8,7 @@ export interface CreateNodePropsResult<TAttributes extends object = object> {
   }
 }
 
-export function createNodeProps(): CreateNodePropsResult {
+export function createNodeProps(): NodeProps {
   const key = crypto.randomUUID()
 
   return {key, attributes: {key}}

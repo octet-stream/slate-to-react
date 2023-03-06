@@ -2,12 +2,12 @@ import type {RenderLeafProps} from "slate-react"
 import type {Text} from "slate"
 
 import type {SwapObjectProps} from "./type/SwapObjectProps.js"
-import type {CreateNodePropsResult} from "./createNodeProps.js"
+import type {NodeProps} from "./createNodeProps.js"
 import {createNodeProps} from "./createNodeProps.js"
 
 export type LeafProps<T extends Text = Text> = SwapObjectProps<
   RenderLeafProps,
-  CreateNodePropsResult<RenderLeafProps["attributes"]> & {
+  NodeProps<RenderLeafProps["attributes"]> & {
     leaf: T
     text: T
     children: string

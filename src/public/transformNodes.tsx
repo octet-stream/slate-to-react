@@ -56,11 +56,10 @@ function compileNodes(nodes: Descendant[]): ReactElement {
 
   for (const node of nodes) {
     if (Element.isElement(node)) {
+      const children = compileNodes(node.children)
       const props = createElementProps(node)
-      const component = getElementComponent(props)
-      const element = createElement(
-        component, props, compileNodes(node.children)
-      )
+      const component = getElementComponent({...props, children})
+      const element = createElement(component, props, children)
 
       result.push(element)
     } else {

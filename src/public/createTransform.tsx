@@ -1,9 +1,9 @@
-import type {RenderLeafProps, RenderElementProps} from "slate-react"
-import {createElement, ReactNode} from "react"
+import {createElement} from "react"
 import type {Text} from "slate"
 import type {FC} from "react"
 
-import type {SwapObjectProps} from "../internal/type/SwapObjectProps.js"
+import type {ElementProps} from "../internal/createElementProps.js"
+import type {LeafProps} from "../internal/createLeafProps.js"
 
 import type {
   NodeMatcher,
@@ -12,25 +12,9 @@ import type {
 } from "./createNodeMatcher.js"
 import type {Node} from "./Node.js"
 
-interface BaseTransformProps {
-  key: string
-  children: ReactNode
-}
-
-export type LeafTransformProps<N extends Text = Text> =
-  SwapObjectProps<RenderLeafProps, BaseTransformProps & {
-    text: N
-    leaf: N
-  }>
-
-export type ElementTransformProps<N extends Node = Node> =
-  SwapObjectProps<RenderElementProps, BaseTransformProps & {
-    element: N
-  }>
-
 export type CreateTransformProps =
-  | LeafTransformProps
-  | ElementTransformProps
+  | LeafProps
+  | ElementProps
 
 export interface CreateTransformResult<
   TProps extends CreateTransformProps = CreateTransformProps,
@@ -66,8 +50,8 @@ export const createLeafTransform = <TMatcher extends LeafNodeMatcher>(
   matcher: TMatcher,
   component: FC<
     TMatcher extends LeafNodeMatcher<infer P>
-    ? LeafTransformProps<P>
-    : LeafTransformProps<Text>
+    ? LeafProps<P>
+    : LeafProps<Text>
   >
 ) => createTransform(matcher, component)
 
@@ -83,7 +67,7 @@ export const createElementTransform = <
   matcher: TMatcher,
   component: FC<
     TMatcher extends ElementNodeMatcher<infer P>
-    ? ElementTransformProps<P>
-    : ElementTransformProps<Node>
+    ? ElementProps<P>
+    : ElementProps<Node>
   >
 ) => createTransform(matcher, component)
