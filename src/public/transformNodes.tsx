@@ -21,11 +21,8 @@ type Descendant = Node | Text
 /**
  * @api private
  */
-function getTransform<
-  TTransforms extends readonly CreateTransformResult[],
-  TProps extends ElementProps | LeafProps
->(
-  transforms: TTransforms,
+function getTransform<TProps extends ElementProps | LeafProps>(
+  transforms: readonly CreateTransformResult<TProps>[],
   props: TProps
 ) {
   const transform = transforms.find(({matcher}) => matcher(props as any))
@@ -41,7 +38,7 @@ function getTransform<
  * @api private
  */
 const getLeafTransform = (props: LeafProps) =>
-  getTransform(leaves as any, props)
+  getTransform(leaves, props)
 
 /**
  * @api private
