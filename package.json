@@ -22,7 +22,10 @@
     "coverage": "c8 npm test",
     "report": "c8 -r=html npm test",
     "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment",
-    "cleanup": "del-cli @type lib"
+    "cleanup": "del-cli @type lib",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "keywords": [
     "slate",
@@ -40,8 +43,10 @@
     "c8": "^7.13.0",
     "del-cli": "^5.0.0",
     "global-jsdom": "8.7.0",
+    "husky": "^8.0.3",
     "jsdom": "21.1.0",
     "microbundle": "^0.15.1",
+    "pinst": "^3.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "slate": "0.91.4",

@@ -1,7 +1,7 @@
 import {createElement, Fragment} from "react"
 import type {ReactElement} from "react"
-import {Text} from "slate"
 import {Element} from "slate"
+import {Text} from "slate"
 
 import type {ElementProps, LeafProps} from "../internal/createNodeProps.js"
 

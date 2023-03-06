@@ -10,9 +10,11 @@ specifiers:
   c8: ^7.13.0
   del-cli: ^5.0.0
   global-jsdom: 8.7.0
+  husky: ^8.0.3
   jsdom: 21.1.0
   microbundle: ^0.15.1
   nanoid: 3.3.4
+  pinst: ^3.0.0
   react: 18.2.0
   react-dom: 18.2.0
   slate: 0.91.4
@@ -34,8 +36,10 @@ devDependencies:
   c8: 7.13.0
   del-cli: 5.0.0
   global-jsdom: 8.7.0_jsdom@21.1.0
+  husky: 8.0.3
   jsdom: 21.1.0
   microbundle: 0.15.1_ts-node@10.9.1
+  pinst: 3.0.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   slate: 0.91.4
@@ -3139,6 +3143,12 @@ packages:
       - supports-color
     dev: true
 
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
+
   /iconv-lite/0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -4187,6 +4197,12 @@ packages:
   /pify/5.0.0:
     resolution: {integrity: sha512-eW/gHNMlxdSP6dmG6uJip6FXN0EQBwm2clYYd8Wul42Cwu/DK8HEftzsapcNdYe2MfLiIwZqsDk2RDEsTE79hA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /pinst/3.0.0:
+    resolution: {integrity: sha512-cengSmBxtCyaJqtRSvJorIIZXMXg+lJ3sIljGmtBGUVonMnMsVJbnzl6jGN1HkOWwxNuJynCJ2hXxxqCQrFDdw==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
     dev: true
 
   /pkg-conf/4.0.0:
