@@ -76,7 +76,7 @@ function compileNodes(nodes: Descendant[]): ReactElement {
 }
 
 /**
- * Transforms given Slate `nodes` to react elements.
+ * Transforms given [Slate](https://slatejs.org) nodes to React elements.
  *
  * @param nodes List of `Slate` nodes to transform
  *

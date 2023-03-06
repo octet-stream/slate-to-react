@@ -1,8 +1,8 @@
 import type {FC} from "react"
-import {useMemo} from "react"
 
-import {transformNodes} from "./transformNodes.js"
-import {Node} from "./Node.js"
+import {useSlateToReact} from "./useSlateToReact.js"
+
+import type {Node} from "./Node.js"
 
 export interface SlateViewProps {
   /**
@@ -14,10 +14,6 @@ export interface SlateViewProps {
 /**
  * Render `Slate` data format as react component
  */
-export const SlateView: FC<SlateViewProps> = ({nodes}) => {
-  const view = useMemo(() => transformNodes(nodes), [nodes])
-
-  return view
-}
+export const SlateView: FC<SlateViewProps> = ({nodes}) => useSlateToReact(nodes)
 
 SlateView.displayName = "SlateView"
