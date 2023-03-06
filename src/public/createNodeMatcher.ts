@@ -20,7 +20,7 @@ export type ElementNodeMatcher<TElement extends Node = Node> =
  *
  * @param matcher A `LeafNodeMatcher` implementation function.
  */
-export const createLeafNodeMatcher = <TLeaf extends Text = Text,>(
+export const createLeafNodeMatcher = <TLeaf extends Text = Text>(
   matcher: LeafNodeMatcher<TLeaf>
 ): LeafNodeMatcher<TLeaf> => matcher
 
@@ -30,6 +30,6 @@ export const createLeafNodeMatcher = <TLeaf extends Text = Text,>(
  *
  * @param matcher A `ElementNodeMatcher` implementation function.
  */
-export const createElementNodeMatcher = <TElement extends Node = Node,>(
+export const createElementNodeMatcher = <TElement extends Node = Node>(
   matcher: ElementNodeMatcher<TElement>
 ): ElementNodeMatcher<TElement> => matcher
