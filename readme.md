@@ -2,6 +2,10 @@
 
 React component and utilities to transform [Slate](https://github.com/ianstormtaylor/slate) nodes to React.
 
+[![CI](https://github.com/octet-stream/slate-to-react/actions/workflows/ci.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/ci.yml)
+[![ESLint](https://github.com/octet-stream/slate-to-react/actions/workflows/eslint.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/eslint.yml)
+[![TypeScript Types](https://github.com/octet-stream/slate-to-react/actions/workflows/typescript.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/typescript.yml)
+
 ## Roadmap
 
 - [x] Minimal implementation with default transforms;
