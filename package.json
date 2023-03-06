@@ -32,6 +32,7 @@
     "test": "ava",
     "coverage": "c8 npm test",
     "report": "c8 -r=html npm test",
+    "ci": "c8 npm test && c8 report --reporter=json",
     "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment",
     "cleanup": "del-cli @type lib",
     "postinstall": "husky install",
