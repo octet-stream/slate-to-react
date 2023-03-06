@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - "**.ts"
       - "**.tsx"
@@ -12,7 +12,7 @@ on:
       - "pnpm-lock.yaml"
       - ".github/workflows/ci.yml"
   pull_request:
-    branches: [master]
+    branches: [main]
     paths:
       - "**.ts"
       - "**.tsx"
