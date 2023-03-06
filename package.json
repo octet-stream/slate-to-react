@@ -11,7 +11,9 @@
     "render",
     "view",
     "react-component",
-    "component"
+    "component",
+    "hook",
+    "react-hook"
   ],
   "source": "src/slate-to-react.ts",
   "main": "lib/slate-to-react.cjs",
