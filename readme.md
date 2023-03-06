@@ -112,6 +112,16 @@ This component takes following props:
 |-------|--------|:---------:|:-------:|------------------------------------|
 | nodes | Node[] | Yes       | —       | List of `Slate` nodes to transform |
 
+### `useSlateToReact(nodes: Node[]): ReactElement`
+
+React hook that transforms given Slate nodes to React elements and memoizes the result.
+
+This hook takes following arguments:
+
+| Name  | Type   | Required  | Default | Description                        |
+|-------|--------|:---------:|:-------:|------------------------------------|
+| nodes | Node[] | Yes       | —       | List of `Slate` nodes to transform |
+
 ### `transformNodes(nodes: Node[]): ReactElement`
 
 Transforms given Slate `nodes` to react elements.
