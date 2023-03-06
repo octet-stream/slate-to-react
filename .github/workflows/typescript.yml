@@ -1,4 +1,4 @@
-name: TypeScript types lint
+name: TypeScript Types
 
 on:
   push:
