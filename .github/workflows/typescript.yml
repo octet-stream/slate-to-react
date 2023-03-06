@@ -8,7 +8,7 @@ on:
       - "**.tsx"
       - "package.json"
       - "pnpm-lock.yaml"
-      - ".eslintrc.json"
+      - "tsconfig.json"
       - ".eslintignore"
       - ".github/workflows/eslint.yml"
   pull_request:
@@ -18,7 +18,7 @@ on:
       - "**.tsx"
       - "package.json"
       - "pnpm-lock.yaml"
-      - ".eslintrc.json"
+      - "tsconfig.json"
       - ".eslintignore"
       - ".github/workflows/eslint.yml"
 
