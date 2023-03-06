@@ -1,4 +1,4 @@
-import type {LeafProps, ElementProps} from "../internal/createNodeProps.js"
+import type {LeafProps, ElementProps} from "./createNodeProps.js"
 
 import {getNodeType} from "./getNodeType.js"
 

@@ -69,14 +69,16 @@ function createNodeProps<
 
 export const createLeafProps = <T extends Text = Text>(
   node: T
-) => createNodeProps({
-  leaf: node,
-  text: node,
-  children: node.text,
-  attributes: {
-    "data-slate-leaf": true
-  }
-})
+) => createNodeProps(
+    {
+      leaf: node,
+      text: node,
+      children: node.text,
+      attributes: {
+        "data-slate-leaf": true
+      }
+    }
+  )
 
 export interface CreateElementPropsOptions {
   inline?: boolean

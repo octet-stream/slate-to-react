@@ -104,8 +104,8 @@ const Blockquote = createElementTransform(
 const Heading = createElementTransform(
   isHeading,
 
-  ({element, attributes, children}) => createElement(
-    element.type, attributes, children
+  ({element, attributes, children}) => (
+    createElement(element.type, attributes, children)
   )
 )
 

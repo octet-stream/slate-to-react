@@ -35,8 +35,9 @@ import {
   isH6
 } from "./matchers.js"
 
-const omitHeading = <T extends Headings>(type: T) =>
-  HEADINGS_LIST.filter((h): h is Exclude<Headings, T> => h != type)
+const omitHeading = <T extends Headings>(type: T) => (
+  HEADINGS_LIST.filter((h): h is Exclude<Headings, T> => h !== type)
+)
 
 test("isText matches any Text node", t => {
   const node: RichText = {

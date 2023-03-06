@@ -1,14 +1,17 @@
 import {createElement, Fragment} from "react"
 import type {ReactElement} from "react"
 import {Element} from "slate"
-import {Text} from "slate"
+import type {Text} from "slate"
 
 import type {ElementProps, LeafProps} from "../internal/createNodeProps.js"
 
 import {NoMatcherError} from "../internal/NoMatcherError.js"
 import {leaves, elements} from "../internal/defaultTransforms.js"
 
-import {createLeafProps, createElementProps} from "../internal/createNodeProps.js"
+import {
+  createLeafProps,
+  createElementProps
+} from "../internal/createNodeProps.js"
 
 import type {CreateTransformResult} from "./createTransform.js"
 import type {Node} from "./Node.js"
@@ -37,14 +40,14 @@ function getTransform<TProps extends ElementProps | LeafProps>(
 /**
  * @api private
  */
-const getLeafTransform = (props: LeafProps) =>
-  getTransform(leaves, props)
+const getLeafTransform = (props: LeafProps) => getTransform(leaves, props)
 
 /**
  * @api private
  */
-const getElementTransform = (props: ElementProps) =>
+const getElementTransform = (props: ElementProps) => (
   getTransform(elements as any, props)
+)
 
 /**
  * @api private

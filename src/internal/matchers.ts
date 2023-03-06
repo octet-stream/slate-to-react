@@ -1,12 +1,11 @@
 import type {Text} from "slate"
 
-import type {LeafProps} from "../internal/createNodeProps.js"
-
-import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
-import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
-import {isSubscriptRichText} from "./isSubscriptRichText.js"
-
 import type {RichText} from "./type/RichText.js"
+import type {LeafProps} from "./createNodeProps.js"
+
+import {isSubscriptRichText} from "./isSubscriptRichText.js"
+import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
+import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
 
 /**
  * Checks if given node is of `RichText` type
