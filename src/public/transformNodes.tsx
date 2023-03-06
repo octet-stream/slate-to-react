@@ -21,7 +21,7 @@ type Descendant = Node | Text
 /**
  * @api private
  */
-function getComponent<
+function getTransform<
   TTransforms extends readonly CreateTransformResult[],
   TProps extends ElementProps | LeafProps
 >(
@@ -40,12 +40,14 @@ function getComponent<
 /**
  * @api private
  */
-const getLeafTransform = (props: LeafProps) => getComponent(leaves as any, props)
+const getLeafTransform = (props: LeafProps) =>
+  getTransform(leaves, props)
 
 /**
  * @api private
  */
-const getElementTransform = (props: ElementProps) => getComponent(elements as any, props)
+const getElementTransform = (props: ElementProps) =>
+  getTransform(elements, props)
 
 /**
  * @api private

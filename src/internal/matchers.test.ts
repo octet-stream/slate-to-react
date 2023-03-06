@@ -4,7 +4,7 @@ import test from "ava"
 
 import type {RichText} from "./type/RichText.js"
 
-import {createLeafProps} from "./createLeafProps.js"
+import {createLeafProps} from "./createNodeProps.js"
 import {isRichText, isPlainText} from "./matchers.js"
 
 test("isRichText matches rich text", t => {

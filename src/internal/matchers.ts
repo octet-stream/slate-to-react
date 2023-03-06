@@ -1,6 +1,6 @@
 import type {Text} from "slate"
 
-import type {LeafProps} from "../internal/createLeafProps.js"
+import type {LeafProps} from "../internal/createNodeProps.js"
 
 import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
 import {isSuperscriptRichText} from "./isSuperscriptRichText.js"

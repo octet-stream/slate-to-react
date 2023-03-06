@@ -5,9 +5,8 @@ import {
   createElementNodeMatcher
 } from "./createNodeMatcher.js"
 
-import type {ElementProps} from "../internal/createElementProps.js"
+import type {LeafProps, ElementProps} from "../internal/createNodeProps.js"
 import type {Blockquote} from "../internal/type/Blockquote.js"
-import type {LeafProps} from "../internal/createLeafProps.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {Heading} from "../internal/type/Heading.js"
 import type {Link} from "../internal/type/Link.js"

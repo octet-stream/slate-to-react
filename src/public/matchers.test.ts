@@ -6,8 +6,10 @@ import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {Blockquote} from "../internal/type/Blockquote.js"
 import type {Heading, Headings} from "../internal/type/Heading.js"
 
-import {createElementProps} from "../internal/createElementProps.js"
-import {createLeafProps} from "../internal/createLeafProps.js"
+import {
+  createLeafProps,
+  createElementProps
+} from "../internal/createNodeProps.js"
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -53,7 +55,7 @@ test("isParagraph matches paragraph node", t => {
     }]
   }
 
-  const actual = isParagraph(createElementProps(node))
+  const actual = isParagraph(createElementProps(node as any))
 
   t.true(actual)
 })
@@ -67,7 +69,7 @@ test("isLink matches link node", t => {
     }]
   }
 
-  const actual = isLink(createElementProps(node))
+  const actual = isLink(createElementProps(node as any))
 
   t.true(actual)
 })
@@ -80,7 +82,7 @@ test("isBlockquote matches blockquote node", t => {
     }]
   }
 
-  const actual = isBlockquote(createElementProps(node))
+  const actual = isBlockquote(createElementProps(node as any))
 
   t.true(actual)
 })
@@ -95,7 +97,7 @@ test("isHeading matches any heading", t => {
         text: `Heading H${heading}`
       }]
     }) as Heading<typeof heading>)
-    .forEach(node => t.true(isHeading(createElementProps(node))))
+    .forEach(node => t.true(isHeading(createElementProps(node as any))))
 })
 
 test("isH1 matches H1 heading node", t => {
@@ -106,7 +108,7 @@ test("isH1 matches H1 heading node", t => {
     }]
   }
 
-  t.true(isH1(createElementProps(node)))
+  t.true(isH1(createElementProps(node as any)))
 })
 
 test("isH1 does not match other headings", t => {
@@ -131,7 +133,7 @@ test("isH2 matches H2 heading node", t => {
     }]
   }
 
-  t.true(isH2(createElementProps(node)))
+  t.true(isH2(createElementProps(node as any)))
 })
 
 test("isH2 does not match other headings", t => {
@@ -156,7 +158,7 @@ test("isH3 matches H3 heading node", t => {
     }]
   }
 
-  t.true(isH3(createElementProps(node)))
+  t.true(isH3(createElementProps(node as any)))
 })
 
 test("isH3 does not match other headings", t => {
@@ -181,7 +183,7 @@ test("isH4 matches H4 heading node", t => {
     }]
   }
 
-  t.true(isH4(createElementProps(node)))
+  t.true(isH4(createElementProps(node as any)))
 })
 
 test("isH4 does not match other headings", t => {
@@ -206,7 +208,7 @@ test("isH5 matches H5 heading node", t => {
     }]
   }
 
-  t.true(isH5(createElementProps(node)))
+  t.true(isH5(createElementProps(node as any)))
 })
 
 test("isH5 does not match other headings", t => {
@@ -231,7 +233,7 @@ test("isH6 matches H6 heading node", t => {
     }]
   }
 
-  t.true(isH6(createElementProps(node)))
+  t.true(isH6(createElementProps(node as any)))
 })
 
 test("isH6 does not match other headings", t => {

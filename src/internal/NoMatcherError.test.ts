@@ -2,7 +2,7 @@ import test from "ava"
 
 import type {Blockquote} from "./type/Blockquote.js"
 
-import {createElementProps} from "./createElementProps.js"
+import {createElementProps} from "./createNodeProps.js"
 import {ELEMENT_BLOCKQUOTE} from "./constants.js"
 import {getNodeType} from "./getNodeType.js"
 
@@ -16,7 +16,7 @@ test("Creates NoMatcherError instance for given node props", t => {
     }]
   }
 
-  const props = createElementProps(node)
+  const props = createElementProps(node as any)
 
   const expectedMessage = `Cannot find transform for node ${getNodeType(props)}`
 

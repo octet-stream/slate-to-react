@@ -4,8 +4,7 @@ import type {RichText} from "./type/RichText.js"
 import type {Link} from "./type/Link.js"
 
 import {ELEMENT_LINK} from "./constants.js"
-import {createLeafProps} from "./createLeafProps.js"
-import {createElementProps} from "./createElementProps.js"
+import {createLeafProps, createElementProps} from "./createNodeProps.js"
 
 import {getNodeType} from "./getNodeType.js"
 
@@ -31,7 +30,7 @@ test("Returns Element<type> for element node", t => {
   }
 
   const expected = `Element<${ELEMENT_LINK}>`
-  const actual = getNodeType(createElementProps(node))
+  const actual = getNodeType(createElementProps(node as any))
 
   t.is(actual, expected)
 })
