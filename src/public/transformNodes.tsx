@@ -3,13 +3,12 @@ import type {ReactElement} from "react"
 import {Text} from "slate"
 import {Element} from "slate"
 
-import type {ElementProps} from "../internal/createElementProps.js"
-import type {LeafProps} from "../internal/createLeafProps.js"
+import type {ElementProps, LeafProps} from "../internal/createNodeProps.js"
 
 import {NoMatcherError} from "../internal/NoMatcherError.js"
-import {createLeafProps} from "../internal/createLeafProps.js"
 import {leaves, elements} from "../internal/defaultTransforms.js"
-import {createElementProps} from "../internal/createElementProps.js"
+
+import {createLeafProps, createElementProps} from "../internal/createNodeProps.js"
 
 import type {CreateTransformResult} from "./createTransform.js"
 import type {Node} from "./Node.js"
@@ -41,12 +40,12 @@ function getComponent<
 /**
  * @api private
  */
-const getLeafTransform = (props: LeafProps) => getComponent(leaves, props)
+const getLeafTransform = (props: LeafProps) => getComponent(leaves as any, props)
 
 /**
  * @api private
  */
-const getElementTransform = (props: ElementProps) => getComponent(elements, props)
+const getElementTransform = (props: ElementProps) => getComponent(elements as any, props)
 
 /**
  * @api private

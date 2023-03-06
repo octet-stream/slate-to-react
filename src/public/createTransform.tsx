@@ -1,8 +1,7 @@
 import type {ReactElement} from "react"
 import type {Text} from "slate"
 
-import type {ElementProps} from "../internal/createElementProps.js"
-import type {LeafProps} from "../internal/createLeafProps.js"
+import type {ElementProps, LeafProps} from "../internal/createNodeProps.js"
 
 import type {
   NodeMatcher,
