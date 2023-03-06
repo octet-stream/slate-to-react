@@ -13,6 +13,8 @@ export interface SlateViewProps {
 
 /**
  * Render `Slate` data format as react component
+ *
+ * @api public
  */
 export const SlateView: FC<SlateViewProps> = ({nodes}) => useSlateToReact(nodes)
 
