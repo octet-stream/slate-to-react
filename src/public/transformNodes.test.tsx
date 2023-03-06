@@ -92,7 +92,7 @@ test("Renders headings", withRender, (t, render) => {
   t.true(headings.every(({element}) => element instanceof HTMLHeadingElement))
 
   t.true(headings.every(({type, element}) => (
-    element.nodeName.toLocaleLowerCase() === type
+    element.nodeName.toLowerCase() === type
   )))
 
   t.true(headings.every(({type, element}) => (
