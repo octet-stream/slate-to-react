@@ -51,9 +51,7 @@ export const createLeafTransform = <TMatcher extends LeafNodeMatcher>(
  * @param matcher An `ElementNodeMatcher` implementation
  * @param transform Transform implementation to render this node with
  */
-export const createElementTransform = <
-  TMatcher extends ElementNodeMatcher
->(
+export const createElementTransform = <TMatcher extends ElementNodeMatcher>(
   matcher: TMatcher,
   transform: Transform<
     TMatcher extends ElementNodeMatcher<infer P>

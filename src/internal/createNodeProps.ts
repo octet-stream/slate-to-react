@@ -18,28 +18,38 @@ interface ElementWithChildren {
   children: ReactNode
 }
 
-export type LeafBaseProps = SwapObjectProps<RenderLeafProps, LeafWithChildren>
+export type LeafBaseProps<T extends Text = Text> =
+  SwapObjectProps<RenderLeafProps, LeafWithChildren & {
+    leaf: T
+    text: T
+  }>
 
-export type ElementBaseProps =
-  SwapObjectProps<RenderElementProps, ElementWithChildren>
+export type ElementBaseProps<T extends Node = Node> =
+  SwapObjectProps<RenderElementProps, ElementWithChildren & {
+    element: SwapObjectProps<T, ElementWithChildren>
+  }>
 
 export type ElementProps<T extends Node = Node> =
   SwapObjectProps<ElementBaseProps, {
     element: SwapObjectProps<T, ElementWithChildren>
+    attributes: SwapObjectProps<ElementBaseProps["attributes"], PropsWithKey>
   }>
 
 export type LeafProps<T extends Text = Text> =
   SwapObjectProps<LeafBaseProps, LeafWithChildren & {
     leaf: T
     text: T
+    attributes: SwapObjectProps<LeafBaseProps["attributes"], PropsWithKey>
   }>
 
-export type NodeBaseProps = LeafProps | ElementProps
+export type NodeBaseProps = LeafBaseProps | ElementBaseProps
 
 export type NodeProps<T extends NodeBaseProps> =
-  SwapObjectProps<T, {
-    attributes: T["attributes"] & PropsWithKey
-  }>
+  T extends LeafBaseProps<infer U>
+    ? LeafProps<U>
+    : T extends ElementBaseProps<infer U>
+      ? ElementProps<U>
+      : never
 
 function createNodeProps<
   TProps extends NodeBaseProps
@@ -54,7 +64,7 @@ function createNodeProps<
 
       key
     }
-  }
+  } as NodeProps<TProps>
 }
 
 export const createLeafProps = <T extends Text = Text>(
@@ -77,7 +87,7 @@ export function createElementProps<T extends Node = Node>(
   node: SwapObjectProps<T, ElementWithChildren>,
   options: CreateElementPropsOptions = {}
 ) {
-  const props = createNodeProps<ElementProps<T>>({
+  const props = createNodeProps({
     element: node,
     children: node.children,
     attributes: {
