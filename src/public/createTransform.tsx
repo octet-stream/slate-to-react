@@ -21,6 +21,9 @@ export interface CreateTransformResult<
   transform: Transform<TProps>
 }
 
+/**
+ * @api private
+ */
 const createTransform = <TProps extends CreateTransformProps>(
   matcher: NodeMatcher<TProps>,
   transform: Transform<TProps>
