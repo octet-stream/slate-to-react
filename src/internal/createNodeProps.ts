@@ -2,6 +2,8 @@ import type {RenderElementProps, RenderLeafProps} from "slate-react"
 import type {ReactNode} from "react"
 import type {Text} from "slate"
 
+import {nanoid} from "nanoid"
+
 import type {SwapObjectProps} from "./type/SwapObjectProps.js"
 
 import {Node} from "../public/Node.js"
@@ -54,7 +56,7 @@ export type NodeProps<T extends NodeBaseProps> =
 function createNodeProps<
   TProps extends NodeBaseProps
 >(props: TProps): NodeProps<TProps> {
-  const key = crypto.randomUUID()
+  const key = nanoid()
 
   return {
     ...props,
