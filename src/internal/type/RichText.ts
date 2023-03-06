@@ -16,8 +16,8 @@ export interface RichTextBase extends Text {
   code?: boolean
 }
 
-export type RichText = RichTextBase & (Superscript | Subscript)
-
 export type SubscriptRichText = RichTextBase & Subscript
 
 export type SuperscriptRichText = RichTextBase & Superscript
+
+export type RichText = SubscriptRichText | SuperscriptRichText
