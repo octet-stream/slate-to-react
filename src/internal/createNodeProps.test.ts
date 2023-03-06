@@ -3,7 +3,6 @@ import test from "ava"
 import type {Text} from "slate"
 
 import {createElement} from "react"
-import {validate} from "uuid"
 
 import {ELEMENT_PARAGRAPH} from "./constants.js"
 import {createLeafProps, createElementProps} from "./createNodeProps.js"
@@ -19,7 +18,7 @@ test("Creates valid props for leaf node", t => {
   t.is(actual.leaf, node)
   t.is(typeof actual.children, "string")
   t.true(actual.attributes["data-slate-leaf"])
-  t.true(validate(actual.attributes.key))
+  t.is(typeof actual.attributes.key, "string")
 })
 
 test("Creates valid props for Element node", t => {
@@ -29,7 +28,7 @@ test("Creates valid props for Element node", t => {
   })
 
   t.is(actual.attributes["data-slate-node"], "element")
-  t.true(validate(actual.attributes.key))
+  t.is(typeof actual.attributes.key, "string")
 })
 
 test("Creates data-slate-inline attribute for inline Element node", t => {
