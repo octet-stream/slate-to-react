@@ -1,16 +1,22 @@
 import type {RenderElementProps} from "slate-react"
+import type {ReactNode} from "react"
 
 import type {SwapObjectProps} from "./type/SwapObjectProps.js"
 import type {NodeProps} from "./createNodeProps.js"
 
+import type {ElementAttributes} from "./createNodeProps.js"
 import {createNodeProps} from "./createNodeProps.js"
 
 import type {Node} from "../public/Node.js"
 
+interface ElementWithChildren {
+  children: ReactNode
+}
+
 export type ElementProps<T extends Node = Node> = SwapObjectProps<
   RenderElementProps,
-  NodeProps<RenderElementProps["attributes"]> & {
-    element: T
+  NodeProps<ElementAttributes> & {
+    element: SwapObjectProps<T, ElementWithChildren>
   }
 >
 
@@ -20,20 +26,19 @@ interface CreateElementPropsOptions {
 }
 
 export function createElementProps<T extends Node = Node>(
-  node: T,
+  node: SwapObjectProps<T, ElementWithChildren>,
   options: CreateElementPropsOptions = {}
 ): ElementProps<T> {
-  const {key, attributes} = createNodeProps()
+  const base = createNodeProps({
+    ref: null,
+    "data-slate-node": "element"
+  })
 
   const props: ElementProps<T> = {
-    key,
+    ...base,
+
     element: node,
     children: node.children,
-    attributes: {
-      ...attributes,
-      ref: null,
-      "data-slate-node": "element",
-    }
   }
 
   if (options.inline) {

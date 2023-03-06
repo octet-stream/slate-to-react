@@ -2,7 +2,9 @@ import type {RenderLeafProps} from "slate-react"
 import type {Text} from "slate"
 
 import type {SwapObjectProps} from "./type/SwapObjectProps.js"
+import type {LeafAttributes} from "./createNodeProps.js"
 import type {NodeProps} from "./createNodeProps.js"
+
 import {createNodeProps} from "./createNodeProps.js"
 
 export type LeafProps<T extends Text = Text> = SwapObjectProps<
@@ -17,17 +19,14 @@ export type LeafProps<T extends Text = Text> = SwapObjectProps<
 export function createLeafProps<T extends Text = Text>(
   node: T
 ): LeafProps<T> {
-  const {key, attributes} = createNodeProps()
+  const {attributes} = createNodeProps({
+    "data-slate-leaf": true
+  })
 
   return {
-    key,
     leaf: node,
     text: node,
     children: node.text,
-    attributes: {
-      ...attributes,
-
-      "data-slate-leaf": true
-    }
+    attributes
   }
 }

@@ -98,6 +98,10 @@ test("Renders bold rich text", withRender, (t, render) => {
 
   const actual = container.querySelector("strong")
 
+  if (!actual) {
+    return t.fail()
+  }
+
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "strong")
 })
@@ -114,6 +118,10 @@ test("Renders italic rich text", withRender, (t, render) => {
   const {container} = render(transformNodes(nodes))
 
   const actual = container.querySelector("i")
+
+  if (!actual) {
+    return t.fail()
+  }
 
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "i")
@@ -132,6 +140,10 @@ test("Renders underline rich text", withRender, (t, render) => {
 
   const actual = container.querySelector("u")
 
+  if (!actual) {
+    return t.fail()
+  }
+
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "u")
 })
@@ -148,6 +160,10 @@ test("Renders strikethrough rich text", withRender, (t, render) => {
   const {container} = render(transformNodes(nodes))
 
   const actual = container.querySelector("s")
+
+  if (!actual) {
+    return t.fail()
+  }
 
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "s")
@@ -166,6 +182,10 @@ test("Renders superscript rich text", withRender, (t, render) => {
 
   const actual = container.querySelector("sup")
 
+  if (!actual) {
+    return t.fail()
+  }
+
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "sup")
 })
@@ -183,6 +203,10 @@ test("Renders subscript rich text", withRender, (t, render) => {
 
   const actual = container.querySelector("sub")
 
+  if (!actual) {
+    return t.fail()
+  }
+
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "sub")
 })
@@ -199,6 +223,10 @@ test("Renders code rich text", withRender, (t, render) => {
   const {container} = render(transformNodes(nodes))
 
   const actual = container.querySelector("code")
+
+  if (!actual) {
+    return t.fail()
+  }
 
   t.true(actual instanceof HTMLElement)
   t.is(actual.tagName.toLowerCase(), "code")
@@ -223,6 +251,10 @@ test("Renders link element", withRender, async (t, render) => {
 
   const actual = container.querySelector(ELEMENT_LINK)
 
+  if (!actual) {
+    return t.fail()
+  }
+
   t.true(actual instanceof HTMLAnchorElement)
   t.is(actual.textContent, expectedText)
   t.is(actual.href, expectedUrl)
@@ -241,6 +273,10 @@ test("Renders <blockquote> element", withRender, (t, render) => {
   const {container} = render(transformNodes(nodes))
 
   const actual = container.querySelector(ELEMENT_BLOCKQUOTE)
+
+  if (!actual) {
+    return t.fail()
+  }
 
   t.true(actual instanceof HTMLQuoteElement)
   t.is(actual.textContent, expectedQuote)
@@ -261,14 +297,10 @@ test("Renders headings", withRender, (t, render) => {
     element: container.querySelector(heading)
   }))
 
-  t.true(headings.every(({element}) => element instanceof HTMLHeadingElement))
-
   t.true(headings.every(({type, element}) => (
-    element.nodeName.toLowerCase() === type
-  )))
-
-  t.true(headings.every(({type, element}) => (
-    element.textContent === `Heading H${type}`
+    element instanceof HTMLHeadingElement
+      && element.nodeName.toLowerCase() === type
+      && element.textContent === `Heading H${type}`
   )))
 })
 

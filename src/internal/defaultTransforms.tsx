@@ -22,7 +22,7 @@ const RichText = createLeafTransform(
   ({attributes, leaf, children}) => {
     // Render <br /> for empty text blocks as it's probably just an empty line
     if (!children) {
-      return <br />
+      return <br {...attributes} />
     }
 
     let element: ReactNode = children
@@ -66,7 +66,7 @@ const PlainText = createLeafTransform(
         {children}
       </span>
     ) : (
-      <br />
+      <br {...attributes} />
     )
   )
 )
@@ -74,8 +74,8 @@ const PlainText = createLeafTransform(
 const Link = createElementTransform(
   isLink,
 
-  ({key, attributes, element, children}) => (
-    <a {...attributes} key={key} href={element.url}>
+  ({attributes, element, children}) => (
+    <a {...attributes} href={element.url}>
       {children}
     </a>
   )
@@ -84,8 +84,8 @@ const Link = createElementTransform(
 const Paragraph = createElementTransform(
   isParagraph,
 
-  ({key, attributes, element, children}) => (
-    <p {...attributes} key={key} style={{textAlign: element.align}}>
+  ({attributes, element, children}) => (
+    <p {...attributes} style={{textAlign: element.align}}>
       {children}
     </p>
   )
@@ -94,8 +94,8 @@ const Paragraph = createElementTransform(
 const Blockquote = createElementTransform(
   isBlockquote,
 
-  ({key, attributes, children}) => (
-    <blockquote {...attributes} key={key}>
+  ({attributes, children}) => (
+    <blockquote {...attributes}>
       {children}
     </blockquote>
   )
@@ -104,14 +104,8 @@ const Blockquote = createElementTransform(
 const Heading = createElementTransform(
   isHeading,
 
-  ({key, element, attributes, children}) => createElement(
-    element.type,
-
-    {
-      ...attributes, key
-    },
-
-    children
+  ({element, attributes, children}) => createElement(
+    element.type, attributes, children
   )
 )
 

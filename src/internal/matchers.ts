@@ -2,9 +2,9 @@ import type {Text} from "slate"
 
 import type {LeafProps} from "../internal/createLeafProps.js"
 
-import {
-  createLeafNodeMatcher
-} from "../public/createNodeMatcher.js"
+import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
+import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
+import {isSubscriptRichText} from "./isSubscriptRichText.js"
 
 import type {RichText} from "./type/RichText.js"
 
@@ -20,9 +20,8 @@ export const isRichText = createLeafNodeMatcher<RichText>(
         || typeof node.leaf.italic === "boolean"
         || typeof node.leaf.strikethrough === "boolean"
         || typeof node.leaf.underline === "boolean"
-        || typeof node.leaf.subscript === "boolean"
-        || typeof node.leaf.superscript === "boolean"
         || typeof node.leaf.code === "boolean"
+        || (isSubscriptRichText(node.leaf) || isSuperscriptRichText(node.leaf))
     )
   )
 )

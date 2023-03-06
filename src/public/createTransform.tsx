@@ -1,6 +1,5 @@
-import {createElement} from "react"
+import type {ReactElement} from "react"
 import type {Text} from "slate"
-import type {FC} from "react"
 
 import type {ElementProps} from "../internal/createElementProps.js"
 import type {LeafProps} from "../internal/createLeafProps.js"
@@ -12,6 +11,8 @@ import type {
 } from "./createNodeMatcher.js"
 import type {Node} from "./Node.js"
 
+type Transform<TProps> = (props: TProps) => ReactElement
+
 export type CreateTransformProps =
   | LeafProps
   | ElementProps
@@ -21,7 +22,7 @@ export interface CreateTransformResult<
   TMatcher extends NodeMatcher = NodeMatcher
 > {
   matcher: TMatcher
-  componnet: FC<TProps>
+  transform: Transform<TProps>
 }
 
 export const createTransform = <
@@ -29,16 +30,8 @@ export const createTransform = <
   TMatcher extends NodeMatcher,
 >(
   matcher: TMatcher,
-  component: FC<TProps>
-): CreateTransformResult<TProps, TMatcher> => {
-  const SlateTransform: FC<TProps> = props => createElement(component, props)
-
-  SlateTransform.displayName = `SlateTransform(${
-    component.displayName || "Unknown"
-  })`
-
-  return {componnet: SlateTransform, matcher}
-}
+  component: Transform<TProps>
+): CreateTransformResult<TProps, TMatcher> => ({matcher, transform: component})
 
 /**
  * Creates a `Text` node transform
@@ -48,12 +41,12 @@ export const createTransform = <
  */
 export const createLeafTransform = <TMatcher extends LeafNodeMatcher>(
   matcher: TMatcher,
-  component: FC<
+  component: Transform<
     TMatcher extends LeafNodeMatcher<infer P>
-    ? LeafProps<P>
-    : LeafProps<Text>
+      ? LeafProps<P>
+      : LeafProps<Text>
   >
-) => createTransform(matcher, component)
+) => createTransform(matcher as any, component)
 
 /**
  * Creates an `Element` node transform
@@ -65,9 +58,9 @@ export const createElementTransform = <
   TMatcher extends ElementNodeMatcher
 >(
   matcher: TMatcher,
-  component: FC<
+  component: Transform<
     TMatcher extends ElementNodeMatcher<infer P>
-    ? ElementProps<P>
-    : ElementProps<Node>
+      ? ElementProps<P>
+      : ElementProps<Node>
   >
-) => createTransform(matcher, component)
+) => createTransform(matcher as any, component)

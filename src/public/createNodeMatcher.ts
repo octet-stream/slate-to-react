@@ -7,7 +7,7 @@ import type {CreateTransformProps} from "./createTransform.js"
 import {Node} from "./Node.js"
 
 export type NodeMatcher<T extends CreateTransformProps = CreateTransformProps> =
-  (params: T) => params is T
+  (props: T) => props is T
 
 export type LeafNodeMatcher<TLeaf extends Text = Text> =
   NodeMatcher<LeafProps<TLeaf>>

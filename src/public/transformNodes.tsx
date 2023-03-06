@@ -35,18 +35,18 @@ function getComponent<
     throw new NoMatcherError(props)
   }
 
-  return transform.componnet
+  return transform.transform
 }
 
 /**
  * @api private
  */
-const getLeafComponent = (props: LeafProps) => getComponent(leaves, props)
+const getLeafTransform = (props: LeafProps) => getComponent(leaves, props)
 
 /**
  * @api private
  */
-const getElementComponent = (props: ElementProps) => getComponent(elements, props)
+const getElementTransform = (props: ElementProps) => getComponent(elements, props)
 
 /**
  * @api private
@@ -57,15 +57,15 @@ function compileNodes(nodes: Descendant[]): ReactElement {
   for (const node of nodes) {
     if (Element.isElement(node)) {
       const children = compileNodes(node.children)
-      const props = createElementProps(node)
-      const component = getElementComponent({...props, children})
-      const element = createElement(component, props, children)
+      const props = createElementProps({...node, children})
+      const transform = getElementTransform(props)
+      const element = transform(props)
 
       result.push(element)
     } else {
       const props = createLeafProps(node)
-      const component = getLeafComponent(props)
-      const element = createElement(component, props, props.children)
+      const transform = getLeafTransform(props)
+      const element = transform(props)
 
       result.push(element)
     }
@@ -86,11 +86,10 @@ export const transformNodes = (nodes: Node[]): ReactElement => {
 
   for (const node of nodes) {
     if (Element.isElement(node)) {
-      const props = createElementProps(node)
-      const componnet = getElementComponent(props)
-      const element = createElement(
-        componnet, props, compileNodes(node.children)
-      )
+      const children = compileNodes(node.children)
+      const props = createElementProps({...node, children})
+      const transform = getElementTransform(props)
+      const element = transform(props)
 
       result.push(element)
     } else {
