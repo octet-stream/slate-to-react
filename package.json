@@ -25,7 +25,7 @@
     "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment",
     "cleanup": "del-cli @type lib",
     "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable",
+    "prepublishOnly": "pinst --disable && npm run eslint && npm run lint:types && npm run cleanup && npm run build",
     "postpublish": "pinst --enable"
   },
   "keywords": [
