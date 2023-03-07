@@ -2,8 +2,8 @@ import React, {createElement} from "react"
 import type {ReactNode} from "react"
 
 import {
-  createElementTransform,
-  createLeafTransform
+  createLeafTransform,
+  createElementTransform
 } from "../public/createTransform.js"
 import {
   isLink,
@@ -16,7 +16,7 @@ import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
 import {isSubscriptRichText} from "./isSubscriptRichText.js"
 import {isRichText, isPlainText} from "./matchers.js"
 
-const RichText = createLeafTransform(
+export const RichText = createLeafTransform(
   isRichText,
 
   ({attributes, leaf, children}) => {
@@ -57,7 +57,7 @@ const RichText = createLeafTransform(
   }
 )
 
-const PlainText = createLeafTransform(
+export const PlainText = createLeafTransform(
   isPlainText,
 
   ({attributes, children}) => (
@@ -81,7 +81,7 @@ const Link = createElementTransform(
   )
 )
 
-const Paragraph = createElementTransform(
+export const Paragraph = createElementTransform(
   isParagraph,
 
   ({attributes, element, children}) => (
@@ -91,7 +91,7 @@ const Paragraph = createElementTransform(
   )
 )
 
-const Blockquote = createElementTransform(
+export const Blockquote = createElementTransform(
   isBlockquote,
 
   ({attributes, children}) => (
@@ -101,7 +101,7 @@ const Blockquote = createElementTransform(
   )
 )
 
-const Heading = createElementTransform(
+export const Heading = createElementTransform(
   isHeading,
 
   ({element, attributes, children}) => (
@@ -109,6 +109,6 @@ const Heading = createElementTransform(
   )
 )
 
-export const leaves = [RichText, PlainText] as const
+export const leaves = [RichText, PlainText]
 
-export const elements = [Paragraph, Link, Blockquote, Heading] as const
+export const elements = [Paragraph, Link, Blockquote, Heading]

@@ -15,11 +15,17 @@ type Transform<TProps> = (props: TProps) => ReactElement
 export type CreateTransformProps = LeafProps | ElementProps
 
 export interface CreateTransformResult<
-  TProps extends CreateTransformProps = CreateTransformProps
+TProps extends CreateTransformProps = CreateTransformProps
 > {
   matcher: NodeMatcher<TProps>
   transform: Transform<TProps>
 }
+
+export type CreateLeafTransformResult<TLeaf extends Text = Text> =
+  CreateTransformResult<LeafProps<TLeaf>>
+
+export type CreateElementTransformResult<TElement extends Node = Node> =
+  CreateTransformResult<ElementProps<TElement>>
 
 /**
  * @api private
@@ -35,10 +41,10 @@ const createTransform = <TProps extends CreateTransformProps>(
  * @param matcher An `LeafNodeMatcher` implementation
  * @param transform Transform implementation to render this node with
  */
-export const createLeafTransform = <TLeaf extends Text>(
+export const createLeafTransform = <TLeaf extends Text = Text>(
   matcher: LeafNodeMatcher<TLeaf>,
   transform: Transform<LeafProps<TLeaf>>
-) => createTransform(matcher, transform)
+): CreateLeafTransformResult<TLeaf> => createTransform(matcher, transform)
 
 /**
  * Creates an `Element` node transform
@@ -46,7 +52,7 @@ export const createLeafTransform = <TLeaf extends Text>(
  * @param matcher An `ElementNodeMatcher` implementation
  * @param transform Transform implementation to render this node with
  */
-export const createElementTransform = <TElement extends Node>(
+export const createElementTransform = <TElement extends Node = Node>(
   matcher: ElementNodeMatcher<TElement>,
   transform: Transform<ElementProps<TElement>>
-) => createTransform(matcher, transform)
+): CreateElementTransformResult<TElement> => createTransform(matcher, transform)

@@ -1,3 +1,4 @@
+import React from "react"
 import test from "ava"
 
 import {withRender} from "../__macro__/withRender.js"
@@ -13,6 +14,9 @@ import type {Blockquote} from "../internal/type/Blockquote.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {RichText} from "../internal/type/RichText.js"
 import type {Heading} from "../internal/type/Heading.js"
+
+import {isLink, isText, isParagraph} from "./matchers.js"
+import {createElementTransform, createLeafTransform} from "./createTransform.js"
 
 import {transformNodes} from "./transformNodes.js"
 
@@ -302,6 +306,97 @@ test("Renders headings", withRender, (t, render) => {
       && element.nodeName.toLowerCase() === type
       && element.textContent === `Heading H${type}`
   )))
+})
+
+test("Renders nodes with custom transform", withRender, (t, render) => {
+  const expectedDataLink = "This was rendered with a custom link transform"
+  const expectedDataText = "This was rendered with a custom Text transform"
+  const expectedDataParagraph = (
+    "This was rendered with a custom paragraph transform"
+  )
+
+  const MyParagraph = createElementTransform(
+    isParagraph,
+
+    ({attributes, children}) => (
+      <p {...attributes} id="paragraph" data-paragraph={expectedDataParagraph}>
+        {children}
+      </p>
+    )
+  )
+
+  const MyLink = createElementTransform(
+    isLink,
+
+    ({element, attributes, children}) => (
+      <a
+        {...attributes}
+
+        href={element.url}
+        id="link"
+        data-link={expectedDataLink}
+      >
+        {children}
+      </a>
+    )
+  )
+
+  const MyText = createLeafTransform(
+    isText,
+
+    ({attributes, children}) => (
+      <span {...attributes} id="text" data-text={expectedDataText}>
+        {children}
+      </span>
+    )
+  )
+
+  const nodes: Paragraph[] = [{
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      type: ELEMENT_LINK,
+      url: "https://example.com/",
+      children: [{
+        text: "Example URL"
+      }]
+    }]
+  }]
+
+  const {container} = render(transformNodes(nodes, {
+    transforms: {
+      elements: [MyParagraph, MyLink as any],
+      leaves: [MyText]
+    }
+  }))
+
+  const actualParagraph = container.querySelector<HTMLParagraphElement>(
+    "#paragraph"
+  )
+
+  if (!actualParagraph) {
+    return t.fail()
+  }
+
+  t.true(actualParagraph instanceof HTMLParagraphElement)
+  t.is(actualParagraph.dataset.paragraph, expectedDataParagraph)
+
+  const actualLink = container.querySelector<HTMLAnchorElement>("#link")
+
+  if (!actualLink) {
+    return t.fail()
+  }
+
+  t.true(actualLink instanceof HTMLAnchorElement)
+  t.is(actualLink.dataset.link, expectedDataLink)
+
+  const actualText = container.querySelector<HTMLSpanElement>("#text")
+
+  if (!actualText) {
+    return t.fail()
+  }
+
+  t.true(actualText instanceof HTMLSpanElement)
+  t.is(actualText.dataset.text, expectedDataText)
 })
 
 test("Throws an error for invalid root node type", t => {
