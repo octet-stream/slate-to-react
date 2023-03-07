@@ -113,10 +113,10 @@ React component that will render given `nodes` as React elements.
 
 This component takes following props:
 
-| Name       | Type       | Required  | Default | Description                         |
-|------------|:----------:|:---------:|:-------:|-------------------------------------|
-| nodes      | Node[]     | Yes       | —       | List of `Slate` nodes to transform  |
-| transforms | Transforms | No        | —       | Custom transforms for `Slate` nodes |
+| Name       | Type         | Required  | Default | Description                         |
+|------------|:------------:|:---------:|:-------:|-------------------------------------|
+| nodes      | `Node[]`     | Yes       | —       | List of `Slate` nodes to transform  |
+| transforms | `Transforms` | No        | —       | Custom transforms for `Slate` nodes |
 
 ### `useSlateToReact(nodes)`
 
@@ -124,10 +124,10 @@ React hook that transforms given Slate nodes to React elements and memoizes the 
 
 This hook takes following arguments:
 
-| Name    | Type                  | Required  | Default | Description                        |
-|---------|:---------------------:|:---------:|:-------:|------------------------------------|
-| nodes   | Node[]                | Yes       | —       | List of `Slate` nodes to transform |
-| options | TransformNodesOptions | No        | —       | Additional transform options       |
+| Name    | Type                    | Required  | Default | Description                        |
+|---------|:-----------------------:|:---------:|:-------:|------------------------------------|
+| nodes   | `Node[]`                | Yes       | —       | List of `Slate` nodes to transform |
+| options | `TransformNodesOptions` | No        | —       | Additional transform options       |
 
 ### `transformNodes(nodes)`
 
@@ -135,10 +135,10 @@ Transforms given Slate `nodes` to react elements.
 
 This function takes following arguments:
 
-| Name    | Type                  | Required  | Default | Description                        |
-|---------|:---------------------:|:---------:|:-------:|------------------------------------|
-| nodes   | Node[]                | Yes       | —       | List of `Slate` nodes to transform |
-| options | TransformNodesOptions | No        | —       | Additional transform options       |
+| Name    | Type                    | Required  | Default | Description                        |
+|---------|:-----------------------:|:---------:|:-------:|------------------------------------|
+| nodes   | `Node[]`                | Yes       | —       | List of `Slate` nodes to transform |
+| options | `TransformNodesOptions` | No        | —       | Additional transform options       |
 
 Returns `ReactElement`. All nodes will be wrapped within `React.Fragment`, so you can even return them from your components as-is.
 
@@ -146,9 +146,9 @@ Returns `ReactElement`. All nodes will be wrapped within `React.Fragment`, so yo
 
 Takes `matcher` implementation as the first argument and applies proper types to given function. This will only be useful for TypeScript users. If you use JavaScript - you can write matcher without it, because matchers are just regular functions that returns `boolean`.
 
-| Name    | Type                   | Required  | Default | Description                                 |
-|---------|:----------------------:|:---------:|:-------:|---------------------------------------------|
-| matcher | LeafNodeMatcher<TLeaf> | Yes       | —       | A `LeafNodeMatcher` implementation function |
+| Name    | Type                     | Required  | Default | Description                                 |
+|---------|:------------------------:|:---------:|:-------:|---------------------------------------------|
+| matcher | `LeafNodeMatcher<TLeaf>` | Yes       | —       | A `LeafNodeMatcher` implementation function |
 
 Returns `LeafNodeMatcher<TLeaf>` matcher, where `TLeaf` type parameter defaults to Slate's `Text` node. Because `crateLeafNodeMatcher` is a generic function, it will use actual `TLeaf` type depending on what you give as type parameter.
 
@@ -192,9 +192,9 @@ It is also important to mention that `matcher` implementation **must** return `n
 
 This is similar to `createLeafNodeMarcher`, but applies types for `ElementNodeMatcher` to given implementation.
 
-| Name    | Type                         | Required  | Default | Description                                     |
-|---------|:----------------------------:|:---------:|:-------:|-------------------------------------------------|
-| matcher | ElementNodeMatcher<TElement> | Yes       | —       | An `ElementNodeMatcher` implementation function |
+| Name    | Type                           | Required  | Default | Description                                     |
+|---------|:------------------------------:|:---------:|:-------:|-------------------------------------------------|
+| matcher | `ElementNodeMatcher<TElement>` | Yes       | —       | An `ElementNodeMatcher` implementation function |
 
 Returns `ElementNodeMatcher<TElement>` matcher, where `TElement` defaults to `Node<string>` which inherits Slate's `Element` type.
 
@@ -221,10 +221,10 @@ export const isLink = createElementNodeMatcher<Link>(
 
 Creates a leaf node transform. It takes `LeafNodeMatcher` as the first argument to match any specific node during `transformNodes` call, and `transform` implementation as the second argument. This transform implementation then will be called for each matched node to create a `ReactElement` for this node.
 
-| Name      | Type                        | Required  | Default | Description                                          |
-|-----------|:---------------------------:|:---------:|:-------:|------------------------------------------------------|
-| matcher   | LeafNodeMatcher<TLeaf>      | Yes       | —       | A `LeafNodeMatcher` implementation function          |
-| transform | Transform<LeafProps<TLeaf>> | Yes       | —       | Transform implementation to render matched node with |
+| Name      | Type                          | Required  | Default | Description                                          |
+|-----------|:-----------------------------:|:---------:|:-------:|------------------------------------------------------|
+| matcher   | `LeafNodeMatcher<TLeaf>`      | Yes       | —       | A `LeafNodeMatcher` implementation function          |
+| transform | `Transform<LeafProps<TLeaf>>` | Yes       | —       | Transform implementation to render matched node with |
 
 Returns `CreateLeafTransformResult<TLeaf>`, where `TLeaf` type parameter defaults to Slate's `Text` node. The actual value will be infered from `TLeafMatcher` type, so that `transform` implementation will get proper types for it `props` argument.
 
@@ -283,10 +283,10 @@ export const RichText = createLeafTransform(
 
 Creates an element node transform. It takes `ElementNodeMatcher` as the first argument to match any specific node during `transformNodes` call, and `transform` implementation as the second argument. This transform implementation then will be called for each matched node to create a `ReactElement` for this node.
 
-| Name      | Type                              | Required  | Default | Description                                          |
-|-----------|:---------------------------------:|:---------:|:-------:|------------------------------------------------------|
-| matcher   | ElementNodeMatcher<TElement>      | Yes       | —       | An `ElementNodeMatcher` implementation function      |
-| transform | Transform<ElementProps<TElement>> | Yes       | —       | Transform implementation to render matched node with |
+| Name      | Type                                | Required  | Default | Description                                          |
+|-----------|:-----------------------------------:|:---------:|:-------:|------------------------------------------------------|
+| matcher   | `ElementNodeMatcher<TElement>`      | Yes       | —       | An `ElementNodeMatcher` implementation function      |
+| transform | `Transform<ElementProps<TElement>>` | Yes       | —       | Transform implementation to render matched node with |
 
 Returns `CreateElementTransformResult<TElement>`, where `TElement` defaults to `Node<string>` which inherits Slate's `Element` type.
 
