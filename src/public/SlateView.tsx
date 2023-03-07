@@ -11,6 +11,9 @@ export interface SlateViewProps {
    */
   nodes: Node[]
 
+  /**
+   * Custom transforms for `Slate` nodes
+   */
   transforms?: Transforms
 }
 

@@ -9,6 +9,7 @@ import {transformNodes} from "./transformNodes.js"
  * Transforms given [Slate](https://slatejs.org) nodes to React elements and memoizes the result.
  *
  * @param nodes List of `Slate` nodes to transform
+ * @param options Additional transform options
  *
  * @api public
  */

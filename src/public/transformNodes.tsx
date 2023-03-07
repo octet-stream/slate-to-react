@@ -20,12 +20,25 @@ import type {
 } from "./createTransform.js"
 import type {Node} from "./Node.js"
 
+/**
+ * Custom transforms for `Slate` nodes
+ */
 export interface Transforms {
+  /**
+   * A list of transforms for `leaf` nodes
+   */
   leaves?: CreateLeafTransformResult[]
+
+  /**
+   * A list of transforms for `element` nodes
+   */
   elements?: CreateElementTransformResult[]
 }
 
 export interface TransformNodesOptions {
+  /**
+   * Custom transforms for `Slate` nodes
+   */
   transforms?: Transforms
 }
 
@@ -99,6 +112,7 @@ function compileNodes(
  * Transforms given [Slate](https://slatejs.org) nodes to React elements.
  *
  * @param nodes List of `Slate` nodes to transform
+ * @param options Additional transform options
  *
  * @api public
  */
