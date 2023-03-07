@@ -221,12 +221,12 @@ export const isLink = createElementNodeMatcher<Link>(
 
 Creates a leaf node transform. It takes `LeafNodeMatcher` as the first argument to match any specific node during `transformNodes` call, and `transform` implementation as the second argument. This transform implementation then will be called for each matched node to create a `ReactElement` for this node.
 
-| Name      | Type                          | Required  | Default | Description                                          |
-|-----------|:-----------------------------:|:---------:|:-------:|------------------------------------------------------|
-| matcher   | `LeafNodeMatcher<TLeaf>`      | Yes       | —       | A `LeafNodeMatcher` implementation function          |
-| transform | `Transform<LeafProps<TLeaf>>` | Yes       | —       | Transform implementation to render matched node with |
+| Name      | Type                             | Required  | Default | Description                                          |
+|-----------|:--------------------------------:|:---------:|:-------:|------------------------------------------------------|
+| matcher   | `LeafNodeMatcher<TLeaf>`         | Yes       | —       | A `LeafNodeMatcher` implementation function          |
+| transform | `TransformImplementation<TLeaf>` | Yes       | —       | Transform implementation to render matched node with |
 
-Returns `CreateLeafTransformResult<TLeaf>`, where `TLeaf` type parameter defaults to Slate's `Text` node. The actual value will be infered from `TLeafMatcher` type, so that `transform` implementation will get proper types for it `props` argument.
+Returns `LeafTransform<TLeaf>`, where `TLeaf` type parameter defaults to Slate's `Text` node. The actual value will be infered from `TLeafMatcher` type, so that `transform` implementation will get proper types for it `props` argument.
 
 For this example, let's implement a transform for `RichText` node.
 
@@ -234,8 +234,8 @@ For this example, let's implement a transform for `RichText` node.
 import {createLeafTransform} from "slate-to-react"
 
 // These were implemented at one of examples above.
-import {isRichText} from "./matcher/isRichText.js"
 import type {RichText} from "./matcher/isRichText.js"
+import {isRichText} from "./matcher/isRichText.js"
 
 export const RichText = createLeafTransform(
   isRichText,
@@ -286,9 +286,9 @@ Creates an element node transform. It takes `ElementNodeMatcher` as the first ar
 | Name      | Type                                | Required  | Default | Description                                          |
 |-----------|:-----------------------------------:|:---------:|:-------:|------------------------------------------------------|
 | matcher   | `ElementNodeMatcher<TElement>`      | Yes       | —       | An `ElementNodeMatcher` implementation function      |
-| transform | `Transform<ElementProps<TElement>>` | Yes       | —       | Transform implementation to render matched node with |
+| transform | `TransformImplementation<TElement>` | Yes       | —       | Transform implementation to render matched node with |
 
-Returns `CreateElementTransformResult<TElement>`, where `TElement` defaults to `Node<string>` which inherits Slate's `Element` type.
+Returns `ElementTransform<TElement>`, where `TElement` defaults to `Node<string>` which inherits Slate's `Element` type.
 
 Following example implements a transform for `Link` type:
 
@@ -296,8 +296,8 @@ Following example implements a transform for `Link` type:
 import {createElementTransform} from "slate-to-react"
 
 // These were implemented at one of examples above.
-import {isLink} from "./matcher/isLink.js"
 import type {Link} from "./matcher/isLink.js"
+import {isLink} from "./matcher/isLink.js"
 
 export const Link = createElementTransform(
   isLink,
