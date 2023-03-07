@@ -4,7 +4,7 @@ import type {Text} from "slate"
 
 import {nanoid} from "nanoid"
 
-import type {SwapObjectProps} from "./type/SwapObjectProps.js"
+import type {Replace} from "../public/Replace.js"
 
 import {Node} from "../public/Node.js"
 
@@ -21,27 +21,27 @@ interface ElementWithChildren {
 }
 
 export type LeafBaseProps<T extends Text = Text> =
-  SwapObjectProps<RenderLeafProps, LeafWithChildren & {
+  Replace<RenderLeafProps, LeafWithChildren & {
     leaf: T
     text: T
   }>
 
 export type ElementBaseProps<T extends Node = Node> =
-  SwapObjectProps<RenderElementProps, ElementWithChildren & {
-    element: SwapObjectProps<T, ElementWithChildren>
+  Replace<RenderElementProps, ElementWithChildren & {
+    element: Replace<T, ElementWithChildren>
   }>
 
 export type ElementProps<T extends Node = Node> =
-  SwapObjectProps<ElementBaseProps, {
-    element: SwapObjectProps<T, ElementWithChildren>
-    attributes: SwapObjectProps<ElementBaseProps["attributes"], PropsWithKey>
+  Replace<ElementBaseProps, {
+    element: Replace<T, ElementWithChildren>
+    attributes: Replace<ElementBaseProps["attributes"], PropsWithKey>
   }>
 
 export type LeafProps<T extends Text = Text> =
-  SwapObjectProps<LeafBaseProps, LeafWithChildren & {
+  Replace<LeafBaseProps, LeafWithChildren & {
     leaf: T
     text: T
-    attributes: SwapObjectProps<LeafBaseProps["attributes"], PropsWithKey>
+    attributes: Replace<LeafBaseProps["attributes"], PropsWithKey>
   }>
 
 export type NodeBaseProps = LeafBaseProps | ElementBaseProps
@@ -88,7 +88,7 @@ export interface CreateElementPropsOptions {
 }
 
 export function createElementProps<T extends Node = Node>(
-  node: SwapObjectProps<T, ElementWithChildren>,
+  node: Replace<T, ElementWithChildren>,
   options: CreateElementPropsOptions = {}
 ) {
   const props = createNodeProps({

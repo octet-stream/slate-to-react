@@ -1,9 +1,9 @@
 import type {Element} from "slate"
 
 import type {InlineDescendant} from "../internal/type/InlineDescendant.js"
-import type {SwapObjectProps} from "../internal/type/SwapObjectProps.js"
+import type {Replace} from "./Replace.js"
 
-export type Node<T extends string = string> = SwapObjectProps<Element, {
+export type Node<T extends string = string> = Replace<Element, {
   type: T
   children: Array<Node | InlineDescendant>
 }>

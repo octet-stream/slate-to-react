@@ -36,10 +36,10 @@ const createTransform = <TProps extends CreateTransformProps>(
 ): CreateTransformResult<TProps> => ({matcher, transform})
 
 /**
- * Creates a `Text` node transform
+ * Creates a leaf node transform. It takes `LeafNodeMatcher` as the first argument to match any specific node during `transformNodes` call, and `transform` implementation as the second argument. This transform implementation then will be called for each matched node to create a `ReactElement` for this node.
  *
  * @param matcher An `LeafNodeMatcher` implementation
- * @param transform Transform implementation to render this node with
+ * @param transform Transform implementation to render matched node with
  */
 export const createLeafTransform = <TLeaf extends Text = Text>(
   matcher: LeafNodeMatcher<TLeaf>,
@@ -47,10 +47,10 @@ export const createLeafTransform = <TLeaf extends Text = Text>(
 ): CreateLeafTransformResult<TLeaf> => createTransform(matcher, transform)
 
 /**
- * Creates an `Element` node transform
+ * Creates an element node transform. It takes `ElementNodeMatcher` as the first argument to match any specific node during `transformNodes` call, and `transform` implementation as the second argument. This transform implementation then will be called for each matched node to create a `ReactElement` for this node.
  *
  * @param matcher An `ElementNodeMatcher` implementation
- * @param transform Transform implementation to render this node with
+ * @param transform Transform implementation to render matched node with
  */
 export const createElementTransform = <TElement extends Node = Node>(
   matcher: ElementNodeMatcher<TElement>,

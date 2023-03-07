@@ -6,7 +6,7 @@ import type {CreateTransformProps} from "./createTransform.js"
 import type {Node} from "./Node.js"
 
 export type NodeMatcher<T extends CreateTransformProps = CreateTransformProps> =
-  (params: T) => params is T
+  (node: T) => node is T
 
 export type LeafNodeMatcher<TLeaf extends Text = Text> =
   NodeMatcher<LeafProps<TLeaf>>
@@ -28,7 +28,7 @@ export const createLeafNodeMatcher = <TLeaf extends Text = Text>(
  * Helps creating typed `ElementNodeMatcher`.
  * This function does nothing other than adding proper types for given matcher function.
  *
- * @param matcher A `ElementNodeMatcher` implementation function.
+ * @param matcher An `ElementNodeMatcher` implementation function.
  */
 export const createElementNodeMatcher = <TElement extends Node = Node>(
   matcher: ElementNodeMatcher<TElement>
