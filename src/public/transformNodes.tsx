@@ -19,9 +19,9 @@ import {
 } from "../internal/createNodeProps.js"
 
 import type {
-  CreateTransformResult,
-  CreateLeafTransformResult,
-  CreateElementTransformResult
+  NodeTransform,
+  LeafTransform,
+  ElementTransform
 } from "./createTransform.js"
 import type {Node} from "./Node.js"
 
@@ -32,12 +32,12 @@ export interface Transforms {
   /**
    * A list of transforms for `leaf` nodes
    */
-  leaves?: CreateLeafTransformResult[]
+  leaves?: LeafTransform[]
 
   /**
    * A list of transforms for `element` nodes
    */
-  elements?: CreateElementTransformResult[]
+  elements?: ElementTransform[]
 }
 
 export interface TransformNodesOptions {
@@ -52,7 +52,7 @@ export interface TransformNodesOptions {
  */
 function getTransform<TNode extends Descendant>(
   props: NodeProps<TNode>,
-  transforms: CreateTransformResult<TNode>[]
+  transforms: NodeTransform<TNode>[]
 ) {
   const transform = transforms.find(({matcher}) => matcher(props))
 
@@ -68,7 +68,7 @@ function getTransform<TNode extends Descendant>(
  */
 const getLeafTransform = (
   props: LeafProps,
-  transforms: CreateTransformResult<Text>[]
+  transforms: NodeTransform<Text>[]
 ) => getTransform(props, transforms)
 
 /**
@@ -76,7 +76,7 @@ const getLeafTransform = (
  */
 const getElementTransform = (
   props: ElementProps,
-  transforms: CreateTransformResult<Node>[]
+  transforms: NodeTransform<Node>[]
 ) => getTransform(props, transforms)
 
 /**
