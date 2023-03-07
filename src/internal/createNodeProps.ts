@@ -1,12 +1,14 @@
 import type {RenderElementProps, RenderLeafProps} from "slate-react"
 import type {ReactNode} from "react"
 import type {Text} from "slate"
+// import type {TypeOf} from "ts-expect"
 
 import {nanoid} from "nanoid"
 
+import type {Node} from "../public/Node.js"
 import type {Replace} from "../public/Replace.js"
 
-import {Node} from "../public/Node.js"
+import type {Descendant} from "./type/Descendant.js"
 
 interface PropsWithKey {
   key: string
@@ -31,31 +33,29 @@ export type ElementBaseProps<T extends Node = Node> =
     element: Replace<T, ElementWithChildren>
   }>
 
+export type NodeBaseProps<T extends Descendant> = T extends Node
+  ? ElementBaseProps<T>
+  : T extends Text
+    ? LeafBaseProps<T>
+    : never
+
+export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
+  attributes: NodeBaseProps<T>["attributes"] & PropsWithKey
+}>
+
 export type ElementProps<T extends Node = Node> =
-  Replace<ElementBaseProps, {
-    element: Replace<T, ElementWithChildren>
+  Replace<ElementBaseProps<T>, {
     attributes: Replace<ElementBaseProps["attributes"], PropsWithKey>
   }>
 
 export type LeafProps<T extends Text = Text> =
-  Replace<LeafBaseProps, LeafWithChildren & {
-    leaf: T
-    text: T
+  Replace<LeafBaseProps<T>, LeafWithChildren & {
     attributes: Replace<LeafBaseProps["attributes"], PropsWithKey>
   }>
 
-export type NodeBaseProps = LeafBaseProps | ElementBaseProps
-
-export type NodeProps<T extends NodeBaseProps> =
-  T extends LeafBaseProps<infer U>
-    ? LeafProps<U>
-    : T extends ElementBaseProps<infer U>
-      ? ElementProps<U>
-      : never
-
-function createNodeProps<
-  TProps extends NodeBaseProps
->(props: TProps): NodeProps<TProps> {
+function createNodeProps<TNode extends Descendant>(
+  props: NodeBaseProps<TNode>
+): NodeProps<TNode> {
   const key = nanoid()
 
   return {
@@ -66,21 +66,20 @@ function createNodeProps<
 
       key
     }
-  } as NodeProps<TProps>
+  } as NodeProps<TNode>
 }
 
-export const createLeafProps = <T extends Text = Text>(
-  node: T
-) => createNodeProps(
-    {
-      leaf: node,
-      text: node,
-      children: node.text,
-      attributes: {
-        "data-slate-leaf": true
-      }
+export const createLeafProps = <T extends Text = Text>(node: T) => (
+  // @ts-expect-error Fix this later
+  createNodeProps({
+    leaf: node,
+    text: node,
+    children: node.text,
+    attributes: {
+      "data-slate-leaf": true
     }
-  )
+  })
+)
 
 export interface CreateElementPropsOptions {
   inline?: boolean
@@ -91,6 +90,7 @@ export function createElementProps<T extends Node = Node>(
   node: Replace<T, ElementWithChildren>,
   options: CreateElementPropsOptions = {}
 ) {
+  // @ts-expect-error
   const props = createNodeProps({
     element: node,
     children: node.children,

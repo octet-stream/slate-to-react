@@ -1,13 +1,10 @@
-import type {LeafProps, ElementProps} from "./createNodeProps.js"
+import type {NodeProps, LeafProps, ElementProps} from "./createNodeProps.js"
+import type {Descendant} from "./type/Descendant.js"
 
-const isLeafProps = (
-  props: ElementProps | LeafProps
-): props is LeafProps => (
-  typeof (props as LeafProps).children === "string"
-    && "leaf" in props
-    && "text" in props
-)
-
-export const getNodeType = (props: ElementProps | LeafProps): string => (
-  isLeafProps(props) ? "Text" : `Element<${props.element.type}>`
-)
+export const getNodeType = <T extends Descendant>(
+  props: NodeProps<T>
+): string => (
+    typeof (props as unknown as LeafProps).children === "string"
+      ? "Text"
+      : `Element<${(props as unknown as ElementProps).element.type}>`
+  )

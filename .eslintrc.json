@@ -28,8 +28,24 @@
     "lines-between-class-members": 0,
 
     "ava/no-ignored-test-files": ["error", {
-      "files": ["src/**/*.ts", "src/**/*.tsx"],
-      "helpers": ["src/**/__macro__", "src/**/__helper__", "src/**/__fixture__"]
+      "files": [
+        "src/**/*.{ts,tsx}"
+      ],
+      "helpers": [
+        "src/**/__macro__/**/*.{ts,tsx}",
+        "src/**/__helper__/**/*.{ts,tsx}",
+        "src/**/__fixture__/**/*.{ts,tsx}"
+      ]
+    }],
+
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": [
+          "src/**/*.test.{ts,tsx}",
+          "src/**/__macro__/**/*.{ts,tsx}",
+          "src/**/__helper__/**/*.{ts,tsx}",
+          "src/**/__fixture__/**/*.{ts,tsx}"
+        ]
     }]
   }
 }

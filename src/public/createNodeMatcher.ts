@@ -1,18 +1,17 @@
 import {Text} from "slate"
 
-import type {ElementProps, LeafProps} from "../internal/createNodeProps.js"
+import type {NodeProps} from "../internal/createNodeProps.js"
 
-import type {CreateTransformProps} from "./createTransform.js"
 import type {Node} from "./Node.js"
 
-export type NodeMatcher<T extends CreateTransformProps = CreateTransformProps> =
-  (node: T) => node is T
+export type NodeMatcher<T extends Node | Text> =
+  (node: NodeProps<T>) => node is NodeProps<T>
 
 export type LeafNodeMatcher<TLeaf extends Text = Text> =
-  NodeMatcher<LeafProps<TLeaf>>
+  NodeMatcher<TLeaf>
 
 export type ElementNodeMatcher<TElement extends Node = Node> =
-  NodeMatcher<ElementProps<TElement>>
+  NodeMatcher<TElement>
 
 /**
  * Helps creating typed `LeafNodeMatcher`.

@@ -1,11 +1,20 @@
 import test from "ava"
 
 import type {Text} from "slate"
+import type {TypeOf} from "ts-expect"
 
+import {expectType} from "ts-expect"
 import {createElement} from "react"
 
 import {ELEMENT_PARAGRAPH} from "./constants.js"
 import {createLeafProps, createElementProps} from "./createNodeProps.js"
+
+import type {LeafProps, ElementProps} from "./createNodeProps.js"
+import type {Blockquote} from "./type/Blockquote.js"
+import type {Paragraph} from "./type/Paragraph.js"
+import type {RichText} from "./type/RichText.js"
+import type {Heading} from "./type/Heading.js"
+import type {Link} from "./type/Link.js"
 
 test("Creates valid props for leaf node", t => {
   const node: Text = {
@@ -60,3 +69,30 @@ test("Creates data-slate-void attribute for inline Element node", t => {
 
   t.true(actual.attributes["data-slate-void"])
 })
+
+test(
+  "LeafProps with specific type parameters is assignable "
+    + "to default parameter",
+
+  t => {
+    expectType<TypeOf<LeafProps, LeafProps<RichText>>>(true)
+
+    t.pass()
+  }
+)
+
+test(
+  "ElementProps with specific type parameters is assignable "
+    + "to default parameter",
+  t => {
+    type Actual =
+      | ElementProps<Link>
+      | ElementProps<Paragraph>
+      | ElementProps<Blockquote>
+      | ElementProps<Heading>
+
+    expectType<TypeOf<ElementProps, Actual>>(true)
+
+    t.pass()
+  }
+)

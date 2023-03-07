@@ -3,7 +3,12 @@ import type {ReactElement} from "react"
 import {Element} from "slate"
 import type {Text} from "slate"
 
-import type {ElementProps, LeafProps} from "../internal/createNodeProps.js"
+import type {
+  ElementProps,
+  LeafProps,
+  NodeProps
+} from "../internal/createNodeProps.js"
+import type {Descendant} from "../internal/type/Descendant.js"
 
 import {NoMatcherError} from "../internal/NoMatcherError.js"
 import {leaves, elements} from "../internal/defaultTransforms.js"
@@ -45,14 +50,9 @@ export interface TransformNodesOptions {
 /**
  * @api private
  */
-type Descendant = Node | Text
-
-/**
- * @api private
- */
-function getTransform<TProps extends ElementProps | LeafProps>(
-  props: TProps,
-  transforms: CreateTransformResult<TProps>[]
+function getTransform<TNode extends Descendant>(
+  props: NodeProps<TNode>,
+  transforms: CreateTransformResult<TNode>[]
 ) {
   const transform = transforms.find(({matcher}) => matcher(props))
 
@@ -68,7 +68,7 @@ function getTransform<TProps extends ElementProps | LeafProps>(
  */
 const getLeafTransform = (
   props: LeafProps,
-  transforms: CreateTransformResult<LeafProps>[]
+  transforms: CreateTransformResult<Text>[]
 ) => getTransform(props, transforms)
 
 /**
@@ -76,7 +76,7 @@ const getLeafTransform = (
  */
 const getElementTransform = (
   props: ElementProps,
-  transforms: CreateTransformResult<ElementProps>[]
+  transforms: CreateTransformResult<Node>[]
 ) => getTransform(props, transforms)
 
 /**
