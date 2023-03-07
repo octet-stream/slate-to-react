@@ -79,13 +79,13 @@ function compileNodes(
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
       const props = createElementProps({...node, children})
-      const transform = getElementTransform(props, transforms.elements as any)
+      const transform = getElementTransform(props, transforms.elements)
       const element = transform(props)
 
       result.push(element)
     } else {
       const props = createLeafProps(node)
-      const transform = getLeafTransform(props, transforms.leaves as any)
+      const transform = getLeafTransform(props, transforms.leaves)
       const element = transform(props)
 
       result.push(element)
@@ -113,15 +113,15 @@ export const transformNodes = (
   const result: ReactElement[] = []
 
   const transforms = {
-    leaves: (options.transforms?.leaves ?? []).concat(leaves as any),
+    leaves: (options.transforms?.leaves ?? []).concat(leaves),
     elements: (options.transforms?.elements ?? []).concat(elements as any)
   }
 
   for (const node of nodes) {
     if (Element.isElement(node)) {
-      const children = compileNodes(node.children, transforms as any)
+      const children = compileNodes(node.children, transforms)
       const props = createElementProps({...node, children})
-      const transform = getElementTransform(props, transforms.elements as any)
+      const transform = getElementTransform(props, transforms.elements)
       const element = transform(props)
 
       result.push(element)

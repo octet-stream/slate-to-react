@@ -1,6 +1,8 @@
 import React from "react"
 import test from "ava"
 
+import type {ReactNode} from "react"
+
 import {withRender} from "../__macro__/withRender.js"
 
 import {
@@ -10,12 +12,13 @@ import {
   ELEMENT_BLOCKQUOTE
 } from "../internal/constants.js"
 
+import {isRichText, isPlainText} from "../internal/matchers.js"
 import type {Blockquote} from "../internal/type/Blockquote.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {RichText} from "../internal/type/RichText.js"
 import type {Heading} from "../internal/type/Heading.js"
 
-import {isLink, isText, isParagraph} from "./matchers.js"
+import {isLink, isParagraph} from "./matchers.js"
 import {createElementTransform, createLeafTransform} from "./createTransform.js"
 
 import {transformNodes} from "./transformNodes.js"
@@ -309,10 +312,13 @@ test("Renders headings", withRender, (t, render) => {
 })
 
 test("Renders nodes with custom transform", withRender, (t, render) => {
-  const expectedDataLink = "This was rendered with a custom link transform"
-  const expectedDataText = "This was rendered with a custom Text transform"
+  const expectedDataLink = "This was rendered with custom link transform"
+  const expectedDataText = "This was rendered with custom Text transform"
+  const expectedDataRichText = (
+    "This was rendered with custom rich text transform"
+  )
   const expectedDataParagraph = (
-    "This was rendered with a custom paragraph transform"
+    "This was rendered with custom paragraph transform"
   )
 
   const MyParagraph = createElementTransform(
@@ -341,8 +347,8 @@ test("Renders nodes with custom transform", withRender, (t, render) => {
     )
   )
 
-  const MyText = createLeafTransform(
-    isText,
+  const MyPlainText = createLeafTransform(
+    isPlainText,
 
     ({attributes, children}) => (
       <span {...attributes} id="text" data-text={expectedDataText}>
@@ -351,21 +357,50 @@ test("Renders nodes with custom transform", withRender, (t, render) => {
     )
   )
 
+  const MyRichText = createLeafTransform(
+    isRichText,
+
+    ({leaf, attributes, children}) => {
+      let element: ReactNode = children
+
+      if (leaf.bold) {
+        element = <strong>{children}</strong>
+      }
+
+      return (
+        <span
+          {...attributes}
+
+          id="rich-text"
+          data-rich-text={expectedDataRichText}
+        >{
+          element}
+        </span>
+      )
+    }
+  )
+
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
-    children: [{
-      type: ELEMENT_LINK,
-      url: "https://example.com/",
-      children: [{
-        text: "Example URL"
-      }]
-    }]
+    children: [
+      {
+        type: ELEMENT_LINK,
+        url: "https://example.com/",
+        children: [{
+          text: "Example URL"
+        }]
+      },
+      {
+        text: "Bold text",
+        bold: true
+      }
+    ]
   }]
 
   const {container} = render(transformNodes(nodes, {
     transforms: {
       elements: [MyParagraph, MyLink as any],
-      leaves: [MyText]
+      leaves: [MyPlainText, MyRichText]
     }
   }))
 
@@ -397,6 +432,15 @@ test("Renders nodes with custom transform", withRender, (t, render) => {
 
   t.true(actualText instanceof HTMLSpanElement)
   t.is(actualText.dataset.text, expectedDataText)
+
+  const actualRichText = container.querySelector<HTMLSpanElement>("#rich-text")
+
+  if (!actualRichText) {
+    return t.fail()
+  }
+
+  t.true(actualRichText instanceof HTMLSpanElement)
+  t.is(actualRichText.dataset.richText, expectedDataRichText)
 })
 
 test("Throws an error for invalid root node type", t => {
