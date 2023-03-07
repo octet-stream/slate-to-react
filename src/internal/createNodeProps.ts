@@ -1,7 +1,6 @@
 import type {RenderElementProps, RenderLeafProps} from "slate-react"
 import type {ReactNode} from "react"
 import type {Text} from "slate"
-// import type {TypeOf} from "ts-expect"
 
 import {nanoid} from "nanoid"
 
