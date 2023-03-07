@@ -21,7 +21,8 @@ import {
 import type {
   NodeTransform,
   LeafTransform,
-  ElementTransform
+  ElementTransform,
+  TransformImplementation
 } from "./createTransform.js"
 import type {Node} from "./Node.js"
 
@@ -37,7 +38,7 @@ export interface Transforms {
   /**
    * A list of transforms for `element` nodes
    */
-  elements?: ElementTransform[]
+  elements?: ElementTransform<any>[] // TODO: I give up for now, but this must be fixed.
 }
 
 export interface TransformNodesOptions {
@@ -53,7 +54,7 @@ export interface TransformNodesOptions {
 function getTransform<TNode extends Descendant>(
   props: NodeProps<TNode>,
   transforms: NodeTransform<TNode>[]
-) {
+): TransformImplementation<TNode> {
   const transform = transforms.find(({matcher}) => matcher(props))
 
   if (!transform) {
@@ -67,17 +68,17 @@ function getTransform<TNode extends Descendant>(
  * @api private
  */
 const getLeafTransform = (
-  props: LeafProps,
+  props: LeafProps<Text>,
   transforms: NodeTransform<Text>[]
-) => getTransform(props, transforms)
+): TransformImplementation<Text> => getTransform(props, transforms)
 
 /**
  * @api private
  */
 const getElementTransform = (
-  props: ElementProps,
+  props: ElementProps<Node>,
   transforms: NodeTransform<Node>[]
-) => getTransform(props, transforms)
+): TransformImplementation<Node> => getTransform(props, transforms)
 
 /**
  * @api private
@@ -121,14 +122,14 @@ export const transformNodes = (
   /* eslint-disable indent */
   nodes: Node[],
   options: TransformNodesOptions = {}
-  ): ReactElement => {
+): ReactElement => {
   /* eslint-enable @typescript-eslint/indent */
   /* eslint-enable indent */
   const result: ReactElement[] = []
 
-  const transforms = {
-    leaves: (options.transforms?.leaves ?? []).concat(leaves),
-    elements: (options.transforms?.elements ?? []).concat(elements as any)
+  const transforms: Required<Transforms> = {
+    leaves: [...(options.transforms?.leaves ?? []), ...leaves],
+    elements: [...(options.transforms?.elements ?? []), ...elements]
   }
 
   for (const node of nodes) {

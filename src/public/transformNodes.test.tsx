@@ -399,7 +399,7 @@ test("Renders nodes with custom transform", withRender, (t, render) => {
 
   const {container} = render(transformNodes(nodes, {
     transforms: {
-      elements: [MyParagraph, MyLink as any],
+      elements: [MyParagraph, MyLink],
       leaves: [MyPlainText, MyRichText]
     }
   }))
