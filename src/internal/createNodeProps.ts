@@ -53,33 +53,17 @@ export type LeafProps<T extends Text = Text> =
     attributes: Replace<LeafBaseProps["attributes"], PropsWithKey>
   }>
 
-function createNodeProps<TNode extends Descendant>(
-  props: NodeBaseProps<TNode>
-): NodeProps<TNode> {
-  const key = nanoid()
-
-  return {
-    ...props,
-
-    attributes: {
-      ...props.attributes,
-
-      key
-    }
-  } as NodeProps<TNode>
-}
-
-export const createLeafProps = <T extends Text = Text>(node: T) => (
-  // @ts-expect-error Fix this later
-  createNodeProps({
+export const createLeafProps = <T extends Text = Text>(
+  node: T
+): LeafProps<T> => ({
     leaf: node,
     text: node,
     children: node.text,
     attributes: {
-      "data-slate-leaf": true
+      key: nanoid(),
+      "data-slate-leaf": true,
     }
   })
-)
 
 export interface CreateElementPropsOptions {
   inline?: boolean
@@ -89,16 +73,16 @@ export interface CreateElementPropsOptions {
 export function createElementProps<T extends Node = Node>(
   node: Replace<T, ElementWithChildren>,
   options: CreateElementPropsOptions = {}
-) {
-  // @ts-expect-error
-  const props = createNodeProps({
+): ElementProps<T> {
+  const props: ElementProps<T> = {
     element: node,
     children: node.children,
     attributes: {
+      ref: null,
+      key: nanoid(),
       "data-slate-node": "element",
-      ref: null
     }
-  })
+  }
 
   if (options.inline) {
     props.attributes["data-slate-inline"] = true
