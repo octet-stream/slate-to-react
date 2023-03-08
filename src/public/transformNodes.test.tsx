@@ -11,8 +11,9 @@ import {
   HEADINGS_LIST,
   ELEMENT_BLOCKQUOTE
 } from "../internal/constants.js"
-
+import {NoMatcherError} from "../internal/NoMatcherError.js"
 import {isRichText, isPlainText} from "../internal/matchers.js"
+
 import type {Blockquote} from "../internal/type/Blockquote.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {RichText} from "../internal/type/RichText.js"
@@ -454,5 +455,21 @@ test("Throws an error for invalid root node type", t => {
   t.throws(trap, {
     instanceOf: TypeError,
     message: "Root element must be of Element type"
+  })
+})
+
+test("Throws an error when no matches found for given node type", t => {
+  const nodeType = "some-unknown-custom-tag"
+
+  const trap = () => transformNodes([{
+    type: "some-unknown-custom-tag",
+    children: [{
+      text: "This would fail"
+    }]
+  }])
+
+  t.throws(trap, {
+    instanceOf: NoMatcherError,
+    message: `Cannot find transform for node Element<${nodeType}>`
   })
 })
