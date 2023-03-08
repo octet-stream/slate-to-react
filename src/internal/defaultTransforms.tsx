@@ -16,6 +16,11 @@ import {isRichText, isPlainText, isEmptyText} from "./matchers.js"
 import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
 import {isSubscriptRichText} from "./isSubscriptRichText.js"
 
+/**
+ * Transforms empty text nodes to `<br />` tag.
+ *
+ * @api private
+ */
 export const EmptyText = createLeafTransform(
   isEmptyText,
 
@@ -23,6 +28,11 @@ export const EmptyText = createLeafTransform(
   ({attributes}) => <br {...attributes} />
 )
 
+/**
+ * Transforms `RichText` nodes using corresponding HTML tags.
+ *
+ * @api private
+ */
 export const RichText = createLeafTransform(
   isRichText,
 
@@ -59,6 +69,11 @@ export const RichText = createLeafTransform(
   }
 )
 
+/**
+ * Transforms plain text to `<span>` tag.
+ *
+ * @api private
+ */
 export const PlainText = createLeafTransform(
   isPlainText,
 
@@ -69,6 +84,11 @@ export const PlainText = createLeafTransform(
   )
 )
 
+/**
+ * Transforms `Link` nodes to `<a>` tag.
+ *
+ * @api private
+ */
 const Link = createElementTransform(
   isLink,
 
@@ -79,6 +99,10 @@ const Link = createElementTransform(
   )
 )
 
+/**
+ * Transforms `Paragraph` nodes to `<p>` tag.
+ * @api private
+ */
 export const Paragraph = createElementTransform(
   isParagraph,
 
@@ -89,6 +113,11 @@ export const Paragraph = createElementTransform(
   )
 )
 
+/**
+ * Transforms `Blockquote` nodes to `<blockquote>` tag.
+ *
+ * @api private
+ */
 export const Blockquote = createElementTransform(
   isBlockquote,
 
@@ -99,6 +128,11 @@ export const Blockquote = createElementTransform(
   )
 )
 
+/**
+ * Transforms any valid `Heading` tag to corresponding heading HTML tag.
+ *
+ * @api private
+ */
 export const Heading = createElementTransform(
   isHeading,
 
@@ -107,6 +141,16 @@ export const Heading = createElementTransform(
   )
 )
 
+/**
+ * List of default leaf node transforms
+ *
+ * @api private
+ */
 export const leaves = [EmptyText, RichText, PlainText]
 
+/**
+ * List of default element node transforms
+ *
+ * @api private
+ */
 export const elements = [Paragraph, Link, Blockquote, Heading]
