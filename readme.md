@@ -139,6 +139,88 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
+4. Use can define and use custom transforms to control the output for each node. For this example, let's define Link transformer. It will render `next/link` component for website-own links and `<a>` tag for links to external resources:
+
+```tsx
+import {
+  SlateView,
+  createElementNodeMatcher,
+  createElementTransform
+} from "slate-to-react"
+
+import type {Node, Replace, ElementProps} from "slate-to-react"
+import type {Text} from "slate"
+import type {FC} from "react"
+
+import Link from "next/Link"
+
+import {isInternalUrl} from "./utils/isInternalUrl.js"
+
+type Anchor = Replace<Node<"a">, {
+  url: string
+  children: Text[]
+}>
+
+// First of all, we need a matcher for `Link` element node.
+// Node that slate-to-react has a bunch of builtin matchers, including `isLink`, so you can skip this step
+export const isLink = createElementNodeMatcher<Anchor>(
+  (node): node is ElementProps<Anchor> => (
+    node.type === "a"
+  )
+)
+
+// Then define a transform for this element. Transform factory function takes two arguments:
+// 1. Node matcher. In this case that would be our `isLink` marcher, which implements `ElementMatcher` type.
+// 2. Transformer implementation. This function takes `ElementProps` as an argument, and should return `ReactElement` for this node.
+export const AnchorTransform = createElementTransform(
+  isLink,
+
+  ({element, attributes, children}) => (
+    isInternalUrl(element.url)
+      ? (
+        <Link {...attributes} href={element.url}>
+          {children}
+        </Link>
+      )
+      : (
+        <a {...attributes} href={element.url} rel="noopener noreferrer" target="_blank">
+          {children}
+        </a>
+      )
+  )
+)
+
+export const MyComponent: FC = () => (
+  <SlateView
+    transforms={{
+      elements: [AnchorTransform] // With that, `SlateView` component will render `Anchor` nodes using our own transform, instead of default.
+    }}
+    nodes={[
+      {
+        type: "p",
+        children: [{ // This node will be rendered as regular `<a>` tag because its url points to an external resource
+          type: "a",
+          url: "https://example.com",
+          children: [{
+            text: "External link to example.com"
+          }]
+        }]
+      },
+      {
+        type: "p",
+        children: [{ // This node will be rendered using `next/link` component, because it has an internal url
+          type: "a",
+          url: "/about",
+          children: [{
+            text: "About page"
+          }]
+        }]
+      }
+    ]}
+  />
+)
+```
+
 ## API
 
 ### `SlateView`
