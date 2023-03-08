@@ -9,22 +9,24 @@ import {
   isLink,
   isParagraph,
   isBlockquote,
-  isHeading
+  isHeading,
 } from "../public/matchers.js"
 
+import {isRichText, isPlainText, isEmptyText} from "./matchers.js"
 import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
 import {isSubscriptRichText} from "./isSubscriptRichText.js"
-import {isRichText, isPlainText} from "./matchers.js"
+
+export const EmptyText = createLeafTransform(
+  isEmptyText,
+
+  // Render <br /> for empty text blocks as it's probably just an empty line
+  ({attributes}) => <br {...attributes} />
+)
 
 export const RichText = createLeafTransform(
   isRichText,
 
   ({attributes, leaf, children}) => {
-    // Render <br /> for empty text blocks as it's probably just an empty line
-    if (!children) {
-      return <br {...attributes} />
-    }
-
     let element: ReactNode = children
 
     if (leaf.bold) {
@@ -61,13 +63,9 @@ export const PlainText = createLeafTransform(
   isPlainText,
 
   ({attributes, children}) => (
-    children ? (
-      <span {...attributes}>
-        {children}
-      </span>
-    ) : (
-      <br {...attributes} />
-    )
+    <span {...attributes}>
+      {children}
+    </span>
   )
 )
 
@@ -109,6 +107,6 @@ export const Heading = createElementTransform(
   )
 )
 
-export const leaves = [RichText, PlainText]
+export const leaves = [EmptyText, RichText, PlainText]
 
 export const elements = [Paragraph, Link, Blockquote, Heading]

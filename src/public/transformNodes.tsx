@@ -33,12 +33,12 @@ export interface Transforms {
   /**
    * A list of transforms for `leaf` nodes
    */
-  leaves?: LeafTransform[]
+  leaves?: LeafTransform<any>[] // FIXME: I give up for now, but this must be fixed.
 
   /**
    * A list of transforms for `element` nodes
    */
-  elements?: ElementTransform<any>[] // TODO: I give up for now, but this must be fixed.
+  elements?: ElementTransform<any>[] // FIXME: I give up for now, but this must be fixed.
 }
 
 export interface TransformNodesOptions {

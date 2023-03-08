@@ -1,11 +1,21 @@
 import type {Text} from "slate"
 
 import type {RichText} from "./type/RichText.js"
+import type {EmptyText} from "./type/EmptyText.js"
 import type {LeafProps} from "./createNodeProps.js"
 
 import {isSubscriptRichText} from "./isSubscriptRichText.js"
 import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
 import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
+
+/**
+ * Matches empty text nodes
+ */
+export const isEmptyText = createLeafNodeMatcher<EmptyText>(
+  (node): node is LeafProps<EmptyText> => (
+    typeof node.leaf.text === "string" && node.leaf.text === ""
+  )
+)
 
 /**
  * Checks if given node is of `RichText` type
