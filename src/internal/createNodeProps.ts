@@ -9,49 +9,81 @@ import type {Replace} from "../public/Replace.js"
 
 import type {Descendant} from "./type/Descendant.js"
 
+/**
+ * @api private
+ */
 interface PropsWithKey {
   key: string
 }
 
+/**
+ * @api private
+ */
 interface LeafWithChildren {
   children: string
 }
 
+/**
+ * @api private
+ */
 interface ElementWithChildren {
   children: ReactNode
 }
 
-export type LeafBaseProps<T extends Text = Text> =
+/**
+ * @api private
+ */
+export type LeafNodeBase<T extends Text = Text> =
   Replace<RenderLeafProps, LeafWithChildren & {
     leaf: T
     text: T
   }>
 
-export type ElementBaseProps<T extends Node = Node> =
+/**
+ * @api private
+ */
+export type ElementNodeBase<T extends Node = Node> =
   Replace<RenderElementProps, ElementWithChildren & {
-    element: Replace<T, ElementWithChildren>
+    element: T
   }>
 
+/**
+ * @api private
+ */
 export type NodeBaseProps<T extends Descendant> = T extends Node
-  ? ElementBaseProps<T>
+  ? ElementNodeBase<T>
   : T extends Text
-    ? LeafBaseProps<T>
+    ? LeafNodeBase<T>
     : never
 
+/**
+ * @api private
+ */
 export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
   attributes: NodeBaseProps<T>["attributes"] & PropsWithKey
 }>
 
+/**
+ * @api public
+ */
 export type ElementProps<T extends Node = Node> =
-  Replace<ElementBaseProps<T>, {
-    attributes: Replace<ElementBaseProps["attributes"], PropsWithKey>
+  Replace<ElementNodeBase<T>, {
+    attributes: Replace<ElementNodeBase["attributes"], PropsWithKey>
   }>
 
+/**
+ * @api public
+ */
 export type LeafProps<T extends Text = Text> =
-  Replace<LeafBaseProps<T>, LeafWithChildren & {
-    attributes: Replace<LeafBaseProps["attributes"], PropsWithKey>
+  Replace<LeafNodeBase<T>, LeafWithChildren & {
+    attributes: Replace<LeafNodeBase["attributes"], PropsWithKey>
   }>
 
+/**
+ * Creates render props for `Leaf` element
+ *
+ * @param node Leaf node to create render props for
+ */
 export const createLeafProps = <T extends Text = Text>(
   node: T
 ): LeafProps<T> => ({
@@ -69,13 +101,20 @@ export interface CreateElementPropsOptions {
   void?: boolean
 }
 
+/**
+ * Creates render props for `Element` node
+ *
+ * @param node Element node to create rener props for
+ * @param options Additional options
+ */
 export function createElementProps<T extends Node = Node>(
-  node: Replace<T, ElementWithChildren>,
+  node: T,
+  children: ReactNode,
   options: CreateElementPropsOptions = {}
 ): ElementProps<T> {
   const props: ElementProps<T> = {
+    children,
     element: node,
-    children: node.children,
     attributes: {
       ref: null,
       key: nanoid(),

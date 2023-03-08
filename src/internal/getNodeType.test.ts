@@ -1,5 +1,7 @@
 import test from "ava"
 
+import {createElement} from "react"
+
 import type {RichText} from "./type/RichText.js"
 import type {Link} from "./type/Link.js"
 
@@ -30,7 +32,11 @@ test("Returns Element<type> for element node", t => {
   }
 
   const expected = `Element<${ELEMENT_LINK}>`
-  const actual = getNodeType(createElementProps(node as any))
+  const actual = getNodeType(createElementProps(
+    node,
+
+    createElement(node.type, {href: node.url}, "Example URL")
+  ))
 
   t.is(actual, expected)
 })

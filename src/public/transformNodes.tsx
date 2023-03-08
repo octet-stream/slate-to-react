@@ -92,7 +92,7 @@ function compileNodes(
   for (const node of nodes) {
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
-      const props = createElementProps({...node, children})
+      const props = createElementProps(node, children)
       const transform = getElementTransform(props, transforms.elements)
       const element = transform(props)
 
@@ -135,7 +135,7 @@ export const transformNodes = (
   for (const node of nodes) {
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
-      const props = createElementProps({...node, children})
+      const props = createElementProps(node, children)
       const transform = getElementTransform(props, transforms.elements)
       const element = transform(props)
 

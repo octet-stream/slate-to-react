@@ -31,10 +31,16 @@ test("Creates valid props for leaf node", t => {
 })
 
 test("Creates valid props for Element node", t => {
-  const actual = createElementProps({
-    type: ELEMENT_PARAGRAPH,
-    children: createElement("span", undefined, "Some text")
-  })
+  const actual = createElementProps(
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [{
+        text: "Some text"
+      }]
+    },
+
+    createElement("span", undefined, "Some text")
+  )
 
   t.is(actual.attributes["data-slate-node"], "element")
   t.is(typeof actual.attributes.key, "string")
@@ -44,8 +50,12 @@ test("Creates data-slate-inline attribute for inline Element node", t => {
   const actual = createElementProps(
     {
       type: ELEMENT_PARAGRAPH,
-      children: createElement("span", undefined, "Some text")
+      children: [{
+        text: "Some text"
+      }]
     },
+
+    createElement("span", undefined, "Some text"),
 
     {
       inline: true
@@ -59,8 +69,12 @@ test("Creates data-slate-void attribute for inline Element node", t => {
   const actual = createElementProps(
     {
       type: ELEMENT_PARAGRAPH,
-      children: createElement("span", undefined, "Some text")
+      children: [{
+        text: "Some text"
+      }]
     },
+
+    createElement("span", undefined, "Some text"),
 
     {
       void: true
