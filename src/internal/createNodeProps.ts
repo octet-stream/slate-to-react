@@ -105,6 +105,7 @@ export interface CreateElementPropsOptions {
  * Creates render props for `Element` node
  *
  * @param node Element node to create rener props for
+ * @param children Descendant ReactElement for this node
  * @param options Additional options
  */
 export function createElementProps<T extends Node = Node>(
