@@ -271,7 +271,7 @@ Returns `LeafNodeMatcher<TLeaf>` matcher, where `TLeaf` type parameter defaults 
 Now let's create a `RichText` matcher, just for a quick demonstration:
 
 ```ts
-import {Text} from "slate"
+import type {Text} from "slate"
 
 import {createLeafNodeMatcher} from "slate-to-react"
 
