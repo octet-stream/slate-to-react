@@ -139,7 +139,7 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
-4. You can define and use custom transforms to control the output for each node. For this example, let's define Link transformer. It will render `next/link` component for website-own links and `<a>` tag for links to external resources:
+4. You can define and use custom transforms to control the output for each node. For this example, let's define Link transformer. It will render [`next/link`](https://nextjs.org/docs/api-reference/next/link) component for website-own links and `<a>` tag for links to external resources:
 
 ```tsx
 import {
