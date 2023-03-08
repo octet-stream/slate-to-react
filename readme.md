@@ -10,7 +10,7 @@ React component and utilities to transform [Slate](https://github.com/ianstormta
 ## Roadmap
 
 - [x] Minimal implementation with default transforms;
-- [x] Support custom transforms;
+- [x] Support custom transforms.
 
 ## Installation
 
@@ -168,17 +168,19 @@ export interface RichText extends Text {
   code?: boolean
 }
 
-export const isRichText = createLeafNodeMatcher<RichText>((node): node is LeafProps<RichText> => (
-  typeof node.leaf.text === "string" && !!(
-    typeof node.leaf.bold === "boolean"
-      || typeof node.leaf.italic === "boolean"
-      || typeof node.leaf.strikethrough === "boolean"
-      || typeof node.leaf.underline === "boolean"
-      || typeof node.leaf.code === "boolean"
-      || typeof node.leaf.superscript === "boolean"
-      || typeof node.leaf.subscript === "boolean"
+export const isRichText = createLeafNodeMatcher<RichText>(
+  (node): node is LeafProps<RichText> => (
+    typeof node.leaf.text === "string" && !!(
+      typeof node.leaf.bold === "boolean"
+        || typeof node.leaf.italic === "boolean"
+        || typeof node.leaf.strikethrough === "boolean"
+        || typeof node.leaf.underline === "boolean"
+        || typeof node.leaf.code === "boolean"
+        || typeof node.leaf.superscript === "boolean"
+        || typeof node.leaf.subscript === "boolean"
+    )
   )
-))
+)
 ```
 
 This `isRichText` matcher will match only `Text` nodes that have at least one of text formatting property from `RichText` interface.
