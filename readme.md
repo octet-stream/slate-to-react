@@ -540,7 +540,7 @@ Returns `true` when given node is a `Heading<"h6">` node.
 
 ### `Node<T>`
 
-Stricten extension on to of Slate's `Element` type. It replaces its `children` with a self-reference list of `Node` and adds `type` property which takes the type of `T` parameter.
+Stricten extension on top of Slate's `Element` type. It replaces its `children` with a self-reference list of `Node` and adds `type` property which takes the type of `T` parameter.
 
 | Name | Extends     | Required  | Default  | Description                               |
 |------|:-----------:|:---------:|:--------:|-------------------------------------------|
