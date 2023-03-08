@@ -554,3 +554,15 @@ Replaces object properties in the `L` (target) object with the ones from the `R`
 |------|:-----------:|:---------:|:--------:|----------------------------------------------------------------------------------|
 | L    | `object`    | Yes       | —        | Target object which properties are to be replaced using Source object            |
 | R    | `object`    | Yes       | —        | Source object which properties will replace and extend the ones on Target object |
+
+### Default transforms
+
+By default `slate-to-react` has default transforms for following nodes:
+
+* PlainText - transforms **only** text nodes **without** formatting into `<span>` HTML tag;
+* RichText - transfomrs **only** text nodes **with** at least one of the formatting property into corresponding formatting HTML tag (e. g. `<strong>` for **bold**, `<i>` for *italic*, `<u>` <u>underline</u> etc.) wrapped with `<span>` HTML tag;
+* EmptyText - transforms **only** empty `Text` nodes into `<br>` HTML tag;
+* Paragraph - transforms `Paragraph` nodes into `<p>` HTML tag;
+* Link - transforms `Link` nodes into `<a>` HTML tag;
+* Blockqoute - transforms `Blockqoute` nodes into `<blockqoute>` HTML tag;
+* Heading - transforms `Heading` nodes into `h<level>` HTML tag with corresponding `level` (e. g. `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`).
