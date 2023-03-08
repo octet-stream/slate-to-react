@@ -436,7 +436,7 @@ Matches `Text` nodes, with or without formatting.
 |------------|:---------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `LeafNodeProps<Text>` | Yes       | —       | A Slate `Leaf` node to test         |
 
-Returns `true` is given node is a `Text` node.
+Returns `true` when given node is a `Text` node.
 
 ### `isParagraph(node)`
 
@@ -446,7 +446,7 @@ Matches `Paragraph` nodes.
 |------------|:-----------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Paragraph>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Paragraph` node.
+Returns `true` when given node is a `Paragraph` node.
 
 ### `isLink(node)`
 
@@ -456,7 +456,7 @@ Matches `Link` nodes.
 |------------|:------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Link>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Link` node.
+Returns `true` when given node is a `Link` node.
 
 ### `isBlockquote(node)`
 
@@ -466,7 +466,7 @@ Matches `Blockqoute` nodes.
 |------------|:------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Blockquote>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Blockqoute` node.
+Returns `true` when given node is a `Blockqoute` node.
 
 ### `isHeading(node)`
 
@@ -476,7 +476,7 @@ Matches `Heading` nodes of every valid level (H1-H6).
 |------------|:---------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading` node.
+Returns `true` when given node is a `Heading` node.
 
 ### `isH1(node)`
 
@@ -486,7 +486,7 @@ Matches `H1` heading nodes.
 |------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading<"h1">>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading<"h1">` node.
+Returns `true` when given node is a `Heading<"h1">` node.
 
 ### `isH2(node)`
 
@@ -496,7 +496,7 @@ Matches `H2` heading nodes.
 |------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading<"h2">>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading<"h2">` node.
+Returns `true` when given node is a `Heading<"h2">` node.
 
 ### `isH3(node)`
 
@@ -506,7 +506,7 @@ Matches `H3` heading nodes.
 |------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading<"h3">>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading<"h3">` node.
+Returns `true` when given node is a `Heading<"h3">` node.
 
 ### `isH4(node)`
 
@@ -516,7 +516,7 @@ Matches `H4` heading nodes.
 |------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading<"h4">>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading<"h4">` node.
+Returns `true` when given node is a `Heading<"h4">` node.
 
 ### `isH5(node)`
 
@@ -526,7 +526,7 @@ Matches `H5` heading nodes.
 |------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading<"h5">>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading<"h5">` node.
+Returns `true` when given node is a `Heading<"h5">` node.
 
 ### `isH6(node)`
 
@@ -536,4 +536,4 @@ Matches `H6` heading nodes.
 |------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
 | node       | `ElementNodeProps<Heading<"h6">>` | Yes       | —       | A Slate `Element` node to test      |
 
-Returns `true` is given node is a `Heading<"h6">` node.
+Returns `true` when given node is a `Heading<"h6">` node.
