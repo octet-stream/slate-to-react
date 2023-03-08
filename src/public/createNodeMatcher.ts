@@ -4,12 +4,27 @@ import type {NodeProps} from "../internal/createNodeProps.js"
 
 import type {Node} from "./Node.js"
 
+/**
+ * Matches node of given type that satisfy predicate
+ *
+ * @api public
+ */
 export type NodeMatcher<T extends Node | Text> =
   (node: NodeProps<T>) => node is NodeProps<T>
 
+/**
+ * Matches a `Text` node that satisfy predicate
+ *
+ * @api public
+ */
 export type LeafNodeMatcher<TLeaf extends Text = Text> =
   NodeMatcher<TLeaf>
 
+/**
+ * Matches an `Element` node
+ *
+ * @api public
+ */
 export type ElementNodeMatcher<TElement extends Node = Node> =
   NodeMatcher<TElement>
 

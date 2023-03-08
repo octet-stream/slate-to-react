@@ -60,7 +60,7 @@ export type NodeBaseProps<T extends Descendant> = T extends Node
  * @api private
  */
 export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
-  attributes: NodeBaseProps<T>["attributes"] & PropsWithKey
+  attributes: Replace<NodeBaseProps<T>["attributes"], PropsWithKey>
 }>
 
 /**
@@ -91,8 +91,8 @@ export const createLeafProps = <T extends Text = Text>(
     text: node,
     children: node.text,
     attributes: {
-      key: nanoid(),
       "data-slate-leaf": true,
+      key: nanoid()
     }
   })
 
