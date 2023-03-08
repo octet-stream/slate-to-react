@@ -60,7 +60,42 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
-2. Alternatively you can use `transformNodes` function in your own component:
+2. You can also transform Slate nodes via `useSlateToReact` hook used inside `SlateView` component:
+
+```tsx
+import {createRoot} from "react-dom/client"
+import type {FC} from "react"
+
+import {useSlateToReact} from "slate-to-react"
+
+const App: FC = () => {
+  // This hook returns a signle ReactElement, so you can even return it from your component, no need for `React.Fragment` or any wrapper element.
+  const view = useSlateToReact([
+    type: "p",
+    children: [{
+      text: "Hello, world!"
+    }]
+  ])
+
+  return (
+    <div>
+      <div>
+        Transformed Slate nodes:
+      </div>
+
+      <div>
+        {view}
+      </div>
+    </div>
+  )
+}
+
+const root = document.querySelector("#root")
+
+createRoot(root).render(<App />)
+```
+
+3. Alternatively you can use `transformNodes` function in your own component:
 
 ```tsx
 import {createRoot} from "react-dom/client"
