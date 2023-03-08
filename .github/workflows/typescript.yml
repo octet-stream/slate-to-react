@@ -28,16 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: pnpm cache
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-pnpm-store
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-${{ hashFiles('**/.package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node }}-
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -46,8 +36,25 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7.29.0
-          run_install: true
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm i --frozen-cache
 
       - name: Run TypeScript
         run: pnpm run lint:types
