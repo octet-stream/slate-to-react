@@ -109,7 +109,7 @@ interface MySlateViewProps {
   nodes: Node[]
 }
 
-const MySlateView: FC<SMylateToReactProps> = ({nodes}) => {
+const MySlateView: FC<MySlateViewProps> = ({nodes}) => {
   const view = useMemo(() => transformNodes(nodes), [nodes])
 
   return (
