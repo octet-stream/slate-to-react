@@ -10,8 +10,7 @@ React component and utilities to transform [Slate](https://github.com/ianstormta
 ## Roadmap
 
 - [x] Minimal implementation with default transforms;
-- [ ] Support custom transforms;
-- [ ] Make `SlateView` and `transformNodes` generic functions
+- [x] Support custom transforms;
 
 ## Installation
 
