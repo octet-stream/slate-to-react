@@ -54,7 +54,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm i --frozen-cache
+        run: pnpm i --frozen-lockfile
 
       - name: Run ESLint
         run: pnpm run eslint
