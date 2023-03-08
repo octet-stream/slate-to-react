@@ -234,7 +234,7 @@ This component takes following props:
 | nodes      | `Node[]`     | Yes       | —       | List of `Slate` nodes to transform  |
 | transforms | `Transforms` | No        | —       | Custom transforms for `Slate` nodes |
 
-### `useSlateToReact(nodes)`
+### `useSlateToReact(nodes[, options])`
 
 React hook that transforms given Slate nodes to React elements and memoizes the result.
 
@@ -245,7 +245,7 @@ This hook takes following arguments:
 | nodes   | `Node[]`                | Yes       | —       | List of `Slate` nodes to transform |
 | options | `TransformNodesOptions` | No        | —       | Additional transform options       |
 
-### `transformNodes(nodes)`
+### `transformNodes(nodes[, options])`
 
 Transforms given Slate `nodes` to react elements.
 
