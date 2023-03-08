@@ -165,7 +165,7 @@ type Anchor = Replace<Node<"a">, {
 // Node that slate-to-react has a bunch of builtin matchers, including `isLink`, so you can skip this step
 export const isLink = createElementNodeMatcher<Anchor>(
   (node): node is ElementProps<Anchor> => (
-    node.type === "a"
+    node.element.type === "a" && typeof node.element.url === "string"
   )
 )
 
