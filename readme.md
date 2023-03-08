@@ -537,3 +537,20 @@ Matches `H6` heading nodes.
 | node       | `ElementNodeProps<Heading<"h6">>` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h6">` node.
+
+### `Node<T>`
+
+Stricten extension on to of Slate's `Element` type. It replaces its `children` with a self-reference list of `Node` and adds `type` property which takes the type of `T` parameter.
+
+| Name | Extends     | Required  | Default  | Description                               |
+|------|:-----------:|:---------:|:--------:|-------------------------------------------|
+| T    | `string`    | No        | `string` | A type parameter for Node `type` property |
+
+### `Replace<L, R>`
+
+Replaces object properties in the `L` (target) object with the ones from the `R` (source)
+
+| Name | Extends     | Required  | Default  | Description                                                                      |
+|------|:-----------:|:---------:|:--------:|----------------------------------------------------------------------------------|
+| L    | `object`    | Yes       | —        | Target object which properties are to be replaced using Source object            |
+| R    | `object`    | Yes       | —        | Source object which properties will replace and extend the ones on Target object |
