@@ -10,6 +10,8 @@ import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
 
 /**
  * Matches empty text nodes
+ *
+ * @api private
  */
 export const isEmptyText = createLeafNodeMatcher<EmptyText>(
   (node): node is LeafProps<EmptyText> => (
