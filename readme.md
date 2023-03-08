@@ -330,7 +330,7 @@ export type Link = Replace<Node, {
 
 export const isLink = createElementNodeMatcher<Link>(
   (node): node is ElementProps<Link> => (
-    node.element.type === ELEMENT_LINK && typeof node.element.url === "string"
+    node.element.type === "a" && typeof node.element.url === "string"
   )
 )
 ```
