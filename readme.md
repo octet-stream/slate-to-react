@@ -560,7 +560,7 @@ Replaces object properties in the `L` (target) object with the ones from the `R`
 By default `slate-to-react` has default transforms for following nodes:
 
 * PlainText - transforms **only** text nodes **without** formatting into `<span>` HTML tag;
-* RichText - transfomrs **only** text nodes **with** at least one of the formatting property into corresponding formatting HTML tag (e. g. `<strong>` for **bold**, `<i>` for *italic*, `<u>` <u>underline</u> etc.) wrapped with `<span>` HTML tag;
+* RichText - transfomrs **only** text nodes **with** at least one of the formatting property into corresponding formatting HTML tag (e. g. `<strong>` for **bold**, `<i>` for *italic* etc.) wrapped with `<span>` HTML tag;
 * EmptyText - transforms **only** empty `Text` nodes into `<br>` HTML tag;
 * Paragraph - transforms `Paragraph` nodes into `<p>` HTML tag;
 * Link - transforms `Link` nodes into `<a>` HTML tag;
