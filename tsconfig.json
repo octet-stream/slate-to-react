@@ -14,5 +14,8 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",
     "jsx": "react"
+  },
+  "ts-node": {
+    "preferTsExts": true
   }
 }
