@@ -148,7 +148,7 @@ import {
   createElementTransform
 } from "slate-to-react"
 
-import type {Node, Replace, ElementProps} from "slate-to-react"
+import type {Node, Replace} from "slate-to-react"
 import type {Text} from "slate"
 import type {FC} from "react"
 
@@ -164,8 +164,8 @@ type Anchor = Replace<Node<"a">, {
 // First of all, we need a matcher for `Link` element node.
 // Node that slate-to-react has a bunch of builtin matchers, including `isLink`, so you can skip this step
 export const isLink = createElementNodeMatcher<Anchor>(
-  (node): node is ElementProps<Anchor> => (
-    node.element.type === "a" && typeof node.element.url === "string"
+  (node): node is Anchor => (
+    node.type === "a" && typeof node.url === "string"
   )
 )
 
@@ -286,15 +286,15 @@ export interface RichText extends Text {
 }
 
 export const isRichText = createLeafNodeMatcher<RichText>(
-  (node): node is LeafProps<RichText> => (
-    typeof node.leaf.text === "string" && !!(
-      typeof node.leaf.bold === "boolean"
-        || typeof node.leaf.italic === "boolean"
-        || typeof node.leaf.strikethrough === "boolean"
-        || typeof node.leaf.underline === "boolean"
-        || typeof node.leaf.code === "boolean"
-        || typeof node.leaf.superscript === "boolean"
-        || typeof node.leaf.subscript === "boolean"
+  (node): node is RichText => (
+    typeof node.text === "string" && !!(
+      typeof node.bold === "boolean"
+        || typeof node.italic === "boolean"
+        || typeof node.strikethrough === "boolean"
+        || typeof node.underline === "boolean"
+        || typeof node.code === "boolean"
+        || typeof node.superscript === "boolean"
+        || typeof node.subscript === "boolean"
     )
   )
 )
@@ -329,8 +329,8 @@ export type Link = Replace<Node, {
 }>
 
 export const isLink = createElementNodeMatcher<Link>(
-  (node): node is ElementProps<Link> => (
-    node.element.type === "a" && typeof node.element.url === "string"
+  (node): node is Link => (
+    node.type === "a" && typeof node.url === "string"
   )
 )
 ```
@@ -382,9 +382,9 @@ export const RichText = createLeafTransform(
       element = <s>{element}</s>
     }
 
-    if (isSuperscriptRichText(leaf)) {
+    if (leaf.superscript) {
       element = <sup>{element}</sup>
-    } else if (isSubscriptRichText(leaf)) {
+    } else if (leaf.subscript) {
       element = <sub>{element}</sub>
     }
 
@@ -432,9 +432,9 @@ export const Link = createElementTransform(
 
 Matches `Text` nodes, with or without formatting.
 
-| Name       | Type                  | Required  | Default | Description                         |
-|------------|:---------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `LeafNodeProps<Text>` | Yes       | —       | A Slate `Leaf` node to test         |
+| Name       | Type   | Required  | Default | Description                         |
+|------------|:------:|:---------:|:-------:|-------------------------------------|
+| node       | `Text` | Yes       | —       | A Slate `Leaf` node to test         |
 
 Returns `true` when given node is a `Text` node.
 
@@ -442,9 +442,9 @@ Returns `true` when given node is a `Text` node.
 
 Matches `Paragraph` nodes.
 
-| Name       | Type                          | Required  | Default | Description                         |
-|------------|:-----------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Paragraph>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type        | Required  | Default | Description                         |
+|------------|:-----------:|:---------:|:-------:|-------------------------------------|
+| node       | `Paragraph` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Paragraph` node.
 
@@ -452,9 +452,9 @@ Returns `true` when given node is a `Paragraph` node.
 
 Matches `Link` nodes.
 
-| Name       | Type                     | Required  | Default | Description                         |
-|------------|:------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Link>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type   | Required  | Default | Description                         |
+|------------|:------:|:---------:|:-------:|-------------------------------------|
+| node       | `Link` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Link` node.
 
@@ -462,9 +462,9 @@ Returns `true` when given node is a `Link` node.
 
 Matches `Blockqoute` nodes.
 
-| Name       | Type                           | Required  | Default | Description                         |
-|------------|:------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Blockquote>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type         | Required  | Default | Description                         |
+|------------|:------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Blockquote` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Blockqoute` node.
 
@@ -472,9 +472,9 @@ Returns `true` when given node is a `Blockqoute` node.
 
 Matches `Heading` nodes of every valid level (H1-H6).
 
-| Name       | Type                        | Required  | Default | Description                         |
-|------------|:---------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type      | Required  | Default | Description                         |
+|------------|:---------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading` node.
 
@@ -482,9 +482,9 @@ Returns `true` when given node is a `Heading` node.
 
 Matches `H1` heading nodes.
 
-| Name       | Type                              | Required  | Default | Description                         |
-|------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading<"h1">>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type            | Required  | Default | Description                         |
+|------------|:---------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading<"h1">` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h1">` node.
 
@@ -492,9 +492,9 @@ Returns `true` when given node is a `Heading<"h1">` node.
 
 Matches `H2` heading nodes.
 
-| Name       | Type                              | Required  | Default | Description                         |
-|------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading<"h2">>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type            | Required  | Default | Description                         |
+|------------|:---------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading<"h2">` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h2">` node.
 
@@ -502,9 +502,9 @@ Returns `true` when given node is a `Heading<"h2">` node.
 
 Matches `H3` heading nodes.
 
-| Name       | Type                              | Required  | Default | Description                         |
-|------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading<"h3">>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type             | Required  | Default | Description                         |
+|------------|:----------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading<<"h3">` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h3">` node.
 
@@ -512,9 +512,9 @@ Returns `true` when given node is a `Heading<"h3">` node.
 
 Matches `H4` heading nodes.
 
-| Name       | Type                              | Required  | Default | Description                         |
-|------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading<"h4">>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type            | Required  | Default | Description                         |
+|------------|:---------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading<"h4">` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h4">` node.
 
@@ -522,9 +522,9 @@ Returns `true` when given node is a `Heading<"h4">` node.
 
 Matches `H5` heading nodes.
 
-| Name       | Type                              | Required  | Default | Description                         |
-|------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading<"h5">>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type            | Required  | Default | Description                         |
+|------------|:---------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading<"h5">` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h5">` node.
 
@@ -532,9 +532,9 @@ Returns `true` when given node is a `Heading<"h5">` node.
 
 Matches `H6` heading nodes.
 
-| Name       | Type                              | Required  | Default | Description                         |
-|------------|:---------------------------------:|:---------:|:-------:|-------------------------------------|
-| node       | `ElementNodeProps<Heading<"h6">>` | Yes       | —       | A Slate `Element` node to test      |
+| Name       | Type            | Required  | Default | Description                         |
+|------------|:---------------:|:---------:|:-------:|-------------------------------------|
+| node       | `Heading<"h6">` | Yes       | —       | A Slate `Element` node to test      |
 
 Returns `true` when given node is a `Heading<"h6">` node.
 
