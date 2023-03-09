@@ -470,6 +470,6 @@ test("Throws an error when no matches found for given node type", t => {
 
   t.throws(trap, {
     instanceOf: NoMatcherError,
-    message: `Cannot find transform for node Element<${nodeType}>`
+    message: `Cannot find transform for node Node<${nodeType}>`
   })
 })
