@@ -1,7 +1,5 @@
 import {Text} from "slate"
 
-import type {NodeProps} from "../internal/createNodeProps.js"
-
 import type {Node} from "./Node.js"
 
 /**
@@ -9,8 +7,7 @@ import type {Node} from "./Node.js"
  *
  * @api public
  */
-export type NodeMatcher<T extends Node | Text> =
-  (node: NodeProps<T>) => node is NodeProps<T>
+export type NodeMatcher<T extends Node | Text> = (node: T) => node is T
 
 /**
  * Matches a `Text` node that satisfy predicate

@@ -1,17 +1,11 @@
 import test from "ava"
 
-import {createElement} from "react"
-
 import type {Link} from "../internal/type/Link.js"
 import type {RichText} from "../internal/type/RichText.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
 import type {Blockquote} from "../internal/type/Blockquote.js"
 import type {Heading, Headings} from "../internal/type/Heading.js"
 
-import {
-  createLeafProps,
-  createElementProps
-} from "../internal/createNodeProps.js"
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -47,7 +41,7 @@ test("isText matches any Text node", t => {
     bold: true
   }
 
-  t.true(isText(createLeafProps(node)))
+  t.true(isText(node))
 })
 
 test("isParagraph matches paragraph node", t => {
@@ -58,11 +52,7 @@ test("isParagraph matches paragraph node", t => {
     }]
   }
 
-  const actual = isParagraph(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Some text")
-  ))
+  const actual = isParagraph(node)
 
   t.true(actual)
 })
@@ -76,11 +66,7 @@ test("isLink matches link node", t => {
     }]
   }
 
-  const actual = isLink(createElementProps(
-    node,
-
-    createElement(node.type, {href: node.url}, "Example link")
-  ))
+  const actual = isLink(node)
 
   t.true(actual)
 })
@@ -93,11 +79,7 @@ test("isBlockquote matches blockquote node", t => {
     }]
   }
 
-  const actual = isBlockquote(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Some text")
-  ))
+  const actual = isBlockquote(node)
 
   t.true(actual)
 })
@@ -112,11 +94,7 @@ test("isHeading matches any heading", t => {
         text: `Heading H${heading}`
       }]
     }) as Heading<typeof heading>)
-    .forEach(node => t.true(isHeading(createElementProps(
-      node,
-
-      createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-    ))))
+    .forEach(node => t.true(isHeading(node)))
 })
 
 test("isH1 matches H1 heading node", t => {
@@ -127,11 +105,7 @@ test("isH1 matches H1 heading node", t => {
     }]
   }
 
-  t.true(isH1(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Heading H1")
-  )))
+  t.true(isH1(node))
 })
 
 test("isH1 does not match other headings", t => {
@@ -145,11 +119,7 @@ test("isH1 does not match other headings", t => {
   }) as Heading<typeof heading>)
 
   // @ts-expect-error
-  t.false(nodes.every(node => isH1(createElementProps(
-    node,
-
-    createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-  ))))
+  t.false(nodes.every(isH1))
 })
 
 test("isH2 matches H2 heading node", t => {
@@ -160,11 +130,7 @@ test("isH2 matches H2 heading node", t => {
     }]
   }
 
-  t.true(isH2(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Heading H2")
-  )))
+  t.true(isH2(node))
 })
 
 test("isH2 does not match other headings", t => {
@@ -178,11 +144,7 @@ test("isH2 does not match other headings", t => {
   }) as Heading<typeof heading>)
 
   // @ts-expect-error
-  t.false(nodes.every(node => isH2(createElementProps(
-    node,
-
-    createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-  ))))
+  t.false(nodes.every(isH2))
 })
 
 test("isH3 matches H3 heading node", t => {
@@ -193,11 +155,7 @@ test("isH3 matches H3 heading node", t => {
     }]
   }
 
-  t.true(isH3(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Heading H3")
-  )))
+  t.true(isH3(node))
 })
 
 test("isH3 does not match other headings", t => {
@@ -211,11 +169,7 @@ test("isH3 does not match other headings", t => {
   }) as Heading<typeof heading>)
 
   // @ts-expect-error
-  t.false(nodes.every(node => isH3(createElementProps(
-    node,
-
-    createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-  ))))
+  t.false(nodes.every(isH3))
 })
 
 test("isH4 matches H4 heading node", t => {
@@ -226,11 +180,7 @@ test("isH4 matches H4 heading node", t => {
     }]
   }
 
-  t.true(isH4(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Heading H4")
-  )))
+  t.true(isH4(node))
 })
 
 test("isH4 does not match other headings", t => {
@@ -244,11 +194,7 @@ test("isH4 does not match other headings", t => {
   }) as Heading<typeof heading>)
 
   // @ts-expect-error
-  t.false(nodes.every(node => isH4(createElementProps(
-    node,
-
-    createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-  ))))
+  t.false(nodes.every(isH4))
 })
 
 test("isH5 matches H5 heading node", t => {
@@ -259,11 +205,7 @@ test("isH5 matches H5 heading node", t => {
     }]
   }
 
-  t.true(isH5(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Heading H5")
-  )))
+  t.true(isH5(node))
 })
 
 test("isH5 does not match other headings", t => {
@@ -277,11 +219,7 @@ test("isH5 does not match other headings", t => {
   }) as Heading<typeof heading>)
 
   // @ts-expect-error
-  t.false(nodes.every(node => isH5(createElementProps(
-    node,
-
-    createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-  ))))
+  t.false(nodes.every(isH5))
 })
 
 test("isH6 matches H6 heading node", t => {
@@ -292,11 +230,7 @@ test("isH6 matches H6 heading node", t => {
     }]
   }
 
-  t.true(isH6(createElementProps(
-    node,
-
-    createElement(node.type, undefined, "Heading H6")
-  )))
+  t.true(isH6(node))
 })
 
 test("isH6 does not match other headings", t => {
@@ -310,9 +244,5 @@ test("isH6 does not match other headings", t => {
   }) as Heading<typeof heading>)
 
   // @ts-expect-error
-  t.false(nodes.every(node => isH6(createElementProps(
-    node,
-
-    createElement(`h${node.type}`, undefined, `Heading H${node.type}`)
-  ))))
+  t.false(nodes.every(isH6))
 })

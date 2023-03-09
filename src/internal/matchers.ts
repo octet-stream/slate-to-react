@@ -2,7 +2,6 @@ import type {Text} from "slate"
 
 import type {RichText} from "./type/RichText.js"
 import type {EmptyText} from "./type/EmptyText.js"
-import type {LeafProps} from "./createNodeProps.js"
 
 import {isSubscriptRichText} from "./isSubscriptRichText.js"
 import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
@@ -14,8 +13,8 @@ import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
  * @api private
  */
 export const isEmptyText = createLeafNodeMatcher<EmptyText>(
-  (node): node is LeafProps<EmptyText> => (
-    typeof node.leaf.text === "string" && node.leaf.text === ""
+  (node): node is EmptyText => (
+    typeof node.text === "string" && node.text === ""
   )
 )
 
@@ -25,14 +24,14 @@ export const isEmptyText = createLeafNodeMatcher<EmptyText>(
  * @api private
  */
 export const isRichText = createLeafNodeMatcher<RichText>(
-  (node): node is LeafProps<RichText> => (
-    typeof node.leaf.text === "string" && !!(
-      typeof node.leaf.bold === "boolean"
-        || typeof node.leaf.italic === "boolean"
-        || typeof node.leaf.strikethrough === "boolean"
-        || typeof node.leaf.underline === "boolean"
-        || typeof node.leaf.code === "boolean"
-        || (isSubscriptRichText(node.leaf) || isSuperscriptRichText(node.leaf))
+  (node): node is RichText => (
+    typeof node.text === "string" && !!(
+      typeof node.bold === "boolean"
+        || typeof node.italic === "boolean"
+        || typeof node.strikethrough === "boolean"
+        || typeof node.underline === "boolean"
+        || typeof node.code === "boolean"
+        || (isSubscriptRichText(node) || isSuperscriptRichText(node))
     )
   )
 )
@@ -43,7 +42,7 @@ export const isRichText = createLeafNodeMatcher<RichText>(
  * @api private
  */
 export const isPlainText = createLeafNodeMatcher<Text>(
-  (node): node is LeafProps<Text> => (
-    typeof node.leaf.text === "string" && !isRichText(node)
+  (node): node is Text => (
+    typeof node.text === "string" && !isRichText(node)
   )
 )

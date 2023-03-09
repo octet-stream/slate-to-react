@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 import type {RenderElementProps, RenderLeafProps} from "slate-react"
 import type {ReactNode} from "react"
 import type {Text} from "slate"
@@ -31,9 +33,11 @@ interface ElementWithChildren {
 }
 
 /**
+ * Better typed base RenderLeafProperties
+ *
  * @api private
  */
-export type LeafNodeBase<T extends Text = Text> =
+type LeafNodeBase<T extends Text = Text> =
   Replace<RenderLeafProps, LeafWithChildren & {
     leaf: T
     text: T
@@ -42,15 +46,16 @@ export type LeafNodeBase<T extends Text = Text> =
 /**
  * @api private
  */
-export type ElementNodeBase<T extends Node = Node> =
+type ElementNodeBase<T extends Node = Node> =
   Replace<RenderElementProps, ElementWithChildren & {
     element: T
+    attributes: Omit<RenderElementProps["attributes"], "ref">
   }>
 
 /**
  * @api private
  */
-export type NodeBaseProps<T extends Descendant> = T extends Node
+type NodeBaseProps<T extends Descendant> = T extends Node
   ? ElementNodeBase<T>
   : T extends Text
     ? LeafNodeBase<T>
@@ -68,7 +73,11 @@ export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
  */
 export type ElementProps<T extends Node = Node> =
   Replace<ElementNodeBase<T>, {
-    attributes: Replace<ElementNodeBase["attributes"], PropsWithKey>
+    attributes: Replace<
+      Omit<ElementNodeBase["attributes"], "ref">,
+
+      PropsWithKey
+    >
   }>
 
 /**
@@ -96,11 +105,6 @@ export const createLeafProps = <T extends Text = Text>(
     }
   })
 
-export interface CreateElementPropsOptions {
-  inline?: boolean
-  void?: boolean
-}
-
 /**
  * Creates render props for `Element` node
  *
@@ -110,25 +114,15 @@ export interface CreateElementPropsOptions {
  */
 export function createElementProps<T extends Node = Node>(
   node: T,
-  children: ReactNode,
-  options: CreateElementPropsOptions = {}
+  children: ReactNode
 ): ElementProps<T> {
   const props: ElementProps<T> = {
     children,
     element: node,
     attributes: {
-      ref: null,
       key: nanoid(),
       "data-slate-node": "element",
     }
-  }
-
-  if (options.inline) {
-    props.attributes["data-slate-inline"] = true
-  }
-
-  if (options.void) {
-    props.attributes["data-slate-void"] = true
   }
 
   return props

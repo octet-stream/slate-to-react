@@ -1,13 +1,8 @@
 import {createElement, Fragment} from "react"
 import type {ReactElement} from "react"
-import {Element} from "slate"
 import type {Text} from "slate"
+import {Element} from "slate"
 
-import type {
-  ElementProps,
-  LeafProps,
-  NodeProps
-} from "../internal/createNodeProps.js"
 import type {Descendant} from "../internal/type/Descendant.js"
 
 import {NoMatcherError} from "../internal/NoMatcherError.js"
@@ -52,13 +47,13 @@ export interface TransformNodesOptions {
  * @api private
  */
 function getTransform<TNode extends Descendant>(
-  props: NodeProps<TNode>,
+  node: TNode,
   transforms: NodeTransform<TNode>[]
 ): TransformImplementation<TNode> {
-  const transform = transforms.find(({matcher}) => matcher(props))
+  const transform = transforms.find(({matcher}) => matcher(node))
 
   if (!transform) {
-    throw new NoMatcherError(props)
+    throw new NoMatcherError(node)
   }
 
   return transform.transform
@@ -68,17 +63,17 @@ function getTransform<TNode extends Descendant>(
  * @api private
  */
 const getLeafTransform = (
-  props: LeafProps<Text>,
+  node: Text,
   transforms: NodeTransform<Text>[]
-): TransformImplementation<Text> => getTransform(props, transforms)
+): TransformImplementation<Text> => getTransform(node, transforms)
 
 /**
  * @api private
  */
 const getElementTransform = (
-  props: ElementProps<Node>,
+  node: Node,
   transforms: NodeTransform<Node>[]
-): TransformImplementation<Node> => getTransform(props, transforms)
+): TransformImplementation<Node> => getTransform(node, transforms)
 
 /**
  * @api private
@@ -92,14 +87,14 @@ function compileNodes(
   for (const node of nodes) {
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
+      const transform = getElementTransform(node, transforms.elements)
       const props = createElementProps(node, children)
-      const transform = getElementTransform(props, transforms.elements)
       const element = transform(props)
 
       result.push(element)
     } else {
+      const transform = getLeafTransform(node, transforms.leaves)
       const props = createLeafProps(node)
-      const transform = getLeafTransform(props, transforms.leaves)
       const element = transform(props)
 
       result.push(element)
@@ -135,8 +130,8 @@ export const transformNodes = (
   for (const node of nodes) {
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
+      const transform = getElementTransform(node, transforms.elements)
       const props = createElementProps(node, children)
-      const transform = getElementTransform(props, transforms.elements)
       const element = transform(props)
 
       result.push(element)

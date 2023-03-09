@@ -4,7 +4,6 @@ import test from "ava"
 
 import type {RichText} from "./type/RichText.js"
 
-import {createLeafProps} from "./createNodeProps.js"
 import {isRichText, isPlainText} from "./matchers.js"
 
 test("isRichText matches rich text", t => {
@@ -13,7 +12,7 @@ test("isRichText matches rich text", t => {
     bold: true
   }
 
-  t.true(isRichText(createLeafProps(node)))
+  t.true(isRichText(node))
 })
 
 test("isRichText does not match plain text", t => {
@@ -21,7 +20,7 @@ test("isRichText does not match plain text", t => {
     text: "Some bold text"
   }
 
-  t.false(isRichText(createLeafProps(node)))
+  t.false(isRichText(node))
 })
 
 test("isPlainText matches plain text", t => {
@@ -29,7 +28,7 @@ test("isPlainText matches plain text", t => {
     text: "Some bold text"
   }
 
-  t.true(isPlainText(createLeafProps(node)))
+  t.true(isPlainText(node))
 })
 
 test("isPlainText does not match rich text", t => {
@@ -38,5 +37,5 @@ test("isPlainText does not match rich text", t => {
     bold: true
   }
 
-  t.false(isPlainText(createLeafProps(node)))
+  t.false(isPlainText(node))
 })

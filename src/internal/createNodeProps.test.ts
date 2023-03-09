@@ -46,44 +46,6 @@ test("Creates valid props for Element node", t => {
   t.is(typeof actual.attributes.key, "string")
 })
 
-test("Creates data-slate-inline attribute for inline Element node", t => {
-  const actual = createElementProps(
-    {
-      type: ELEMENT_PARAGRAPH,
-      children: [{
-        text: "Some text"
-      }]
-    },
-
-    createElement("span", undefined, "Some text"),
-
-    {
-      inline: true
-    }
-  )
-
-  t.true(actual.attributes["data-slate-inline"])
-})
-
-test("Creates data-slate-void attribute for inline Element node", t => {
-  const actual = createElementProps(
-    {
-      type: ELEMENT_PARAGRAPH,
-      children: [{
-        text: "Some text"
-      }]
-    },
-
-    createElement("span", undefined, "Some text"),
-
-    {
-      void: true
-    }
-  )
-
-  t.true(actual.attributes["data-slate-void"])
-})
-
 test(
   "LeafProps with specific type parameters is assignable "
     + "to default parameter",
