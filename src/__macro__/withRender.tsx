@@ -5,6 +5,8 @@ import type {ReactElement} from "react"
 
 import test from "ava"
 
+type IsolatedRenderOptions = Omit<RenderOptions, "container">
+
 interface IsolatedRender<
   Q extends Queries = typeof queries,
   Container extends Element | DocumentFragment = HTMLElement,
@@ -12,7 +14,7 @@ interface IsolatedRender<
 > {
   (
     ui: ReactElement,
-    options?: Omit<RenderOptions, "container">
+    options?: IsolatedRenderOptions
   ): RenderResult<Q, Container, BaseElement>
 }
 
@@ -21,8 +23,11 @@ type Implementation = ImplementationFn<[render: IsolatedRender]>
 export const withRender = test.macro(async (t, fn: Implementation) => {
   const container = document.createElement("div")
 
-  const isolatedRender = (ui: ReactElement) => render(ui, {
-    container: document.body.appendChild(container)
+  const isolatedRender = (
+    ui: ReactElement,
+    options: IsolatedRenderOptions = {}
+  ) => render(ui, {
+    ...options, container: document.body.appendChild(container)
   })
 
   try {
