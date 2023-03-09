@@ -47,10 +47,18 @@ type LeafNodeBase<T extends Text = Text> =
  * @api private
  */
 type ElementNodeBase<T extends Node = Node> =
-  Replace<RenderElementProps, ElementWithChildren & {
-    element: T
-    attributes: Omit<RenderElementProps["attributes"], "ref">
-  }>
+  Replace<
+    RenderElementProps,
+
+    ElementWithChildren
+      & {
+        element: T
+      }
+
+      & {
+        attributes: Omit<RenderElementProps["attributes"], "ref">
+      }
+  >
 
 /**
  * @api private
@@ -69,19 +77,19 @@ export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
 }>
 
 /**
- * @api public
+ * @api private
  */
 export type ElementProps<T extends Node = Node> =
   Replace<ElementNodeBase<T>, {
     attributes: Replace<
-      Omit<ElementNodeBase["attributes"], "ref">,
+      ElementNodeBase["attributes"],
 
       PropsWithKey
     >
   }>
 
 /**
- * @api public
+ * @api private
  */
 export type LeafProps<T extends Text = Text> =
   Replace<LeafNodeBase<T>, LeafWithChildren & {
