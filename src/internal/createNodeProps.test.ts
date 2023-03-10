@@ -1,6 +1,5 @@
 import test from "ava"
 
-import type {Text} from "slate"
 import type {TypeOf} from "ts-expect"
 
 import {expectType} from "ts-expect"
@@ -12,12 +11,13 @@ import {createLeafProps, createElementProps} from "./createNodeProps.js"
 import type {LeafProps, ElementProps} from "./createNodeProps.js"
 import type {Blockquote} from "./type/Blockquote.js"
 import type {Paragraph} from "./type/Paragraph.js"
+import type {TextNode} from "./type/TextNode.js"
 import type {RichText} from "./type/RichText.js"
 import type {Heading} from "./type/Heading.js"
 import type {Link} from "./type/Link.js"
 
 test("Creates valid props for leaf node", t => {
-  const node: Text = {
+  const node: TextNode = {
     text: "Some text"
   }
 

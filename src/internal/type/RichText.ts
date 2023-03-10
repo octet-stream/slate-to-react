@@ -1,4 +1,4 @@
-import type {Text} from "slate"
+import type {TextNode} from "./TextNode.js"
 
 export interface Superscript {
   superscript?: boolean
@@ -8,7 +8,7 @@ export interface Subscript {
   subscript?: boolean
 }
 
-export interface RichTextBase extends Text {
+export interface RichTextBase extends TextNode {
   bold?: boolean
   italic?: boolean
   underline?: boolean

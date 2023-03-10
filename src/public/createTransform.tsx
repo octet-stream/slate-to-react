@@ -1,7 +1,7 @@
 import type {ReactElement} from "react"
-import type {Text} from "slate"
 
 import type {NodeProps} from "../internal/createNodeProps.js"
+import type {TextNode} from "../internal/type/TextNode.js"
 
 import type {
   NodeMatcher,
@@ -10,15 +10,15 @@ import type {
 } from "./createNodeMatcher.js"
 import type {Node} from "./Node.js"
 
-export type TransformImplementation<TNode extends Node | Text> =
+export type TransformImplementation<TNode extends Node | TextNode> =
   (props: NodeProps<TNode>) => ReactElement
 
-export interface NodeTransform<TNode extends Node | Text> {
+export interface NodeTransform<TNode extends Node | TextNode> {
   readonly matcher: NodeMatcher<TNode>
   readonly transform: TransformImplementation<TNode>
 }
 
-export type LeafTransform<TLeaf extends Text = Text> =
+export type LeafTransform<TLeaf extends TextNode = TextNode> =
   NodeTransform<TLeaf>
 
 export type ElementTransform<TElement extends Node = Node> =
@@ -27,7 +27,7 @@ export type ElementTransform<TElement extends Node = Node> =
 /**
  * @api private
  */
-const createTransform = <TNode extends Node | Text>(
+const createTransform = <TNode extends Node | TextNode>(
   matcher: NodeMatcher<TNode>,
   transform: TransformImplementation<TNode>
 ): NodeTransform<TNode> => Object.freeze({matcher, transform})
@@ -38,7 +38,7 @@ const createTransform = <TNode extends Node | Text>(
  * @param matcher An `LeafNodeMatcher` implementation
  * @param transform Transform implementation to render matched node with
  */
-export const createLeafTransform = <TLeaf extends Text = Text>(
+export const createLeafTransform = <TLeaf extends TextNode = TextNode>(
   matcher: LeafNodeMatcher<TLeaf>,
   transform: TransformImplementation<TLeaf>
 ): LeafTransform<TLeaf> => createTransform(matcher, transform)

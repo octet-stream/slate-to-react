@@ -2,13 +2,13 @@
 
 import type {RenderElementProps, RenderLeafProps} from "slate-react"
 import type {ReactNode} from "react"
-import type {Text} from "slate"
 
 import {nanoid} from "nanoid"
 
 import type {Node} from "../public/Node.js"
 import type {Replace} from "../public/Replace.js"
 
+import {TextNode} from "./type/TextNode.js"
 import type {Descendant} from "./type/Descendant.js"
 
 /**
@@ -37,7 +37,7 @@ interface ElementWithChildren {
  *
  * @api private
  */
-type LeafNodeBase<T extends Text = Text> =
+type LeafNodeBase<T extends TextNode = TextNode> =
   Replace<RenderLeafProps, LeafWithChildren & {
     leaf: T
     text: T
@@ -65,7 +65,7 @@ type ElementNodeBase<T extends Node = Node> =
  */
 type NodeBaseProps<T extends Descendant> = T extends Node
   ? ElementNodeBase<T>
-  : T extends Text
+  : T extends TextNode
     ? LeafNodeBase<T>
     : never
 
@@ -91,7 +91,7 @@ export type ElementProps<T extends Node = Node> =
 /**
  * @api private
  */
-export type LeafProps<T extends Text = Text> =
+export type LeafProps<T extends TextNode = TextNode> =
   Replace<LeafNodeBase<T>, LeafWithChildren & {
     attributes: Replace<LeafNodeBase["attributes"], PropsWithKey>
   }>
@@ -101,15 +101,15 @@ export type LeafProps<T extends Text = Text> =
  *
  * @param node Leaf node to create render props for
  */
-export const createLeafProps = <T extends Text = Text>(
+export const createLeafProps = <T extends TextNode = TextNode>(
   node: T
 ): LeafProps<T> => ({
     leaf: node,
     text: node,
     children: node.text,
     attributes: {
-      "data-slate-leaf": true,
-      key: nanoid()
+      key: node.id || nanoid(),
+      "data-slate-leaf": true
     }
   })
 
@@ -128,7 +128,7 @@ export function createElementProps<T extends Node = Node>(
     children,
     element: node,
     attributes: {
-      key: nanoid(),
+      key: node.id || nanoid(),
       "data-slate-node": "element",
     }
   }

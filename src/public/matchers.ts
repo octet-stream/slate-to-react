@@ -1,5 +1,3 @@
-import type {Text} from "slate"
-
 import {
   createLeafNodeMatcher,
   createElementNodeMatcher
@@ -7,6 +5,7 @@ import {
 
 import type {Blockquote} from "../internal/type/Blockquote.js"
 import type {Paragraph} from "../internal/type/Paragraph.js"
+import type {TextNode} from "../internal/type/TextNode.js"
 import type {Heading} from "../internal/type/Heading.js"
 import type {Link} from "../internal/type/Link.js"
 
@@ -28,8 +27,8 @@ import {
  *
  * @api public
  */
-export const isText = createLeafNodeMatcher<Text>(
-  (node): node is Text => (
+export const isText = createLeafNodeMatcher<TextNode>(
+  (node): node is TextNode => (
     typeof node.text === "string"
   )
 )

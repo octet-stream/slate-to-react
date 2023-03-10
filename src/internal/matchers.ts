@@ -1,5 +1,4 @@
-import type {Text} from "slate"
-
+import type {TextNode} from "./type/TextNode.js"
 import type {RichText} from "./type/RichText.js"
 import type {EmptyText} from "./type/EmptyText.js"
 
@@ -43,8 +42,8 @@ export const isRichText = createLeafNodeMatcher<RichText>(
  *
  * @api private
  */
-export const isPlainText = createLeafNodeMatcher<Text>(
-  (node): node is Text => (
+export const isPlainText = createLeafNodeMatcher<TextNode>(
+  (node): node is TextNode => (
     typeof node.text === "string"
       && !isRichText(node)
       && !isEmptyText(node as EmptyText)

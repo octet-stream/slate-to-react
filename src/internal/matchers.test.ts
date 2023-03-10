@@ -1,7 +1,6 @@
-import type {Text} from "slate"
-
 import test from "ava"
 
+import type {TextNode} from "./type/TextNode.js"
 import type {RichText} from "./type/RichText.js"
 import type {EmptyText} from "./type/EmptyText.js"
 
@@ -17,7 +16,7 @@ test("isRichText matches RichText node", t => {
 })
 
 test("isRichText does not match Text node", t => {
-  const node: Text = {
+  const node: TextNode = {
     text: "Some bold text"
   }
 
@@ -34,7 +33,7 @@ test("isRichtext does not match empty RichText node", t => {
 })
 
 test("isPlainText matches Text node", t => {
-  const node: Text = {
+  const node: TextNode = {
     text: "Some bold text"
   }
 
@@ -51,7 +50,7 @@ test("isPlainText does not match RichText node", t => {
 })
 
 test("isPlainText does not match empty Text node", t => {
-  const node: Text = {
+  const node: TextNode = {
     text: ""
   }
 
@@ -77,7 +76,7 @@ test("isEmptyText matches empty RichText node", t => {
 })
 
 test("isEmptyText does not match non-empty text node", t => {
-  const node: Text = {
+  const node: TextNode = {
     text: "Some text"
   }
 

@@ -1,4 +1,4 @@
-import {Text} from "slate"
+import type {TextNode} from "../internal/type/TextNode.js"
 
 import type {Node} from "./Node.js"
 
@@ -7,14 +7,14 @@ import type {Node} from "./Node.js"
  *
  * @api public
  */
-export type NodeMatcher<T extends Node | Text> = (node: T) => node is T
+export type NodeMatcher<T extends Node | TextNode> = (node: T) => node is T
 
 /**
- * Matches a `Text` node that satisfy predicate
+ * Matches a `TextNode` node that satisfy predicate
  *
  * @api public
  */
-export type LeafNodeMatcher<TLeaf extends Text = Text> =
+export type LeafNodeMatcher<TLeaf extends TextNode = TextNode> =
   NodeMatcher<TLeaf>
 
 /**
@@ -31,7 +31,7 @@ export type ElementNodeMatcher<TElement extends Node = Node> =
  *
  * @param matcher A `LeafNodeMatcher` implementation function.
  */
-export const createLeafNodeMatcher = <TLeaf extends Text = Text>(
+export const createLeafNodeMatcher = <TLeaf extends TextNode = TextNode>(
   matcher: LeafNodeMatcher<TLeaf>
 ): LeafNodeMatcher<TLeaf> => matcher
 

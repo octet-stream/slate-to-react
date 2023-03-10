@@ -1,9 +1,9 @@
 import {createElement, Fragment} from "react"
 import type {ReactElement} from "react"
-import type {Text} from "slate"
 import {Element} from "slate"
 
 import type {Descendant} from "../internal/type/Descendant.js"
+import type {TextNode} from "../internal/type/TextNode.js"
 
 import {NoMatcherError} from "../internal/NoMatcherError.js"
 import {leaves, elements} from "../internal/defaultTransforms.js"
@@ -63,9 +63,9 @@ function getTransform<TNode extends Descendant>(
  * @api private
  */
 const getLeafTransform = (
-  node: Text,
-  transforms: NodeTransform<Text>[]
-): TransformImplementation<Text> => getTransform(node, transforms)
+  node: TextNode,
+  transforms: NodeTransform<TextNode>[]
+): TransformImplementation<TextNode> => getTransform(node, transforms)
 
 /**
  * @api private

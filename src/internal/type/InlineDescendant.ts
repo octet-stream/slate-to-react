@@ -1,6 +1,5 @@
-import type {Text} from "slate"
-
-import type {Link} from "./Link.js"
 import type {RichText} from "./RichText.js"
+import type {TextNode} from "./TextNode.js"
+import type {Link} from "./Link.js"
 
-export type InlineDescendant = Text | RichText | Link
+export type InlineDescendant = TextNode | RichText | Link

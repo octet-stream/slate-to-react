@@ -1,10 +1,8 @@
 import type {Node} from "../../public/Node.js"
 
-import {WithAlignment} from "./Alignment.js"
+import {WithAlignment} from "./WithAlignment.js"
 
-import {
-  HEADINGS_LIST
-} from "../constants.js"
+import {HEADINGS_LIST} from "../constants.js"
 
 export type Headings = typeof HEADINGS_LIST[number]
 
