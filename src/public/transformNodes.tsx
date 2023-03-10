@@ -50,13 +50,13 @@ function getTransform<TNode extends Descendant>(
   node: TNode,
   transforms: NodeTransform<TNode>[]
 ): TransformImplementation<TNode> {
-  const transform = transforms.find(({matcher}) => matcher(node))
+  const matched = transforms.find(({matcher}) => matcher(node))
 
-  if (!transform) {
+  if (!matched) {
     throw new NoMatcherError(node)
   }
 
-  return transform.transform
+  return matched.transform
 }
 
 /**
