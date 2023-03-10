@@ -172,7 +172,7 @@ export const isLink = createElementNodeMatcher<Anchor>(
 // Then define a transform for this element. Transform factory function takes two arguments:
 // 1. Node matcher. In this case that would be our `isLink` marcher, which implements `ElementMatcher` type.
 // 2. Transformer implementation. This function takes `ElementProps` as an argument, and should return `ReactElement` for this node.
-export const AnchorTransform = createElementTransform(
+export const Link = createElementTransform(
   isLink,
 
   ({element, attributes, children}) => (
@@ -193,7 +193,7 @@ export const AnchorTransform = createElementTransform(
 export const MyComponent: FC = () => (
   <SlateView
     transforms={{
-      elements: [AnchorTransform] // With that, `SlateView` component will render `Anchor` nodes using our own transform, instead of default.
+      elements: [Link] // With that, `SlateView` component will render `Anchor` nodes using our own transform, instead of default.
     }}
     nodes={[
       {
