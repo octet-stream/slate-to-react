@@ -15,7 +15,7 @@
     "hook",
     "react-hook"
   ],
-  "repository": "octet-stream/form-data",
+  "repository": "octet-stream/slate-to-react",
   "sideEffects": false,
   "source": "src/slate-to-react.ts",
   "main": "lib/slate-to-react.cjs",
