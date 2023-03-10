@@ -2,7 +2,7 @@
   "type": "module",
   "name": "slate-to-react",
   "description": "React component and utilities to transform Slate nodes to React",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "author": "Nick K.",
   "license": "MIT",
   "keywords": [
