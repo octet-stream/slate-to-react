@@ -5,6 +5,8 @@ import type {TypeOf} from "ts-expect"
 import {expectType} from "ts-expect"
 import {createElement} from "react"
 
+import type {Node} from "../public/Node.js"
+
 import {ELEMENT_PARAGRAPH} from "./constants.js"
 import {createLeafProps, createElementProps} from "./createNodeProps.js"
 
@@ -31,19 +33,52 @@ test("Creates valid props for leaf node", t => {
 })
 
 test("Creates valid props for Element node", t => {
+  const node: Node = {
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Some text"
+    }]
+  }
+
   const actual = createElementProps(
-    {
-      type: ELEMENT_PARAGRAPH,
-      children: [{
-        text: "Some text"
-      }]
-    },
+    node,
 
     createElement("span", undefined, "Some text")
   )
 
   t.is(actual.attributes["data-slate-node"], "element")
   t.is(typeof actual.attributes.key, "string")
+})
+
+test("TextNode's own id field has higher priority", t => {
+  const expected = "some_id"
+  const node: TextNode = {
+    id: expected,
+    text: "Some text"
+  }
+
+  const actual = createLeafProps(node)
+
+  t.is(actual.attributes.key, expected)
+})
+
+test("Node's own id field has higher priority", t => {
+  const expected = "some_id"
+  const node: Paragraph = {
+    id: expected,
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Some text"
+    }]
+  }
+
+  const actual = createElementProps(
+    node,
+
+    createElement(node.type, undefined, "Some text")
+  )
+
+  t.is(actual.attributes.key, expected)
 })
 
 test(
