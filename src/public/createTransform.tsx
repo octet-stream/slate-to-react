@@ -13,8 +13,6 @@ import type {Node} from "./Node.js"
 export type TransformImplementation<TNode extends Node | Text> =
   (props: NodeProps<TNode>) => ReactElement
 
-export type CreateTransformProps<T extends Node | Text> = NodeProps<T>
-
 export interface NodeTransform<TNode extends Node | Text> {
   readonly matcher: NodeMatcher<TNode>
   readonly transform: TransformImplementation<TNode>
