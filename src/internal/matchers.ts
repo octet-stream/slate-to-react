@@ -25,14 +25,16 @@ export const isEmptyText = createLeafNodeMatcher<EmptyText>(
  */
 export const isRichText = createLeafNodeMatcher<RichText>(
   (node): node is RichText => (
-    typeof node.text === "string" && !!(
-      typeof node.bold === "boolean"
-        || typeof node.italic === "boolean"
-        || typeof node.strikethrough === "boolean"
-        || typeof node.underline === "boolean"
-        || typeof node.code === "boolean"
-        || (isSubscriptRichText(node) || isSuperscriptRichText(node))
-    )
+    typeof node.text === "string"
+      && !!(
+        typeof node.bold === "boolean"
+          || typeof node.italic === "boolean"
+          || typeof node.strikethrough === "boolean"
+          || typeof node.underline === "boolean"
+          || typeof node.code === "boolean"
+          || (isSubscriptRichText(node) || isSuperscriptRichText(node))
+      )
+      && !isEmptyText(node as EmptyText)
   )
 )
 
@@ -43,6 +45,8 @@ export const isRichText = createLeafNodeMatcher<RichText>(
  */
 export const isPlainText = createLeafNodeMatcher<Text>(
   (node): node is Text => (
-    typeof node.text === "string" && !isRichText(node)
+    typeof node.text === "string"
+      && !isRichText(node)
+      && !isEmptyText(node as EmptyText)
   )
 )
