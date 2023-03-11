@@ -96,6 +96,8 @@ export type LeafProps<T extends TextNode = TextNode> =
     attributes: Replace<LeafNodeBase["attributes"], PropsWithKey>
   }>
 
+type IdGenerator = () => string
+
 export interface CreateNodePropsOptions {
   /**
    * The name of the id property on nodes.
@@ -110,11 +112,19 @@ export interface CreateNodePropsOptions {
    * Defaults to `false`
    */
   forceGenerateId?: boolean
+
+  /**
+   * Custom implementation for ID generator.
+   *
+   * Defaults to `nanoid`
+   */
+  idGenerator?: IdGenerator
 }
 
 const defaults: Required<CreateNodePropsOptions> = {
   idKeyName: "id",
-  forceGenerateId: false
+  forceGenerateId: false,
+  idGenerator: nanoid
 }
 
 /**
@@ -125,9 +135,10 @@ const defaults: Required<CreateNodePropsOptions> = {
  * @param force If `true`, the id for key attribute will be always generated
  */
 function generateId<TNode extends {[key: string]: any}>(
+  generate: IdGenerator,
   node: TNode,
   key: string,
-  force: boolean
+  force: boolean,
 ): string {
   const id: string | undefined = node[key]
 
@@ -135,7 +146,7 @@ function generateId<TNode extends {[key: string]: any}>(
     return id
   }
 
-  return nanoid()
+  return generate()
 }
 
 /**
@@ -147,14 +158,14 @@ export const createLeafProps = <T extends TextNode = TextNode>(
   node: T,
   options: CreateNodePropsOptions = {}
 ): LeafProps<T> => {
-  const {forceGenerateId, idKeyName} = {...defaults, ...options}
+  const {forceGenerateId, idKeyName, idGenerator} = {...defaults, ...options}
 
   return {
     leaf: node,
     text: node,
     children: node.text,
     attributes: {
-      key: generateId(node, idKeyName, forceGenerateId),
+      key: generateId(idGenerator, node, idKeyName, forceGenerateId),
       "data-slate-leaf": true
     }
   }
@@ -172,13 +183,13 @@ export function createElementProps<T extends Node = Node>(
   children: ReactNode,
   options: CreateNodePropsOptions = {}
 ): ElementProps<T> {
-  const {forceGenerateId, idKeyName} = {...defaults, ...options}
+  const {forceGenerateId, idKeyName, idGenerator} = {...defaults, ...options}
 
   return {
     children,
     element: node,
     attributes: {
-      key: generateId(node, idKeyName, forceGenerateId),
+      key: generateId(idGenerator, node, idKeyName, forceGenerateId),
       "data-slate-node": "element",
     }
   }
