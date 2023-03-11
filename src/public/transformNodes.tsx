@@ -2,6 +2,9 @@ import {createElement, Fragment} from "react"
 import type {ReactElement} from "react"
 import {Element} from "slate"
 
+import type {
+  CreateNodePropsOptions
+} from "../internal/createNodeProps.js"
 import type {Descendant} from "../internal/type/Descendant.js"
 import type {TextNode} from "../internal/type/TextNode.js"
 
@@ -36,7 +39,9 @@ export interface Transforms {
   elements?: ElementTransform<any>[] // FIXME: I give up for now, but this must be fixed.
 }
 
-export interface TransformNodesOptions {
+interface CompileNodesOptions extends CreateNodePropsOptions { }
+
+export interface TransformNodesOptions extends CreateNodePropsOptions {
   /**
    * Custom transforms for `Slate` nodes
    */
@@ -80,7 +85,8 @@ const getElementTransform = (
  */
 function compileNodes(
   nodes: Descendant[],
-  transforms: Required<Transforms>
+  transforms: Required<Transforms>,
+  options: CompileNodesOptions = {}
 ): ReactElement {
   const result: ReactElement[] = []
 
@@ -88,13 +94,13 @@ function compileNodes(
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
       const transform = getElementTransform(node, transforms.elements)
-      const props = createElementProps(node, children)
+      const props = createElementProps(node, children, options)
       const element = transform(props)
 
       result.push(element)
     } else {
       const transform = getLeafTransform(node, transforms.leaves)
-      const props = createLeafProps(node)
+      const props = createLeafProps(node, options)
       const element = transform(props)
 
       result.push(element)
@@ -131,7 +137,7 @@ export const transformNodes = (
     if (Element.isElement(node)) {
       const children = compileNodes(node.children, transforms)
       const transform = getElementTransform(node, transforms.elements)
-      const props = createElementProps(node, children)
+      const props = createElementProps(node, children, options)
       const element = transform(props)
 
       result.push(element)

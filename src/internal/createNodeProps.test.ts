@@ -5,6 +5,8 @@ import type {TypeOf} from "ts-expect"
 import {expectType} from "ts-expect"
 import {createElement} from "react"
 
+import {isNanoId} from "../__helper__/isNanoId.js"
+
 import type {Node} from "../public/Node.js"
 
 import {ELEMENT_PARAGRAPH} from "./constants.js"
@@ -18,7 +20,7 @@ import type {RichText} from "./type/RichText.js"
 import type {Heading} from "./type/Heading.js"
 import type {Link} from "./type/Link.js"
 
-test("Creates valid props for leaf node", t => {
+test("createLeafProps creates valid props for leaf node", t => {
   const node: TextNode = {
     text: "Some text"
   }
@@ -32,7 +34,7 @@ test("Creates valid props for leaf node", t => {
   t.is(typeof actual.attributes.key, "string")
 })
 
-test("Creates valid props for Element node", t => {
+test("createElementProps creates valid props for Element node", t => {
   const node: Node = {
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -50,7 +52,7 @@ test("Creates valid props for Element node", t => {
   t.is(typeof actual.attributes.key, "string")
 })
 
-test("TextNode's own id field has higher priority", t => {
+test("createLeafProps TextNode's own id field has higher priority", t => {
   const expected = "some_id"
   const node: TextNode = {
     id: expected,
@@ -62,7 +64,7 @@ test("TextNode's own id field has higher priority", t => {
   t.is(actual.attributes.key, expected)
 })
 
-test("Node's own id field has higher priority", t => {
+test("createElementProps Node's own id field has higher priority", t => {
   const expected = "some_id"
   const node: Paragraph = {
     id: expected,
@@ -80,6 +82,49 @@ test("Node's own id field has higher priority", t => {
 
   t.is(actual.attributes.key, expected)
 })
+
+test(
+  "createLeafProps always generates id when forceGenerateId option is set",
+  t => {
+    const inputId = "some_id"
+    const node: TextNode = {
+      id: inputId,
+      text: "Some text"
+    }
+
+    const actual = createLeafProps(node, {forceGenerateId: true})
+
+    t.not(actual.attributes.key, inputId)
+    t.true(isNanoId(actual.attributes.key))
+  }
+)
+
+test(
+  "createElementProps always generates id when forceGenerateId option is set",
+  t => {
+    const inputId = "some_id"
+    const node: Paragraph = {
+      id: inputId,
+      type: ELEMENT_PARAGRAPH,
+      children: [{
+        text: "Some text"
+      }]
+    }
+
+    const actual = createElementProps(
+      node,
+
+      createElement("span", undefined, "Some text"),
+
+      {
+        forceGenerateId: true
+      }
+    )
+
+    t.not(actual.attributes.key, inputId)
+    t.true(isNanoId(actual.attributes.key))
+  }
+)
 
 test(
   "LeafProps with specific type parameters is assignable "
