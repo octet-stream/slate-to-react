@@ -1,9 +1,12 @@
 import test from "ava"
 
 import type {TypeOf} from "ts-expect"
+import type {Text} from "slate"
 
 import {expectType} from "ts-expect"
 import {createElement} from "react"
+import {v4, validate} from "uuid"
+import {spy} from "sinon"
 
 import {isNanoId} from "../__helper__/isNanoId.js"
 
@@ -19,6 +22,12 @@ import type {TextNode} from "./type/TextNode.js"
 import type {RichText} from "./type/RichText.js"
 import type {Heading} from "./type/Heading.js"
 import type {Link} from "./type/Link.js"
+
+const alternateIdKey = "alternateId"
+
+interface WithAlternateId {
+  [alternateIdKey]: string
+}
 
 test("createLeafProps creates valid props for leaf node", t => {
   const node: TextNode = {
@@ -98,6 +107,78 @@ test(
     t.true(isNanoId(actual.attributes.key))
   }
 )
+
+test("createLeafProps takes id from specified key", t => {
+  const expected = "some_id"
+  const node: Text & WithAlternateId = {
+    alternateId: expected,
+    text: "Some text"
+  }
+
+  const actual = createLeafProps(node, {idKeyName: alternateIdKey})
+
+  t.is(actual.attributes.key, expected)
+})
+
+test("createElementProps takes id from specified key", t => {
+  const expected = "some_id"
+  const node: Omit<Node, "id"> & WithAlternateId = {
+    alternateId: expected,
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Some text"
+    }]
+  }
+
+  const actual = createElementProps(
+    node,
+
+    createElement("span", undefined, "Some text"),
+
+    {
+      idKeyName: alternateIdKey
+    }
+  )
+
+  t.is(actual.attributes.key, expected)
+})
+
+test("createLeafProps generates id using given function", t => {
+  const node: TextNode = {
+    text: "Some text"
+  }
+
+  const idGenerator = spy(() => v4())
+
+  const actual = createLeafProps(node, {idGenerator})
+
+  t.true(validate(actual.attributes.key))
+  t.is(actual.attributes.key, idGenerator.firstCall.returnValue)
+})
+
+test("createElementProps generates id using given function", t => {
+  const node: Node = {
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      text: "Some text"
+    }]
+  }
+
+  const idGenerator = spy(() => v4())
+
+  const actual = createElementProps(
+    node,
+
+    createElement("span", undefined, "Some text"),
+
+    {
+      idGenerator
+    }
+  )
+
+  t.true(validate(actual.attributes.key))
+  t.is(actual.attributes.key, idGenerator.firstCall.returnValue)
+})
 
 test(
   "createElementProps always generates id when forceGenerateId option is set",

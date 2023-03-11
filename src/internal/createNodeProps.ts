@@ -102,7 +102,7 @@ export interface CreateNodePropsOptions {
   /**
    * The name of the id property on nodes.
    *
-   * Defaults to "id"
+   * Defaults to `"id"`
    */
   idKeyName?: string
 
@@ -116,7 +116,7 @@ export interface CreateNodePropsOptions {
   /**
    * Custom implementation for ID generator.
    *
-   * Defaults to `nanoid`
+   * Defaults to [`nanoid`](https://github.com/ai/nanoid)
    */
   idGenerator?: IdGenerator
 }
