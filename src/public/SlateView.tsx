@@ -2,7 +2,7 @@ import type {FC} from "react"
 
 import {useSlateToReact} from "./useSlateToReact.js"
 
-import type {Transforms, TransformNodesOptions} from "./transformNodes.js"
+import type {TransformNodesOptions} from "./transformNodes.js"
 import type {Node} from "./Node.js"
 
 export interface SlateViewProps extends TransformNodesOptions {
@@ -10,11 +10,6 @@ export interface SlateViewProps extends TransformNodesOptions {
    * List of `Slate` nodes to transform
    */
   nodes: Node[]
-
-  /**
-   * Custom transforms for `Slate` nodes
-   */
-  transforms?: Transforms
 }
 
 /**
