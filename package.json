@@ -23,9 +23,9 @@
   "module": "lib/slate-to-react.legacy.mjs",
   "types": "@type/slate-to-react.d.ts",
   "exports": {
+    "types": "./@type/slate-to-react.d.ts",
     "import": "./lib/slate-to-react.mjs",
     "require": "./lib/slate-to-react.cjs",
-    "types": "./@type/slate-to-react.d.ts",
     "default": "./lib/slate-to-react.mjs"
   },
   "scripts": {
