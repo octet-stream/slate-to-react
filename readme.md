@@ -227,12 +227,7 @@ export const MyComponent: FC = () => (
 
 React component that will render given `nodes` as React elements.
 
-This component takes following props:
-
-| Name       | Type         | Required  | Default | Description                         |
-|------------|:------------:|:---------:|:-------:|-------------------------------------|
-| nodes      | `Node[]`     | Yes       | —       | List of `Slate` nodes to transform  |
-| transforms | `Transforms` | No        | —       | Custom transforms for `Slate` nodes |
+Available props listed in [`SlateViewProps`](#interface-slateviewprops) interface section.
 
 ### `useSlateToReact(nodes[, options])`
 
