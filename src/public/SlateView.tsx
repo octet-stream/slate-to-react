@@ -1,13 +1,11 @@
 import type {FC} from "react"
 
-import type {CreateNodePropsOptions} from "../internal/createNodeProps.js"
-
 import {useSlateToReact} from "./useSlateToReact.js"
 
-import type {Transforms} from "./transformNodes.js"
+import type {Transforms, TransformNodesOptions} from "./transformNodes.js"
 import type {Node} from "./Node.js"
 
-export interface SlateViewProps extends CreateNodePropsOptions {
+export interface SlateViewProps extends TransformNodesOptions {
   /**
    * List of `Slate` nodes to transform
    */

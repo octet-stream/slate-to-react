@@ -555,6 +555,34 @@ Replaces object properties in the `L` (target) object with the ones from the `R`
 | L    | `object`    | Yes       | —        | Target object which properties are to be replaced using Source object            |
 | R    | `object`    | Yes       | —        | Source object which properties will replace and extend the ones on Target object |
 
+### `interface Transforms`
+
+Custom transform lists.
+
+| Name     | Type                 | Required  | Default  | Description                               |
+|----------|:--------------------:|:---------:|:--------:|-------------------------------------------|
+| leaves   | `LeafTransform[]`    | No        | `[]`     | A list of transforms for `leaf` nodes     |
+| elements | `ElementTransform[]` | No        | `[]`     | A list of transforms for `element` nodes  |
+
+### `interface TransformNodesOptions`
+
+Additional transform options.
+
+| Name            | Type           | Required | Default                                           | Description                                                  |
+|-----------------|:--------------:|:--------:|:-------------------------------------------------:|--------------------------------------------------------------|
+| transforms      | `Transforms`   | No       | `undefined`                                       | Custom transforms for `Slate` nodes                          |
+| idKeyName       | `string`       | No       | `id`                                              | The name of the id property on nodes                         |
+| forceGenerateId | `boolean`      | No       | `false`                                           | If `true`, the id for key attribute will be always generated |
+| idGenerator     | `() => string` | No       | [`nanoid`](https://github.com/ai/nanoid#blocking) | Custom implementation for ID generator                       |
+
+### `interface SlateViewProps`
+
+Available props for `SlateView` component. Inherits `TransformNodesOptions`.
+
+| Name  | Type     | Required  | Default  | Description                               |
+|-------|:--------:|:---------:|:--------:|-------------------------------------------|
+| nodes | `Node[]` | Yes       | —        | List of `Slate` nodes to transform        |
+
 ### Default transforms
 
 By default `slate-to-react` has default transforms for following nodes:
