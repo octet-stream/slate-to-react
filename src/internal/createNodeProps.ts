@@ -128,7 +128,7 @@ const defaults: Required<CreateNodePropsOptions> = {
 }
 
 /**
- * Generated an ID for node's attributes
+ * Generates an ID for node's attributes
  *
  * @param node A node to borrow an existent id from
  * @param key A node's id field key name
