@@ -8,8 +8,9 @@ import {nanoid} from "nanoid"
 import type {Node} from "../public/Node.js"
 import type {Replace} from "../public/Replace.js"
 
-import {TextNode} from "./type/TextNode.js"
 import type {Descendant} from "./type/Descendant.js"
+
+import {TextNode} from "./type/TextNode.js"
 
 /**
  * @api private
