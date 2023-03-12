@@ -60,6 +60,8 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
+**IMPORTANT**: Note that by default `slate-to-react` will generate a unique `id` for each node using [`nanoid`](https://github.com/ai/nanoid) to use it as `key` property of each rendered React component, which is not recommended as the `key` property **must** remain consistent between renders. I strongly suggest to provide nodes that already have stable ids. For example [`plate`](https://github.com/udecode/plate) has a `createNodeIdPlugin` to generate an `id` for each node in editor, and if node already has an id it will reuse it. If you provide nodes with ids on them, `slate-to-react` will also pick them instead of creating a new one on each every time `transformNodes` is called. By default, it will pick those from `id` field of `Element` and `Text` nodes, but this is configurable. See [`TransformNodesOptions`](#interface-transformnodesoptions) section of readme.md for more information.
+
 2. You can also transform Slate nodes via [`useSlateToReact`](#useslatetoreactnodes-options) hook used inside `SlateView` component:
 
 ```tsx
@@ -71,8 +73,10 @@ import {useSlateToReact} from "slate-to-react"
 const App: FC = () => {
   // This hook returns a signle ReactElement, so you can even return it from your component, no need for `React.Fragment` or any wrapper element.
   const view = useSlateToReact([
+    id: "1",
     type: "p",
     children: [{
+      id: "2",
       text: "Hello, world!"
     }]
   ])
@@ -126,8 +130,10 @@ const MySlateView: FC<MySlateViewProps> = ({nodes}) => {
 const App: FC = () => (
   <MySlateView
     nodes={[
+      id: "1",
       type: "p",
       children: [{
+        id: "2",
         text: "Hello, world!"
       }]
     ]}
@@ -197,21 +203,27 @@ export const MyComponent: FC = () => (
     }}
     nodes={[
       {
+        id: "1",
         type: "p",
         children: [{ // This node will be rendered as regular `<a>` tag because its url points to an external resource
+          id: "2",
           type: "a",
           url: "https://example.com",
           children: [{
+            id: "3",
             text: "External link to example.com"
           }]
         }]
       },
       {
+        id: "4",
         type: "p",
         children: [{ // This node will be rendered using `next/link` component, because it has an internal url
+          id: "5",
           type: "a",
           url: "/about",
           children: [{
+            id: "6",
             text: "About page"
           }]
         }]
