@@ -119,13 +119,9 @@ function compileNodes(
  * @api public
  */
 export function transformNodes(
-  /* eslint-disable @typescript-eslint/indent */
-  /* eslint-disable indent */
   nodes: Node[],
   options: TransformNodesOptions = {}
 ): ReactElement {
-  /* eslint-enable @typescript-eslint/indent */
-  /* eslint-enable indent */
   const result: ReactElement[] = []
 
   const transforms: Required<Transforms> = {
