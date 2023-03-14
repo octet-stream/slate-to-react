@@ -1,9 +1,9 @@
 import test from "ava"
 
-import type {Blockquote} from "./type/Blockquote.js"
+import type {Blockquote} from "../internal/type/Blockquote.js"
 
-import {ELEMENT_BLOCKQUOTE} from "./constants.js"
-import {getNodeType} from "./getNodeType.js"
+import {ELEMENT_BLOCKQUOTE} from "../internal/constants.js"
+import {getNodeType} from "../internal/getNodeType.js"
 
 import {NoMatcherError} from "./NoMatcherError.js"
 

@@ -11,7 +11,7 @@ import {
   HEADINGS_LIST,
   ELEMENT_BLOCKQUOTE
 } from "../internal/constants.js"
-import {NoMatcherError} from "../internal/NoMatcherError.js"
+import {NoMatcherError} from "./NoMatcherError.js"
 import {isRichText, isPlainText} from "../internal/matchers.js"
 
 import type {Blockquote} from "../internal/type/Blockquote.js"

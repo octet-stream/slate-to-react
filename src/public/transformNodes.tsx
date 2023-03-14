@@ -8,8 +8,9 @@ import type {
 import type {Descendant} from "../internal/type/Descendant.js"
 import type {TextNode} from "../internal/type/TextNode.js"
 
-import {NoMatcherError} from "../internal/NoMatcherError.js"
 import {leaves, elements} from "../internal/defaultTransforms.js"
+
+import {NoMatcherError} from "./NoMatcherError.js"
 
 import {
   createLeafProps,
