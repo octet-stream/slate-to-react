@@ -1,4 +1,3 @@
-import React from "react"
 import test from "ava"
 
 import {withRender} from "../__macro__/withRender.js"

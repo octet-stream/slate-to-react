@@ -36,7 +36,7 @@
     "coverage": "c8 npm test",
     "report": "c8 -r=html npm test",
     "ci": "c8 npm test && c8 report --reporter=json",
-    "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment",
+    "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
     "cleanup": "del-cli @type lib",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable && npm run eslint && npm run lint:types && npm run cleanup && npm run build",
@@ -50,7 +50,7 @@
     }
   },
   "devDependencies": {
-    "@octetstream/eslint-config": "7.0.2",
+    "@octetstream/eslint-config": "7.1.0",
     "@testing-library/react": "14.0.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",

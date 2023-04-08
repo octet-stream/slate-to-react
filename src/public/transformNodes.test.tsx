@@ -1,4 +1,3 @@
-import React from "react"
 import test from "ava"
 
 import type {ReactNode} from "react"

@@ -13,7 +13,7 @@
     "moduleResolution": "nodenext",
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "ts-node": {
     "preferTsExts": true

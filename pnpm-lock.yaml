@@ -7,8 +7,8 @@ dependencies:
 
 devDependencies:
   '@octetstream/eslint-config':
-    specifier: 7.0.2
-    version: 7.0.2(@typescript-eslint/eslint-plugin@5.57.1)(@typescript-eslint/parser@5.57.1)(eslint-config-airbnb-typescript@17.0.0)(eslint-config-airbnb@19.0.4)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint@8.38.0)(typescript@5.0.4)
+    specifier: 7.1.0
+    version: 7.1.0(@typescript-eslint/eslint-plugin@5.57.1)(@typescript-eslint/parser@5.57.1)(eslint-config-airbnb-typescript@17.0.0)(eslint-config-airbnb@19.0.4)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint@8.38.0)(typescript@5.0.4)
   '@testing-library/react':
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1545,8 +1545,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@octetstream/eslint-config@7.0.2(@typescript-eslint/eslint-plugin@5.57.1)(@typescript-eslint/parser@5.57.1)(eslint-config-airbnb-typescript@17.0.0)(eslint-config-airbnb@19.0.4)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint@8.38.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-fJiFwqlwU2yxuvCprOYfAqPpstvejzeE0BOeAHvgxLbj5kpIAqe2quMIYgdVxzhbnaMVkVe57oIITg5QoSMSTw==}
+  /@octetstream/eslint-config@7.1.0(@typescript-eslint/eslint-plugin@5.57.1)(@typescript-eslint/parser@5.57.1)(eslint-config-airbnb-typescript@17.0.0)(eslint-config-airbnb@19.0.4)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint@8.38.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-3f08gtEhTa2jLHNVguhy2otuWHXTl3aotnKsMkDEEL+IsNXCRV39WRpXc8lDdDHZ95bolQ1dpkGnMH+sc7aokg==}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': 5.x
       '@typescript-eslint/parser': 5.x
