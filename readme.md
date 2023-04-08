@@ -7,11 +7,6 @@ React component and utilities to transform [Slate](https://github.com/ianstormta
 [![ESLint](https://github.com/octet-stream/slate-to-react/actions/workflows/eslint.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/eslint.yml)
 [![TypeScript Types](https://github.com/octet-stream/slate-to-react/actions/workflows/typescript.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/typescript.yml)
 
-## Roadmap
-
-- [x] Minimal implementation with default transforms;
-- [x] Support custom transforms.
-
 ## Installation
 
 To install, run one of the following commands:
