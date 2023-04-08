@@ -1,19 +1,12 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.eslint.json"
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
   },
   "extends": [
     "@octetstream/eslint-config/esm/typescript/react"
   ],
   "rules": {
-    // These two rules are false-positive and have no solution for TS
     "no-redeclare": 0,
     "no-dupe-class-members": 0,
     "lines-between-class-members": 0
