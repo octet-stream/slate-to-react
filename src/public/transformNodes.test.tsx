@@ -374,8 +374,8 @@ test("Renders nodes with custom transform", withRender, (t, render) => {
 
           id="rich-text"
           data-rich-text={expectedDataRichText}
-        >{
-          element}
+        >
+          {element}
         </span>
       )
     }
