@@ -1,9 +1,11 @@
 import type {RenderOptions, Queries, RenderResult} from "@testing-library/react"
 import {render, queries} from "@testing-library/react"
-import type {ImplementationFn} from "ava"
+import type {ExecutionContext} from "ava"
 import type {ReactElement} from "react"
 
 import test from "ava"
+
+import {createContainerFactory} from "../__helper__/createContainerFactory.js"
 
 type IsolatedRenderOptions = Omit<RenderOptions, "container">
 
@@ -18,21 +20,26 @@ interface IsolatedRender<
   ): RenderResult<Q, Container, BaseElement>
 }
 
-type Implementation = ImplementationFn<[render: IsolatedRender]>
+type Implementation = (
+  t: ExecutionContext,
 
-export const withRender = test.macro(async (t, fn: Implementation) => {
-  const container = document.createElement("div")
+  // eslint-disable-next-line no-shadow
+  render: IsolatedRender
+) => Promise<void>
+
+export const withRender = test.macro(async (t, impl: Implementation) => {
+  const {createContainer, cleanupContainers} = createContainerFactory()
 
   const isolatedRender = (
     ui: ReactElement,
     options: IsolatedRenderOptions = {}
   ) => render(ui, {
-    ...options, container: document.body.appendChild(container)
+    ...options, container: createContainer()
   })
 
   try {
-    await fn(t, isolatedRender)
+    await impl(t, isolatedRender)
   } finally {
-    document.body.removeChild(container)
+    cleanupContainers()
   }
 })
