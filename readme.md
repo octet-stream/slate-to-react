@@ -153,19 +153,19 @@ import type {Node, Replace} from "slate-to-react"
 import type {Text} from "slate"
 import type {FC} from "react"
 
-import Link from "next/Link"
+import NextLink from "next/Link"
 
 import {isInternalUrl} from "./utils/isInternalUrl.js"
 
-type Anchor = Replace<Node<"a">, {
+type Link = Replace<Node<"a">, {
   url: string
   children: Text[]
 }>
 
 // First of all, we need a matcher for `Link` element node.
 // Node that slate-to-react has a bunch of builtin matchers, including `isLink`, so you can skip this step
-export const isLink = createElementNodeMatcher<Anchor>(
-  (node): node is Anchor => (
+export const isLink = createElementNodeMatcher<Link>(
+  (node): node is Link => (
     node.type === "a" && typeof node.url === "string"
   )
 )
@@ -173,15 +173,15 @@ export const isLink = createElementNodeMatcher<Anchor>(
 // Then define a transform for this element. Transform factory function takes two arguments:
 // 1. Node matcher. In this case that would be our `isLink` marcher, which implements `ElementMatcher` type.
 // 2. Transformer implementation. This function takes `ElementProps` as an argument, and should return `ReactElement` for this node.
-export const Link = createElementTransform(
+export const Anchor = createElementTransform(
   isLink,
 
   ({element, attributes, children}) => (
     isInternalUrl(element.url)
       ? (
-        <Link {...attributes} href={element.url}>
+        <NextLink {...attributes} href={element.url}>
           {children}
-        </Link>
+        </NextLink>
       )
       : (
         <a {...attributes} href={element.url} rel="noopener noreferrer" target="_blank">
@@ -194,7 +194,7 @@ export const Link = createElementTransform(
 export const MyComponent: FC = () => (
   <SlateView
     transforms={{
-      elements: [Link] // With that, `SlateView` component will render `Anchor` nodes using our own transform, instead of default.
+      elements: [Anchor] // With that, `SlateView` component will render `Anchor` nodes using our own transform, instead of default.
     }}
     nodes={[
       {
