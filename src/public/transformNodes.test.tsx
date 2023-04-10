@@ -39,7 +39,7 @@ test("Renders a simple paragraph node", withRender, async (t, render) => {
   t.true(actual.parentElement instanceof HTMLParagraphElement)
 })
 
-test("Renders empty text nodes as <br />", withRender, (t, render) => {
+test("Renders empty text nodes as <br />", withRender, async (t, render) => {
   const expected = ["span", "br", "span"] as const
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
@@ -65,7 +65,7 @@ test("Renders empty text nodes as <br />", withRender, (t, render) => {
   }))
 })
 
-test("Renders empty rich text nodes as <br />", withRender, (t, render) => {
+test("Renders empty rich text nodes as <br />", withRender, async (t, render) => {
   const expected = ["span", "br", "span"] as const
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
@@ -92,7 +92,7 @@ test("Renders empty rich text nodes as <br />", withRender, (t, render) => {
   }))
 })
 
-test("Renders bold rich text", withRender, (t, render) => {
+test("Renders bold rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -113,7 +113,7 @@ test("Renders bold rich text", withRender, (t, render) => {
   t.is(actual.tagName.toLowerCase(), "strong")
 })
 
-test("Renders italic rich text", withRender, (t, render) => {
+test("Renders italic rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -134,7 +134,7 @@ test("Renders italic rich text", withRender, (t, render) => {
   t.is(actual.tagName.toLowerCase(), "i")
 })
 
-test("Renders underline rich text", withRender, (t, render) => {
+test("Renders underline rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -155,7 +155,7 @@ test("Renders underline rich text", withRender, (t, render) => {
   t.is(actual.tagName.toLowerCase(), "u")
 })
 
-test("Renders strikethrough rich text", withRender, (t, render) => {
+test("Renders strikethrough rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -176,7 +176,7 @@ test("Renders strikethrough rich text", withRender, (t, render) => {
   t.is(actual.tagName.toLowerCase(), "s")
 })
 
-test("Renders superscript rich text", withRender, (t, render) => {
+test("Renders superscript rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -197,7 +197,7 @@ test("Renders superscript rich text", withRender, (t, render) => {
   t.is(actual.tagName.toLowerCase(), "sup")
 })
 
-test("Renders subscript rich text", withRender, (t, render) => {
+test("Renders subscript rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -218,7 +218,7 @@ test("Renders subscript rich text", withRender, (t, render) => {
   t.is(actual.tagName.toLowerCase(), "sub")
 })
 
-test("Renders code rich text", withRender, (t, render) => {
+test("Renders code rich text", withRender, async (t, render) => {
   const nodes: Paragraph[] = [{
     type: ELEMENT_PARAGRAPH,
     children: [{
@@ -267,7 +267,7 @@ test("Renders link element", withRender, async (t, render) => {
   t.is(actual.href, expectedUrl)
 })
 
-test("Renders <blockquote> element", withRender, (t, render) => {
+test("Renders <blockquote> element", withRender, async (t, render) => {
   const expectedQuote = "On Soviet Moon landscape see binoculars through YOU"
 
   const nodes: Blockquote[] = [{
@@ -289,7 +289,7 @@ test("Renders <blockquote> element", withRender, (t, render) => {
   t.is(actual.textContent, expectedQuote)
 })
 
-test("Renders headings", withRender, (t, render) => {
+test("Renders headings", withRender, async (t, render) => {
   const nodes = HEADINGS_LIST.map(heading => ({
     type: heading,
     children: [{
@@ -311,7 +311,7 @@ test("Renders headings", withRender, (t, render) => {
   )))
 })
 
-test("Renders nodes with custom transform", withRender, (t, render) => {
+test("Renders nodes with custom transform", withRender, async (t, render) => {
   const expectedDataLink = "This was rendered with custom link transform"
   const expectedDataText = "This was rendered with custom Text transform"
   const expectedDataRichText = (

@@ -25,7 +25,7 @@ type Implementation = (
 
   // eslint-disable-next-line no-shadow
   render: IsolatedRender
-) => Promise<void>
+) => Promise<unknown>
 
 export const withRender = test.macro(async (t, impl: Implementation) => {
   const {createContainer, cleanupContainers} = createContainerFactory()
