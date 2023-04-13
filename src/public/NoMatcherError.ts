@@ -1,12 +1,19 @@
 import type {Descendant} from "../internal/type/Descendant.js"
 
+import {BaseError} from "../internal/BaseError.js"
 import {getNodeType} from "../internal/getNodeType.js"
+import {createErrorCode} from "../internal/createErrorCode.js"
 
-export class NoMatcherError<T extends Descendant> extends Error {
-  readonly code = "SLATE_TO_REACT_NO_MATCHER_ERROR"
+const code = createErrorCode("NO_MATCHER")
 
+export class NoMatcherError<
+  T extends Descendant
+> extends BaseError<typeof code> {
   constructor(props: T) {
-    super(`Cannot find transform for node ${getNodeType(props)}`)
+    super({
+      code,
+      message: `Cannot find transform for node ${getNodeType(props)}`
+    })
 
     Error.captureStackTrace(this, this.constructor)
   }

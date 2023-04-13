@@ -40,9 +40,9 @@ export interface Transforms {
   elements?: ElementTransform<any>[] // FIXME: I give up for now, but this must be fixed.
 }
 
-interface CompileNodesOptions extends CreateNodePropsOptions { }
+type CompileNodesOptions = CreateNodePropsOptions & { }
 
-export interface TransformNodesOptions extends CreateNodePropsOptions {
+export type TransformNodesOptions = CreateNodePropsOptions & {
   /**
    * Custom transforms for `Slate` nodes
    */
@@ -87,7 +87,7 @@ const getElementTransform = (
 function compileNodes(
   nodes: Descendant[],
   transforms: Required<Transforms>,
-  options: CompileNodesOptions = {}
+  options?: CompileNodesOptions
 ): ReactElement {
   const result: ReactElement[] = []
 
@@ -121,13 +121,13 @@ function compileNodes(
  */
 export function transformNodes(
   nodes: Node[],
-  options: TransformNodesOptions = {}
+  options?: TransformNodesOptions
 ): ReactElement {
   const result: ReactElement[] = []
 
   const transforms: Required<Transforms> = {
-    leaves: [...(options.transforms?.leaves ?? []), ...leaves],
-    elements: [...(options.transforms?.elements ?? []), ...elements]
+    leaves: [...(options?.transforms?.leaves ?? []), ...leaves],
+    elements: [...(options?.transforms?.elements ?? []), ...elements]
   }
 
   for (const node of nodes) {

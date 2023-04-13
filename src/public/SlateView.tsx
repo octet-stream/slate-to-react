@@ -5,7 +5,7 @@ import {useSlateToReact} from "./useSlateToReact.js"
 import type {TransformNodesOptions} from "./transformNodes.js"
 import type {Node} from "./Node.js"
 
-export interface SlateViewProps extends TransformNodesOptions {
+export type SlateViewProps = TransformNodesOptions & {
   /**
    * List of `Slate` nodes to transform
    */
@@ -22,5 +22,3 @@ export const SlateView: FC<SlateViewProps> = ({
 
   ...options
 }) => useSlateToReact(nodes, options)
-
-SlateView.displayName = "SlateView"

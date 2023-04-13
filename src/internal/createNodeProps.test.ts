@@ -10,6 +10,7 @@ import {spy} from "sinon"
 
 import {isNanoId} from "../__helper__/isNanoId.js"
 
+import {NodeNoIdFieldError} from "../public/NodeNoIdFieldError.js"
 import type {Node} from "../public/Node.js"
 
 import {ELEMENT_PARAGRAPH} from "./constants.js"
@@ -206,6 +207,54 @@ test(
     t.true(isNanoId(actual.attributes.key))
   }
 )
+
+test("createLeafProps throws error in strict mode for nodes w/0 id", t => {
+  const node: TextNode = {
+    text: "This text node is not valid in strict mode"
+  }
+
+  const trap = () => createLeafProps(node, {
+    strict: true
+  })
+
+  t.throws(trap, {
+    instanceOf: NodeNoIdFieldError,
+    message: "Node must have an ID field."
+  })
+})
+
+test("createElementProps throws error in strict mode for nodes w/o id", t => {
+  const node: Paragraph = {
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      id: "1",
+      text: "This paragraph is not valid in strict mode"
+    }]
+  }
+
+  const trap = () => createElementProps(
+    node,
+
+    createElement(
+      "span",
+
+      {
+        key: "1"
+      },
+
+      "This paragraph is not valid in strict mode"
+    ),
+
+    {
+      strict: true
+    }
+  )
+
+  t.throws(trap, {
+    instanceOf: NodeNoIdFieldError,
+    message: "Node must have an ID field."
+  })
+})
 
 test(
   "LeafProps with specific type parameters is assignable "

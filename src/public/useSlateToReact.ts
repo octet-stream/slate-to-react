@@ -15,5 +15,5 @@ import {transformNodes} from "./transformNodes.js"
  */
 export const useSlateToReact = (
   nodes: Node[],
-  options: TransformNodesOptions = {}
+  options?: TransformNodesOptions
 ) => useMemo(() => transformNodes(nodes, options), [nodes, options])
