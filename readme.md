@@ -55,7 +55,9 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
-**IMPORTANT**: Note that by default `slate-to-react` will generate a unique `id` for each node using [`nanoid`](https://github.com/ai/nanoid) to use it as `key` property of each rendered React component, which is not recommended as the `key` property **must** remain consistent between renders. I strongly suggest to provide nodes that already have stable ids. For example [`plate`](https://github.com/udecode/plate) has a `createNodeIdPlugin` (use it with `filterText` option set to `false`) to generate an `id` for each node in editor, and if node already has an id it will reuse it. If you provide nodes with ids on them, `slate-to-react` will also pick them instead of creating a new one on each every time `transformNodes` is called. By default, it will pick those from `id` field of `Element` and `Text` nodes, but this is configurable. See [`TransformNodesOptions`](#interface-transformnodesoptions) section of readme.md for more information.
+**IMPORTANT**: Note that by default `slate-to-react` will generate a unique `id` for each node using [`nanoid`](https://github.com/ai/nanoid) to use it as `key` property of each rendered React component, which is not recommended as the `key` property **must** remain consistent between renders.
+You can opt-out of this behaviour if you enable strict mode in `SlateView`, or `useSlateToReact`, or `transformNodes` options.
+When enabled, `NodeNoIdFieldError` will be thrown if any node without the `id` field is encountered.
 
 2. You can also transform Slate nodes via [`useSlateToReact`](#useslatetoreactnodes-options) hook used inside `SlateView` component:
 
