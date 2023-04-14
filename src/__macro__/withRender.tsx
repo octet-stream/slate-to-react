@@ -9,12 +9,10 @@ import {createContainerFactory} from "../__helper__/createContainerFactory.js"
 
 type IsolatedRenderOptions = Omit<RenderOptions, "container">
 
-interface IsolatedRender<Q extends Queries = typeof queries> {
-  (
-    ui: ReactElement,
-    options?: IsolatedRenderOptions
-  ): RenderResult<Q, HTMLDivElement, HTMLElement>
-}
+type IsolatedRender<Q extends Queries = typeof queries> = (
+  ui: ReactElement,
+  options?: IsolatedRenderOptions
+) => RenderResult<Q, HTMLDivElement, HTMLElement>
 
 type Implementation = (
   t: ExecutionContext,
