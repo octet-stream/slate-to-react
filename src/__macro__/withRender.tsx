@@ -9,22 +9,16 @@ import {createContainerFactory} from "../__helper__/createContainerFactory.js"
 
 type IsolatedRenderOptions = Omit<RenderOptions, "container">
 
-interface IsolatedRender<
-  Q extends Queries = typeof queries,
-  Container extends Element | DocumentFragment = HTMLElement,
-  BaseElement extends Element | DocumentFragment = Container
-> {
+interface IsolatedRender<Q extends Queries = typeof queries> {
   (
     ui: ReactElement,
     options?: IsolatedRenderOptions
-  ): RenderResult<Q, Container, BaseElement>
+  ): RenderResult<Q, HTMLDivElement, HTMLElement>
 }
 
 type Implementation = (
   t: ExecutionContext,
-
-  // eslint-disable-next-line no-shadow
-  render: IsolatedRender
+  isolatedRender: IsolatedRender
 ) => Promise<unknown>
 
 export const withRender = test.macro(async (t, impl: Implementation) => {
