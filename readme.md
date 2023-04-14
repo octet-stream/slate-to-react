@@ -56,7 +56,7 @@ createRoot(root).render(<App />)
 ```
 
 **IMPORTANT**: Note that by default `slate-to-react` will generate a unique `id` for each node using [`nanoid`](https://github.com/ai/nanoid) to use it as `key` property of each rendered React component, which is not recommended as the `key` property **must** remain consistent between renders.
-You can opt-out of this behaviour if you enable strict mode in `SlateView`, or `useSlateToReact`, or `transformNodes` options.
+You can opt-out by enabling strict mode in `SlateView`, or `useSlateToReact`, or `transformNodes` options.
 When enabled, `NodeNoIdFieldError` will be thrown if any node without the `id` field is encountered.
 
 2. You can also transform Slate nodes via [`useSlateToReact`](#useslatetoreactnodes-options) hook used inside `SlateView` component:
