@@ -1,3 +1,4 @@
+export * from "./public/NodeNoIdFieldError.js"
 export * from "./public/createNodeMatcher.js"
 export * from "./public/createTransform.js"
 export * from "./public/useSlateToReact.js"
