@@ -21,6 +21,11 @@ type Implementation = (
   isolatedRender: IsolatedRender
 ) => Promise<unknown>
 
+/**
+ * Creates isolated container for each `render` function call allowing to perform parallel tests with AVA.
+ *
+ * Adds this isolated `render` function to test implementation arguments.
+ */
 export const withRender = test.macro(async (t, impl: Implementation) => {
   const {createContainer, cleanupContainers} = createContainerFactory()
 
