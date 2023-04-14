@@ -7,11 +7,10 @@ import {nanoid} from "nanoid"
 
 import type {Node} from "../public/Node.js"
 import type {Replace} from "../public/Replace.js"
-import {NodeNoIdFieldError} from "../public/NodeNoIdFieldError.js"
+import type {TextNode} from "../public/TextNode.js"
+import {NoIdFieldError} from "../public/NoIdFieldError.js"
 
 import type {Descendant} from "./type/Descendant.js"
-
-import {TextNode} from "./type/TextNode.js"
 
 /**
  * @api private
@@ -103,7 +102,7 @@ type IdGenerator = () => string
 interface BaseOptions<TFlag extends boolean> {
   /**
    * If enabled, the `id` field for nodes will not be created
-   * and `NodeNoIdFieldError` will be thrown when encountered node without `id` field.
+   * and `NoIdFieldError` will be thrown when encountered node without `id` field.
    *
    * Defaults to `false`
    *
@@ -150,7 +149,7 @@ function assertStrictId(
   options: CreateNodePropsOptions
 ): asserts options is CreateNodeLooseOptions {
   if (isStrict(options) && !id) {
-    throw new NodeNoIdFieldError()
+    throw new NoIdFieldError()
   }
 }
 

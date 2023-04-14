@@ -10,7 +10,8 @@ import {spy} from "sinon"
 
 import {isNanoId} from "../__helper__/isNanoId.js"
 
-import {NodeNoIdFieldError} from "../public/NodeNoIdFieldError.js"
+import {NoIdFieldError} from "../public/NoIdFieldError.js"
+import type {TextNode} from "../public/TextNode.js"
 import type {Node} from "../public/Node.js"
 
 import {ELEMENT_PARAGRAPH} from "./constants.js"
@@ -19,7 +20,6 @@ import {createLeafProps, createElementProps} from "./createNodeProps.js"
 import type {LeafProps, ElementProps} from "./createNodeProps.js"
 import type {Blockquote} from "./type/Blockquote.js"
 import type {Paragraph} from "./type/Paragraph.js"
-import type {TextNode} from "./type/TextNode.js"
 import type {RichText} from "./type/RichText.js"
 import type {Heading} from "./type/Heading.js"
 import type {Link} from "./type/Link.js"
@@ -218,7 +218,7 @@ test("createLeafProps throws error in strict mode for nodes w/0 id", t => {
   })
 
   t.throws(trap, {
-    instanceOf: NodeNoIdFieldError,
+    instanceOf: NoIdFieldError,
     message: "Node must have an ID field."
   })
 })
@@ -251,7 +251,7 @@ test("createElementProps throws error in strict mode for nodes w/o id", t => {
   )
 
   t.throws(trap, {
-    instanceOf: NodeNoIdFieldError,
+    instanceOf: NoIdFieldError,
     message: "Node must have an ID field."
   })
 })

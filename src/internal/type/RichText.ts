@@ -1,4 +1,4 @@
-import type {TextNode} from "./TextNode.js"
+import type {TextNode} from "../../public/TextNode.js"
 
 export interface Superscript {
   superscript?: boolean

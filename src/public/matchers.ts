@@ -1,13 +1,14 @@
+import type {Blockquote} from "../internal/type/Blockquote.js"
+import type {Paragraph} from "../internal/type/Paragraph.js"
+import type {Heading} from "../internal/type/Heading.js"
+import type {Link} from "../internal/type/Link.js"
+
 import {
   createLeafNodeMatcher,
   createElementNodeMatcher
 } from "./createNodeMatcher.js"
 
-import type {Blockquote} from "../internal/type/Blockquote.js"
-import type {Paragraph} from "../internal/type/Paragraph.js"
-import type {TextNode} from "../internal/type/TextNode.js"
-import type {Heading} from "../internal/type/Heading.js"
-import type {Link} from "../internal/type/Link.js"
+import type {TextNode} from "./TextNode.js"
 
 import {
   ELEMENT_LINK,

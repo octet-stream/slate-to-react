@@ -6,7 +6,7 @@ import type {
   CreateNodePropsOptions
 } from "../internal/createNodeProps.js"
 import type {Descendant} from "../internal/type/Descendant.js"
-import type {TextNode} from "../internal/type/TextNode.js"
+import type {TextNode} from "./TextNode.js"
 
 import {leaves, elements} from "../internal/defaultTransforms.js"
 

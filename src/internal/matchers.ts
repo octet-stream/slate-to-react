@@ -1,10 +1,11 @@
-import type {TextNode} from "./type/TextNode.js"
-import type {RichText} from "./type/RichText.js"
 import type {EmptyText} from "./type/EmptyText.js"
+import type {RichText} from "./type/RichText.js"
 
 import {isSubscriptRichText} from "./isSubscriptRichText.js"
 import {isSuperscriptRichText} from "./isSuperscriptRichText.js"
+
 import {createLeafNodeMatcher} from "../public/createNodeMatcher.js"
+import type {TextNode} from "../public/TextNode.js"
 
 /**
  * Matches empty text nodes

@@ -1,5 +1,4 @@
-import type {TextNode} from "./TextNode.js"
-
+import type {TextNode} from "../../public/TextNode.js"
 import type {Node} from "../../public/Node.js"
 
 /**

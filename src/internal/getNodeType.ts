@@ -1,5 +1,6 @@
+import type {TextNode} from "../public/TextNode.js"
+
 import type {Descendant} from "./type/Descendant.js"
-import type {TextNode} from "./type/TextNode.js"
 
 const isLeaf = (value: unknown): value is TextNode => (
   typeof value === "object"

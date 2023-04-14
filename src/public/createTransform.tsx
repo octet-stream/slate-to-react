@@ -1,7 +1,6 @@
 import type {ReactElement} from "react"
 
 import type {NodeProps} from "../internal/createNodeProps.js"
-import type {TextNode} from "../internal/type/TextNode.js"
 
 import type {
   NodeMatcher,
@@ -9,6 +8,7 @@ import type {
   ElementNodeMatcher
 } from "./createNodeMatcher.js"
 import type {Node} from "./Node.js"
+import type {TextNode} from "./TextNode.js"
 
 export type TransformImplementation<TNode extends Node | TextNode> =
   (props: NodeProps<TNode>) => ReactElement

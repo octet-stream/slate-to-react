@@ -1,6 +1,7 @@
 import test from "ava"
 
-import type {TextNode} from "./type/TextNode.js"
+import type {TextNode} from "../public/TextNode.js"
+
 import type {RichText} from "./type/RichText.js"
 import type {EmptyText} from "./type/EmptyText.js"
 
