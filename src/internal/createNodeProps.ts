@@ -11,6 +11,7 @@ import type {TextNode} from "../public/TextNode.js"
 import {NoIdFieldError} from "../public/NoIdFieldError.js"
 
 import type {Descendant} from "./type/Descendant.js"
+import type {Simplify} from "./type/Simplify.js"
 
 /**
  * @api private
@@ -38,16 +39,17 @@ interface ElementWithChildren {
  *
  * @api private
  */
-type LeafNodeBase<T extends TextNode = TextNode> =
+type LeafNodeBase<T extends TextNode = TextNode> = Simplify<
   Replace<RenderLeafProps, LeafWithChildren & {
     leaf: T
     text: T
   }>
+>
 
 /**
  * @api private
  */
-type ElementNodeBase<T extends Node = Node> =
+type ElementNodeBase<T extends Node = Node> = Simplify<
   Replace<
     RenderElementProps,
 
@@ -60,6 +62,7 @@ type ElementNodeBase<T extends Node = Node> =
         attributes: Omit<RenderElementProps["attributes"], "ref">
       }
   >
+>
 
 /**
  * @api private
@@ -74,7 +77,7 @@ type NodeBaseProps<T extends Descendant> = T extends Node
  * @api private
  */
 export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
-  attributes: Replace<NodeBaseProps<T>["attributes"], PropsWithKey>
+  attributes: Simplify<Replace<NodeBaseProps<T>["attributes"], PropsWithKey>>
 }>
 
 /**
