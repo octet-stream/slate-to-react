@@ -14,7 +14,5 @@ export class NoMatcherError<
       code,
       message: `Cannot find transform for node ${getNodeType(props)}`
     })
-
-    Error.captureStackTrace(this, this.constructor)
   }
 }
