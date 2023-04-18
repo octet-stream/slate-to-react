@@ -11,6 +11,8 @@ export class BaseError<TCode extends string> extends Error {
 
     this.code = code
 
-    Error.captureStackTrace(this, this.constructor)
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, this.constructor)
+    }
   }
 }
