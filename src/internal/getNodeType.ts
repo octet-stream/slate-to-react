@@ -11,4 +11,4 @@ const isLeaf = (value: unknown): value is TextNode => (
 
 export const getNodeType = <T extends Descendant>(
   node: T
-): string => isLeaf(node) ? "Text" : `Node<${node.type || "unknown"}>`
+): string => isLeaf(node) ? "Text" : `Node<"${node.type || "unknown"}">`

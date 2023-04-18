@@ -30,7 +30,7 @@ test("Returns Node<type> for element node", t => {
     }]
   }
 
-  const expected = `Node<${ELEMENT_LINK}>`
+  const expected = `Node<"${ELEMENT_LINK}">`
   const actual = getNodeType(node)
 
   t.is(actual, expected)
@@ -45,7 +45,7 @@ test(
       }]
     }
 
-    const expected = "Node<unknown>"
+    const expected = "Node<\"unknown\">"
 
     // @ts-expect-error
     const actual = getNodeType(node)
