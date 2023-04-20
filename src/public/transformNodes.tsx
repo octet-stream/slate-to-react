@@ -82,12 +82,15 @@ const getElementTransform = (
 ): TransformImplementation<Node> => getTransform(node, transforms)
 
 /**
+ * Compiles Slate nodes into React elements tree.
+ *
  * @api private
  */
 function compileNodes(
   nodes: Descendant[],
   transforms: Required<Transforms>,
-  options?: CompileNodesOptions
+  options?: CompileNodesOptions,
+  isRootElement: boolean = false,
 ): ReactElement {
   const result: ReactElement[] = []
 
@@ -99,12 +102,14 @@ function compileNodes(
       const element = transform(props)
 
       result.push(element)
-    } else {
+    } else if (isRootElement === false) {
       const transform = getLeafTransform(node, transforms.leaves)
       const props = createLeafProps(node, options)
       const element = transform(props)
 
       result.push(element)
+    } else {
+      throw new TypeError("Root element must be of Element type")
     }
   }
 
@@ -123,25 +128,10 @@ export function transformNodes(
   nodes: Node[],
   options?: TransformNodesOptions
 ): ReactElement {
-  const result: ReactElement[] = []
-
   const transforms: Required<Transforms> = {
     leaves: [...(options?.transforms?.leaves ?? []), ...leaves],
     elements: [...(options?.transforms?.elements ?? []), ...elements]
   }
 
-  for (const node of nodes) {
-    if (Element.isElement(node)) {
-      const children = compileNodes(node.children, transforms)
-      const transform = getElementTransform(node, transforms.elements)
-      const props = createElementProps(node, children, options)
-      const element = transform(props)
-
-      result.push(element)
-    } else {
-      throw new TypeError("Root element must be of Element type")
-    }
-  }
-
-  return createElement(Fragment, undefined, result)
+  return compileNodes(nodes, transforms, options, true)
 }
