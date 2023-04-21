@@ -7,12 +7,12 @@ import {createErrorCode} from "../internal/createErrorCode.js"
 const code = createErrorCode("NO_MATCHER")
 
 export class NoMatcherError<
-  T extends Descendant
+  TNode extends Descendant
 > extends BaseError<typeof code> {
-  constructor(props: T) {
+  constructor(node: TNode) {
     super({
       code,
-      message: `Cannot find transform for node ${getNodeType(props)}`
+      message: `Cannot find transform for node ${getNodeType(node)}`
     })
   }
 }
