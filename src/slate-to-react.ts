@@ -8,6 +8,7 @@ export * from "./public/Node.js"
 // Errors
 export * from "./public/NoIdFieldError.js"
 export * from "./public/NoMatcherError.js"
+export * from "./public/InvalidRootNodeTypeError.js"
 
 // Matchers and transform factories, types and utilities
 export * from "./public/createNodeMatcher.js"

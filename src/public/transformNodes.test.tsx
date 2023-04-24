@@ -11,6 +11,7 @@ import {
   ELEMENT_BLOCKQUOTE
 } from "../internal/constants.js"
 import {NoMatcherError} from "./NoMatcherError.js"
+import {InvalidRootNodeTypeError} from "./InvalidRootNodeTypeError.js"
 import {isRichText, isPlainText} from "../internal/matchers.js"
 
 import type {Blockquote} from "../internal/type/Blockquote.js"
@@ -470,8 +471,8 @@ test("Throws an error for invalid root node type", t => {
   const trap = () => transformNodes(nodes)
 
   t.throws(trap, {
-    instanceOf: TypeError,
-    message: "Root element must be of Element type"
+    instanceOf: InvalidRootNodeTypeError,
+    message: "Root elements must be of Node<T> type"
   })
 })
 

@@ -10,6 +10,7 @@ import type {TextNode} from "./TextNode.js"
 
 import {defaultLeaves, defaultElements} from "../internal/defaultTransforms.js"
 
+import {InvalidRootNodeTypeError} from "./InvalidRootNodeTypeError.js"
 import {NoMatcherError} from "./NoMatcherError.js"
 
 import {
@@ -121,7 +122,7 @@ function compileNodes(
 
       result.push(element)
     } else {
-      throw new TypeError("Root element must be of Element type")
+      throw new InvalidRootNodeTypeError()
     }
   }
 
