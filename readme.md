@@ -236,7 +236,7 @@ export const MyComponent: FC = () => (
 
 React component that will render given `nodes` as React elements.
 
-Available props listed in [`SlateViewProps`](#interface-slateviewprops) interface section.
+Available props listed in [`SlateViewProps`](#type-slateviewprops) interface section.
 
 ### `useSlateToReact(nodes[, options])`
 
@@ -244,10 +244,10 @@ React hook that transforms given Slate nodes to React elements and memoizes the 
 
 This hook takes following arguments:
 
-| Name    | Type                                                        | Required  | Default | Description                        |
-|---------|:-----------------------------------------------------------:|:---------:|:-------:|------------------------------------|
-| nodes   | `Node[]`                                                    | Yes       | —       | List of `Slate` nodes to transform |
-| options | [`TransformNodesOptions`](#interface-transformnodesoptions) | No        | —       | Additional transform options       |
+| Name    | Type                                                   | Required  | Default | Description                        |
+|---------|:------------------------------------------------------:|:---------:|:-------:|------------------------------------|
+| nodes   | `Node[]`                                               | Yes       | —       | List of `Slate` nodes to transform |
+| options | [`TransformNodesOptions`](#type-transformnodesoptions) | No        | —       | Additional transform options       |
 
 ### `transformNodes(nodes[, options])`
 
@@ -255,10 +255,10 @@ Transforms given Slate `nodes` to react elements.
 
 This function takes following arguments:
 
-| Name    | Type                                                        | Required  | Default | Description                        |
-|---------|:-----------------------------------------------------------:|:---------:|:-------:|------------------------------------|
-| nodes   | `Node[]`                                                    | Yes       | —       | List of `Slate` nodes to transform |
-| options | [`TransformNodesOptions`](#interface-transformnodesoptions) | No        | —       | Additional transform options       |
+| Name    | Type                                                   | Required  | Default | Description                        |
+|---------|:------------------------------------------------------:|:---------:|:-------:|------------------------------------|
+| nodes   | `Node[]`                                               | Yes       | —       | List of `Slate` nodes to transform |
+| options | [`TransformNodesOptions`](#type-transformnodesoptions) | No        | —       | Additional transform options       |
 
 Returns `ReactElement`. All nodes will be wrapped within `React.Fragment`, so you can even return them from your components as-is.
 
@@ -583,7 +583,7 @@ Additional transform options.
 
 ### `type SlateViewProps`
 
-Available props for `SlateView` component. Inherits [`TransformNodesOptions`](#interface-transformnodesoptions).
+Available props for `SlateView` component. Inherits [`TransformNodesOptions`](#type-transformnodesoptions).
 
 | Name  | Type     | Required  | Default  | Description                               |
 |-------|:--------:|:---------:|:--------:|-------------------------------------------|
