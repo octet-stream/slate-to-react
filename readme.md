@@ -542,7 +542,7 @@ Matches `H6` heading nodes.
 
 Returns `true` when given node is a `Heading<"h6">` node.
 
-### `Node<T>`
+### `type Node<T>`
 
 Stricten extension on top of Slate's `Element` type. It replaces its `children` with a self-reference list of `Node` and adds `type` property which takes the type of `T` parameter.
 
@@ -550,7 +550,7 @@ Stricten extension on top of Slate's `Element` type. It replaces its `children` 
 |------|:-----------:|:---------:|:--------:|-------------------------------------------|
 | T    | `string`    | No        | `string` | A type parameter for Node `type` property |
 
-### `Replace<L, R>`
+### `type Replace<L, R>`
 
 Replaces object properties in the `L` (target) object with the ones from the `R` (source)
 
@@ -568,7 +568,7 @@ Custom transform lists.
 | leaves   | `LeafTransform[]`    | No        | `[]`     | A list of transforms for `leaf` nodes     |
 | elements | `ElementTransform[]` | No        | `[]`     | A list of transforms for `element` nodes  |
 
-### `interface TransformNodesOptions`
+### `type TransformNodesOptions`
 
 Additional transform options.
 
@@ -581,7 +581,7 @@ Additional transform options.
 | forceGenerateId   | `boolean`                             | No       | `false`                                           | If `true`, the id for key attribute will be always generated |
 | idGenerator       | `() => string`                        | No       | [`nanoid`](https://github.com/ai/nanoid#blocking) | Custom implementation for ID generator                       |
 
-### `interface SlateViewProps`
+### `type SlateViewProps`
 
 Available props for `SlateView` component. Inherits [`TransformNodesOptions`](#interface-transformnodesoptions).
 
