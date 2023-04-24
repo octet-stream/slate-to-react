@@ -572,13 +572,14 @@ Custom transform lists.
 
 Additional transform options.
 
-| Name            | Type                                  | Required | Default                                           | Description                                                  |
-|-----------------|:-------------------------------------:|:--------:|:-------------------------------------------------:|--------------------------------------------------------------|
-| transforms      | [`Transforms`](#interface-transforms) | No       | `undefined`                                       | Custom transforms for `Slate` nodes                          |
-| idKeyName       | `string`                              | No       | `"id"`                                            | The name of the id property on nodes                         |
-| forceGenerateId | `boolean`                             | No       | `false`                                           | If `true`, the id for key attribute will be always generated |
-| idGenerator     | `() => string`                        | No       | [`nanoid`](https://github.com/ai/nanoid#blocking) | Custom implementation for ID generator                       |
-| strict          | `boolean`                             | No       | `false`                                           | Enables strict mode                                          |
+| Name              | Type                                  | Required | Default                                           | Description                                                  |
+|-------------------|:-------------------------------------:|:--------:|:-------------------------------------------------:|--------------------------------------------------------------|
+| defaultTransforms | `boolean`                             | No       | `true`                                            | Controls whether default transforms enabled or not           |
+| transforms        | [`Transforms`](#interface-transforms) | No       | `undefined`                                       | Custom transforms for `Slate` nodes                          |
+| strict            | `boolean`                             | No       | `false`                                           | Enables strict mode                                          |
+| idKeyName         | `string`                              | No       | `"id"`                                            | The name of the id property on nodes                         |
+| forceGenerateId   | `boolean`                             | No       | `false`                                           | If `true`, the id for key attribute will be always generated |
+| idGenerator       | `() => string`                        | No       | [`nanoid`](https://github.com/ai/nanoid#blocking) | Custom implementation for ID generator                       |
 
 ### `interface SlateViewProps`
 

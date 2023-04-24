@@ -8,7 +8,7 @@ import type {
 import type {Descendant} from "../internal/type/Descendant.js"
 import type {TextNode} from "./TextNode.js"
 
-import {leaves, elements} from "../internal/defaultTransforms.js"
+import {defaultLeaves, defaultElements} from "../internal/defaultTransforms.js"
 
 import {NoMatcherError} from "./NoMatcherError.js"
 
@@ -47,6 +47,18 @@ export type TransformNodesOptions = CreateNodePropsOptions & {
    * Custom transforms for `Slate` nodes
    */
   transforms?: Transforms
+
+  /**
+   * Controls whether default transforms enabled or not.
+   *
+   * Default to `true`
+   */
+  defaultTransforms?: boolean
+}
+
+const defaults: TransformNodesOptions = {
+  strict: false,
+  defaultTransforms: true
 }
 
 /**
@@ -128,10 +140,17 @@ export function transformNodes(
   nodes: Node[],
   options?: TransformNodesOptions
 ): ReactElement {
+  const {defaultTransforms, ...mergedOptions} = {...defaults, ...options}
+
   const transforms: Required<Transforms> = {
-    leaves: [...(options?.transforms?.leaves ?? []), ...leaves],
-    elements: [...(options?.transforms?.elements ?? []), ...elements]
+    leaves: mergedOptions.transforms?.leaves?.slice() ?? [],
+    elements: mergedOptions.transforms?.elements?.slice() ?? []
   }
 
-  return compileNodes(nodes, transforms, options, true)
+  if (defaultTransforms) {
+    transforms.leaves.push(...defaultLeaves)
+    transforms.elements.push(...defaultElements)
+  }
+
+  return compileNodes(nodes, transforms, mergedOptions, true)
 }

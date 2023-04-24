@@ -146,11 +146,11 @@ export const Heading = createElementTransform(
  *
  * @api private
  */
-export const leaves = [EmptyText, RichText, PlainText]
+export const defaultLeaves = [EmptyText, RichText, PlainText]
 
 /**
  * List of default element node transforms
  *
  * @api private
  */
-export const elements = [Paragraph, Link, Blockquote, Heading]
+export const defaultElements = [Paragraph, Link, Blockquote, Heading]

@@ -443,6 +443,24 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
   t.is(actualRichText.dataset.richText, expectedDataRichText)
 })
 
+test("Throws an error when rendering w/o transforms and defaults disabled", t => {
+  const nodes: Paragraph[] = [{
+    id: "1",
+    type: ELEMENT_PARAGRAPH,
+    children: [{
+      id: "2",
+      text: "Some text"
+    }]
+  }]
+
+  const trap = () => transformNodes(nodes, {defaultTransforms: false})
+
+  t.throws(trap, {
+    instanceOf: NoMatcherError,
+    message: "Cannot find transform for node Text"
+  })
+})
+
 test("Throws an error for invalid root node type", t => {
   const nodes: RichText[] = [{
     text: "This is invalid root node"
