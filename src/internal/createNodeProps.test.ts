@@ -41,7 +41,7 @@ test("createLeafProps creates valid props for leaf node", t => {
   t.is(actual.leaf, node)
   t.is(typeof actual.children, "string")
   t.true(actual.attributes["data-slate-leaf"])
-  t.is(typeof actual.attributes.key, "string")
+  t.is(typeof actual.key, "string")
 })
 
 test("createElementProps creates valid props for Element node", t => {
@@ -59,7 +59,7 @@ test("createElementProps creates valid props for Element node", t => {
   )
 
   t.is(actual.attributes["data-slate-node"], "element")
-  t.is(typeof actual.attributes.key, "string")
+  t.is(typeof actual.key, "string")
 })
 
 test("createLeafProps TextNode's own id field has higher priority", t => {
@@ -71,7 +71,7 @@ test("createLeafProps TextNode's own id field has higher priority", t => {
 
   const actual = createLeafProps(node)
 
-  t.is(actual.attributes.key, expected)
+  t.is(actual.key, expected)
 })
 
 test("createElementProps Node's own id field has higher priority", t => {
@@ -90,7 +90,7 @@ test("createElementProps Node's own id field has higher priority", t => {
     createElement(node.type, undefined, "Some text")
   )
 
-  t.is(actual.attributes.key, expected)
+  t.is(actual.key, expected)
 })
 
 test(
@@ -104,8 +104,8 @@ test(
 
     const actual = createLeafProps(node, {forceGenerateId: true})
 
-    t.not(actual.attributes.key, inputId)
-    t.true(isNanoId(actual.attributes.key))
+    t.not(actual.key, inputId)
+    t.true(isNanoId(actual.key))
   }
 )
 
@@ -118,7 +118,7 @@ test("createLeafProps takes id from specified key", t => {
 
   const actual = createLeafProps(node, {idKeyName: alternateIdKey})
 
-  t.is(actual.attributes.key, expected)
+  t.is(actual.key, expected)
 })
 
 test("createElementProps takes id from specified key", t => {
@@ -141,7 +141,7 @@ test("createElementProps takes id from specified key", t => {
     }
   )
 
-  t.is(actual.attributes.key, expected)
+  t.is(actual.key, expected)
 })
 
 test("createLeafProps generates id using given function", t => {
@@ -153,8 +153,8 @@ test("createLeafProps generates id using given function", t => {
 
   const actual = createLeafProps(node, {idGenerator})
 
-  t.true(validate(actual.attributes.key))
-  t.is(actual.attributes.key, idGenerator.firstCall.returnValue)
+  t.true(validate(actual.key))
+  t.is(actual.key, idGenerator.firstCall.returnValue)
 })
 
 test("createElementProps generates id using given function", t => {
@@ -177,8 +177,8 @@ test("createElementProps generates id using given function", t => {
     }
   )
 
-  t.true(validate(actual.attributes.key))
-  t.is(actual.attributes.key, idGenerator.firstCall.returnValue)
+  t.true(validate(actual.key))
+  t.is(actual.key, idGenerator.firstCall.returnValue)
 })
 
 test(
@@ -203,8 +203,8 @@ test(
       }
     )
 
-    t.not(actual.attributes.key, inputId)
-    t.true(isNanoId(actual.attributes.key))
+    t.not(actual.key, inputId)
+    t.true(isNanoId(actual.key))
   }
 )
 
