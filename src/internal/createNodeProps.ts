@@ -35,21 +35,9 @@ interface ElementWithChildren {
 }
 
 /**
- * Better typed base RenderLeafProperties
- *
  * @api private
  */
-type LeafNodeBase<T extends TextNode = TextNode> = Simplify<
-  Replace<RenderLeafProps, LeafWithChildren & {
-    leaf: T
-    text: T
-  }>
->
-
-/**
- * @api private
- */
-type ElementNodeBase<T extends Node = Node> = Simplify<
+export type ElementProps<T extends Node = Node> = Simplify<
   Replace<
     RenderElementProps,
 
@@ -59,46 +47,35 @@ type ElementNodeBase<T extends Node = Node> = Simplify<
       }
 
       & {
-        attributes: Omit<RenderElementProps["attributes"], "ref">
+        attributes: Simplify<
+          Omit<
+            RenderElementProps["attributes"],
+
+            "ref"
+          >
+        >
       }
-  >
+  > & PropsWithKey
 >
 
 /**
  * @api private
  */
-type NodeBaseProps<T extends Descendant> = T extends Node
-  ? ElementNodeBase<T>
+export type LeafProps<T extends TextNode = TextNode> = Simplify<
+  Replace<RenderLeafProps, LeafWithChildren & {
+    leaf: T
+    text: T
+  }> & PropsWithKey
+>
+
+/**
+ * @api private
+ */
+export type NodeProps<T extends Descendant> = T extends Node
+  ? ElementProps<T>
   : T extends TextNode
-    ? LeafNodeBase<T>
+    ? LeafProps<T>
     : never
-
-/**
- * @api private
- */
-export type NodeProps<T extends Descendant> = Replace<NodeBaseProps<T>, {
-  attributes: Simplify<Replace<NodeBaseProps<T>["attributes"], PropsWithKey>>
-}>
-
-/**
- * @api private
- */
-export type ElementProps<T extends Node = Node> =
-  Replace<ElementNodeBase<T>, {
-    attributes: Replace<
-      ElementNodeBase["attributes"],
-
-      PropsWithKey
-    >
-  }>
-
-/**
- * @api private
- */
-export type LeafProps<T extends TextNode = TextNode> =
-  Replace<LeafNodeBase<T>, LeafWithChildren & {
-    attributes: Replace<LeafNodeBase["attributes"], PropsWithKey>
-  }>
 
 type IdGenerator = () => string
 
@@ -198,13 +175,14 @@ export const createLeafProps = <T extends TextNode = TextNode>(
   options?: CreateNodePropsOptions
 ): LeafProps<T> => {
   const opts: Required<CreateNodePropsOptions> = {...defaults, ...options}
+  const key = generateId(node, opts)
 
   return {
+    key,
     leaf: node,
     text: node,
     children: node.text,
     attributes: {
-      key: generateId(node, opts),
       "data-slate-leaf": true
     }
   }
@@ -223,12 +201,13 @@ export function createElementProps<T extends Node = Node>(
   options?: CreateNodePropsOptions
 ): ElementProps<T> {
   const opts: Required<CreateNodePropsOptions> = {...defaults, ...options}
+  const key = generateId(node, opts)
 
   return {
+    key,
     children,
     element: node,
     attributes: {
-      key: generateId(node, opts),
       "data-slate-node": "element",
     }
   }

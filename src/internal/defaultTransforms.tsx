@@ -25,7 +25,7 @@ export const EmptyText = createLeafTransform(
   isEmptyText,
 
   // Render <br /> for empty text blocks as it's probably just an empty line
-  ({attributes}) => <br {...attributes} />
+  ({key, attributes}) => <br {...attributes} key={key} />
 )
 
 /**
@@ -36,7 +36,7 @@ export const EmptyText = createLeafTransform(
 export const RichText = createLeafTransform(
   isRichText,
 
-  ({attributes, leaf, children}) => {
+  ({key, attributes, leaf, children}) => {
     let element: ReactNode = children
 
     if (leaf.bold) {
@@ -65,7 +65,7 @@ export const RichText = createLeafTransform(
       element = <code>{element}</code>
     }
 
-    return <span {...attributes}>{element}</span>
+    return <span {...attributes} key={key}>{element}</span>
   }
 )
 
@@ -77,8 +77,8 @@ export const RichText = createLeafTransform(
 export const PlainText = createLeafTransform(
   isPlainText,
 
-  ({attributes, children}) => (
-    <span {...attributes}>
+  ({key, attributes, children}) => (
+    <span {...attributes} key={key}>
       {children}
     </span>
   )
@@ -92,8 +92,8 @@ export const PlainText = createLeafTransform(
 const Link = createElementTransform(
   isLink,
 
-  ({attributes, element, children}) => (
-    <a {...attributes} href={element.url}>
+  ({key, attributes, element, children}) => (
+    <a {...attributes} href={element.url} key={key}>
       {children}
     </a>
   )
@@ -106,8 +106,8 @@ const Link = createElementTransform(
 export const Paragraph = createElementTransform(
   isParagraph,
 
-  ({attributes, element, children}) => (
-    <p {...attributes} style={{textAlign: element.align}}>
+  ({key, attributes, element, children}) => (
+    <p {...attributes} style={{textAlign: element.align}} key={key}>
       {children}
     </p>
   )
@@ -121,8 +121,8 @@ export const Paragraph = createElementTransform(
 export const Blockquote = createElementTransform(
   isBlockquote,
 
-  ({attributes, children}) => (
-    <blockquote {...attributes}>
+  ({key, attributes, children}) => (
+    <blockquote {...attributes} key={key}>
       {children}
     </blockquote>
   )
@@ -136,8 +136,8 @@ export const Blockquote = createElementTransform(
 export const Heading = createElementTransform(
   isHeading,
 
-  ({element, attributes, children}) => (
-    createElement(element.type, attributes, children)
+  ({key, element, attributes, children}) => (
+    createElement(element.type, {...attributes, key}, children)
   )
 )
 
