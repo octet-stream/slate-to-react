@@ -178,15 +178,15 @@ export const isLink = createElementNodeMatcher<Link>(
 export const Anchor = createElementTransform(
   isLink,
 
-  ({element, attributes, children}) => (
+  ({key, element, attributes, children}) => (
     isInternalUrl(element.url)
       ? (
-        <NextLink {...attributes} href={element.url}>
+        <NextLink {...attributes} href={element.url} key={key}>
           {children}
         </NextLink>
       )
       : (
-        <a {...attributes} href={element.url} rel="noopener noreferrer" target="_blank">
+        <a {...attributes} href={element.url} rel="noopener noreferrer" target="_blank" key={key}>
           {children}
         </a>
       )
@@ -362,7 +362,7 @@ import {isRichText} from "./matcher/isRichText.js"
 export const RichText = createLeafTransform(
   isRichText,
 
-  ({attributes, leaf, children}) => {
+  ({key, attributes, leaf, children}) => {
     // Render <br /> for empty text blocks as it's probably just an empty line
     if (!children) {
       return <br {...attributes} />
@@ -396,7 +396,7 @@ export const RichText = createLeafTransform(
       element = <code>{element}</code>
     }
 
-    return <span {...attributes}>{element}</span>
+    return <span {...attributes} key={key}>{element}</span>
   }
 )
 ```
@@ -424,8 +424,8 @@ import {isLink} from "./matcher/isLink.js"
 export const Link = createElementTransform(
   isLink,
 
-  ({attributes, element, children}) => (
-    <a {...attributes} href={element.url}>
+  ({kry, attributes, element, children}) => (
+    <a {...attributes} href={element.url} key={key}>
       {children}
     </a>
   )
