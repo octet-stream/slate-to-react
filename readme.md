@@ -424,7 +424,7 @@ import {isLink} from "./matcher/isLink.js"
 export const Link = createElementTransform(
   isLink,
 
-  ({kry, attributes, element, children}) => (
+  ({key, attributes, element, children}) => (
     <a {...attributes} href={element.url} key={key}>
       {children}
     </a>
