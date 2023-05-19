@@ -325,8 +325,8 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
   const MyParagraph = createElementTransform(
     isParagraph,
 
-    ({attributes, children}) => (
-      <p {...attributes} id="paragraph" data-paragraph={expectedDataParagraph}>
+    ({key, attributes, children}) => (
+      <p {...attributes} id="paragraph" data-paragraph={expectedDataParagraph} key={key}>
         {children}
       </p>
     )
@@ -335,10 +335,11 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
   const MyLink = createElementTransform(
     isLink,
 
-    ({element, attributes, children}) => (
+    ({key, element, attributes, children}) => (
       <a
         {...attributes}
 
+        key={key}
         href={element.url}
         id="link"
         data-link={expectedDataLink}
@@ -351,8 +352,8 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
   const MyPlainText = createLeafTransform(
     isPlainText,
 
-    ({attributes, children}) => (
-      <span {...attributes} id="text" data-text={expectedDataText}>
+    ({key, attributes, children}) => (
+      <span {...attributes} id="text" data-text={expectedDataText} key={key}>
         {children}
       </span>
     )
@@ -361,7 +362,7 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
   const MyRichText = createLeafTransform(
     isRichText,
 
-    ({leaf, attributes, children}) => {
+    ({key, leaf, attributes, children}) => {
       let element: ReactNode = children
 
       if (leaf.bold) {
@@ -372,6 +373,7 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
         <span
           {...attributes}
 
+          key={key}
           id="rich-text"
           data-rich-text={expectedDataRichText}
         >

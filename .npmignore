@@ -14,3 +14,4 @@ node_modules
 /tsconfig.json
 /tsconfig.eslint.json
 /tsconfig.build.json
+/tsconfig.ava.json

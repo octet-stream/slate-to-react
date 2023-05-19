@@ -17,6 +17,10 @@
   ],
   "repository": "octet-stream/slate-to-react",
   "sideEffects": false,
+  "packageManager": "pnpm@8.5.1",
+  "engines": {
+    "node": ">= 16.5"
+  },
   "source": "src/slate-to-react.ts",
   "main": "lib/slate-to-react.cjs",
   "umd:main": "lib/slate-to-react.umd.js",
@@ -32,14 +36,14 @@
     "eslint": "eslint src/**/*.ts src/**/*.tsx",
     "lint:types": "tsc --noEmit",
     "lint-staged": "lint-staged",
-    "test": "ava",
-    "coverage": "c8 npm test",
-    "report": "c8 -r=html npm test",
-    "ci": "c8 npm test && c8 report --reporter=json",
+    "test": "cross-env NODE_OPTIONS=\"--no-warnings --loader=ts-node/esm\" ava",
+    "coverage": "c8 pnpm test",
+    "report": "c8 -r=html pnpm test",
+    "ci": "c8 pnpm test && c8 report --reporter=json",
     "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
     "cleanup": "del-cli @type lib",
     "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable && npm run eslint && npm run lint:types && npm run cleanup && npm run build",
+    "prepublishOnly": "pinst --disable && pnpm run eslint && pnpm run lint:types && pnpm run cleanup && pnpm run build",
     "postpublish": "pinst --enable"
   },
   "pnpm": {
@@ -61,6 +65,7 @@
     "@typescript-eslint/parser": "5.59.0",
     "ava": "5.2.0",
     "c8": "7.13.0",
+    "cross-env": "^7.0.3",
     "del-cli": "5.0.0",
     "eslint": "8.39.0",
     "eslint-config-airbnb": "19.0.4",
