@@ -34,6 +34,10 @@ yarn add slate-to-react
 1. You can render Slate nodes using [`SlateView`](#slateview) component:
 
 ```tsx
+"use client"
+// You can use `slate-to-react` with a framework like Next.js (with its App Router) the above directive might be a way to mark "client component".
+// Yuo *must* render SlateView within the client components, because it relies on `useMemo` hook.
+
 import {createRoot} from "react-dom/client"
 import type {FC} from "react"
 
@@ -59,7 +63,25 @@ createRoot(root).render(<App />)
 You can opt-out by enabling strict mode in `SlateView`, or `useSlateToReact`, or `transformNodes` options.
 When enabled, `NodeNoIdFieldError` will be thrown if any node without the `id` field is encountered.
 
-2. You can also transform Slate nodes via [`useSlateToReact`](#useslatetoreactnodes-options) hook used inside `SlateView` component:
+2. Use can use `slate-to-react` with React Server Components too. For that use `transformNodes` function directly:
+
+```ts
+import type {FC} from "react"
+
+import type {Node} from "slate-to-react"
+import {transformNodes} from "slate-to-react"
+
+interface Props {
+  nodes: Node[]
+}
+
+// This could be a React Server Component
+// The `transformNodes` function returns a signle `ReactElement` node, so it's a valid result for Function Component.
+// Or you can put `transformNodes` call in to the other's component `children` property.
+const MySlateView: FC<Props> = ({nodes}) => transformNodes(nodes)
+```
+
+3. You can also transform Slate nodes via [`useSlateToReact`](#useslatetoreactnodes-options) hook used inside `SlateView` component:
 
 ```tsx
 import {createRoot} from "react-dom/client"
@@ -96,9 +118,11 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
-3. Alternatively you can use [`transformNodes`](#transformnodesnodes-options) function directly in your own component:
+4. You can use [`transformNodes`](#transformnodesnodes-options) function directly in your client components as well:
 
 ```tsx
+"use client"
+
 import {createRoot} from "react-dom/client"
 import type {FC} from "react"
 import {useMemo} from "react"
@@ -142,9 +166,11 @@ const root = document.querySelector("#root")
 createRoot(root).render(<App />)
 ```
 
-4. You can define and use custom transforms to control the output for each node. For this example, let's define Link transformer. It will render [`next/link`](https://nextjs.org/docs/api-reference/next/link) component for website-own links and `<a>` tag for links to external resources:
+5. You can define and use custom transforms to control the output for each node. For this example, let's define Link transformer. It will render [`next/link`](https://nextjs.org/docs/api-reference/next/link) component for website-own links and `<a>` tag for links to external resources:
 
 ```tsx
+"use client"
+
 import {
   SlateView,
   createElementNodeMatcher,
@@ -418,7 +444,6 @@ Following example implements a transform for `Link` type:
 import {createElementTransform} from "slate-to-react"
 
 // These were implemented at one of examples above.
-import type {Link} from "./matcher/isLink.js"
 import {isLink} from "./matcher/isLink.js"
 
 export const Link = createElementTransform(
