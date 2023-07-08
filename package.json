@@ -40,7 +40,7 @@
     "coverage": "c8 pnpm test",
     "report": "c8 -r=html pnpm test",
     "ci": "c8 pnpm test && c8 report --reporter=json",
-    "build": "microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
+    "build": "pnpm lint:types && microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
     "cleanup": "del-cli @type lib",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable && pnpm run eslint && pnpm run lint:types && pnpm run cleanup && pnpm run build",
