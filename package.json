@@ -97,7 +97,7 @@
   "peerDependencies": {
     "react": "18.x",
     "slate": ">= 0.91.x || <= 0.94.x",
-    "slate-react": ">= 0.91.x || <= 0.94.x"
+    "slate-react": ">= 0.91.x || <= 0.97.x"
   },
   "dependencies": {
     "nanoid": "3.3.4"
