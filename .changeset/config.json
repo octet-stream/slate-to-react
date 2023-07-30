@@ -7,7 +7,7 @@
     "@changesets/changelog-github",
 
     {
-      "repo": "octet-stream/everfree"
+      "repo": "octet-stream/slate-to-react"
     }
   ]
 }
