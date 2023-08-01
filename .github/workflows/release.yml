@@ -57,5 +57,5 @@ jobs:
         with:
           title: A new release
           commit: Bump version
-          publish: pnpm changeset publish # This will create a GitHub release
+          publish: pnpm run release
           version: pnpm changeset version

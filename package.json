@@ -44,7 +44,8 @@
     "cleanup": "del-cli @type lib",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable && pnpm run eslint && pnpm run lint:types && pnpm run cleanup && pnpm run build",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "release": "pnpm build && pnpm changeset publish"
   },
   "pnpm": {
     "updateConfig": {
