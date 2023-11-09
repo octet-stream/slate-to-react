@@ -1,11 +1,6 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": [
-    "src/**/__helper__/**/*.ts",
-    "src/**/__helper__/**/*.tsx"
-  ],
+  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "esnext",
     "module": "nodenext",
     "strict": true,
