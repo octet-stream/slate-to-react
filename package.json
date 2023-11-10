@@ -19,32 +19,28 @@
   "sideEffects": false,
   "packageManager": "pnpm@8.10.2",
   "engines": {
-    "node": ">= 16.5"
+    "node": ">= 18"
   },
-  "source": "src/slate-to-react.ts",
-  "main": "lib/slate-to-react.cjs",
-  "umd:main": "lib/slate-to-react.umd.js",
-  "module": "lib/slate-to-react.legacy.mjs",
   "types": "@type/slate-to-react.d.ts",
+  "main": "lib/slate-to-react.js",
   "exports": {
-    "types": "./@type/slate-to-react.d.ts",
-    "import": "./lib/slate-to-react.mjs",
-    "require": "./lib/slate-to-react.cjs",
-    "default": "./lib/slate-to-react.mjs"
+    "import": {
+      "types": "./lib/slate-to-react.ts",
+      "default": "./lib/slate-to-react.js"
+    },
+    "require": {
+      "types": "./lib/slate-to-react.cts",
+      "default": "./lib/slate-to-react.cjs"
+    }
   },
   "scripts": {
     "eslint": "eslint src/**/*.ts src/**/*.tsx",
-    "lint:types": "tsc --noEmit",
-    "lint-staged": "lint-staged",
     "test": "cross-env NODE_OPTIONS=\"--no-warnings --loader=ts-node/esm\" ava",
     "coverage": "c8 pnpm test",
     "report": "c8 -r=html pnpm test",
     "ci": "c8 pnpm test && c8 report --reporter=json",
-    "build": "pnpm lint:types && microbundle --tsconfig tsconfig.build.json --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
-    "cleanup": "del-cli @type lib",
-    "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable && pnpm run eslint && pnpm run lint:types && pnpm run cleanup && pnpm run build",
-    "postpublish": "pinst --enable",
+    "build": "del-cli lib && tsup",
+    "prepare": "node -e 'process.exit(+(process.env.CI !== undefined || process.env.NO_HUSKY_HOOKS !== undefined));' && husky install || true",
     "release": "pnpm build && pnpm changeset publish"
   },
   "pnpm": {
@@ -55,8 +51,8 @@
     }
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.2",
+    "@changesets/changelog-github": "0.4.8",
+    "@changesets/cli": "2.26.2",
     "@octetstream/eslint-config": "7.2.1",
     "@testing-library/react": "14.0.0",
     "@types/node": "20.4.1",
@@ -68,7 +64,7 @@
     "@typescript-eslint/parser": "5.61.0",
     "ava": "5.3.1",
     "c8": "8.0.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "7.0.3",
     "del-cli": "5.0.0",
     "eslint": "8.44.0",
     "eslint-config-airbnb": "19.0.4",
@@ -92,7 +88,7 @@
     "slate-react": "0.97.1",
     "ts-expect": "1.3.0",
     "ts-node": "10.9.1",
-    "tsup": "^7.2.0",
+    "tsup": "7.2.0",
     "typescript": "5.1.6",
     "uuid": "9.0.0"
   },

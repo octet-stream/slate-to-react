@@ -1,5 +1,6 @@
 node_modules
 
+/.changeset
 /.github
 /.husky
 /coverage
@@ -15,3 +16,4 @@ node_modules
 /tsconfig.eslint.json
 /tsconfig.build.json
 /tsconfig.ava.json
+/tsup.config.ts
