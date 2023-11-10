@@ -5,7 +5,6 @@ React component and utilities to transform [Slate](https://github.com/ianstormta
 [![codecov](https://codecov.io/gh/octet-stream/slate-to-react/branch/main/graph/badge.svg?token=MBkEyEwJO6)](https://codecov.io/gh/octet-stream/slate-to-react)
 [![CI](https://github.com/octet-stream/slate-to-react/actions/workflows/ci.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/ci.yml)
 [![ESLint](https://github.com/octet-stream/slate-to-react/actions/workflows/eslint.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/eslint.yml)
-[![TypeScript Types](https://github.com/octet-stream/slate-to-react/actions/workflows/typescript.yml/badge.svg)](https://github.com/octet-stream/slate-to-react/actions/workflows/typescript.yml)
 
 ## Installation
 
