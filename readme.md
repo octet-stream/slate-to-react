@@ -13,19 +13,19 @@ To install, run one of the following commands:
 pnpm:
 
 ```sh
-pnpm add slate-to-react
+pnpm add slate-to-react slate slate-react
 ```
 
 npm:
 
 ```sh
-npm i slate-to-react
+npm i slate-to-react slate slate-react
 ```
 
 yarn:
 
 ```sh
-yarn add slate-to-react
+yarn add slate-to-react slate slate-react
 ```
 
 ### Usage
