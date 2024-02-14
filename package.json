@@ -35,7 +35,7 @@
   },
   "scripts": {
     "eslint": "eslint src/**/*.ts src/**/*.tsx",
-    "test": "NODE_OPTIONS=\"--no-warnings --import tsx\" ava",
+    "test": "cross-env NODE_OPTIONS=\"--no-warnings --import tsx\" ava",
     "coverage": "c8 pnpm test",
     "report": "c8 -r=html pnpm test",
     "ci": "c8 pnpm test && c8 report --reporter=json",
