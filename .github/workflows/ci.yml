@@ -28,14 +28,14 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         node: [18.x, 20.x, 21.x]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{matrix.node}}
 
       - name: Setup pnpm
         id: pnpm-install
@@ -52,10 +52,10 @@ jobs:
       - uses: actions/cache@v4
         name: Setup pnpm cache
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ${{steps.pnpm-cache.outputs.STORE_PATH}}
+          key: ${{runner.os}}-pnpm-store-${{hashFiles('**/pnpm-lock.yaml')}}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{runner.os}}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
@@ -66,6 +66,8 @@ jobs:
       - name: Upload codecov report
         uses: codecov/codecov-action@v3
         if: matrix.node == '20.x' && matrix.os == 'ubuntu-latest'
+        env:
+          CODECOV_TOKEN: ${{secrets.CODECOV_TOKEN}}
         with:
           file: ./coverage/coverage-final.json
           flags: unittests
