@@ -62,7 +62,7 @@ createRoot(root).render(<App />)
 You can opt-out by enabling strict mode in `SlateView`, or `useSlateToReact`, or `transformNodes` options.
 When enabled, `NodeNoIdFieldError` will be thrown if any node without the `id` field is encountered.
 
-2. Use can use `slate-to-react` with React Server Components too. For that use `transformNodes` function directly:
+2. You can use `slate-to-react` with React Server Components too. For that use `transformNodes` function directly:
 
 ```ts
 import type {FC} from "react"
