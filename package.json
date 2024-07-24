@@ -17,7 +17,7 @@
   ],
   "repository": "octet-stream/slate-to-react",
   "sideEffects": false,
-  "packageManager": "pnpm@8.10.2",
+  "packageManager": "pnpm@9.6.0",
   "engines": {
     "node": ">= 18"
   },
@@ -34,14 +34,14 @@
     }
   },
   "scripts": {
-    "eslint": "eslint src/**/*.ts src/**/*.tsx",
     "test": "cross-env NODE_OPTIONS=\"--no-warnings --import tsx\" ava",
     "coverage": "c8 pnpm test",
     "report": "c8 -r=html pnpm test",
     "ci": "c8 pnpm test && c8 report --reporter=json",
     "build": "del-cli lib && tsup",
-    "prepare": "node -e 'process.exit(+(process.env.CI !== undefined || process.env.NO_HUSKY_HOOKS !== undefined));' && husky install || true",
-    "release": "pnpm build && pnpm changeset publish"
+    "release": "pnpm build && pnpm changeset publish",
+    "prepare": "npx is-in-ci || husky install",
+    "preinstall": "npx only-allow pnpm"
   },
   "pnpm": {
     "updateConfig": {
@@ -51,6 +51,7 @@
     }
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@changesets/changelog-github": "0.4.8",
     "@changesets/cli": "2.26.2",
     "@octetstream/eslint-config": "7.2.1",
