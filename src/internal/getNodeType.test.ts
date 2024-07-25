@@ -25,9 +25,11 @@ test("Returns Node<type> for element node", t => {
   const node: Link = {
     type: ELEMENT_LINK,
     url: "https://example.com/",
-    children: [{
-      text: "Example URL"
-    }]
+    children: [
+      {
+        text: "Example URL"
+      }
+    ]
   }
 
   const expected = `Node<"${ELEMENT_LINK}">`
@@ -36,20 +38,19 @@ test("Returns Node<type> for element node", t => {
   t.is(actual, expected)
 })
 
-test(
-  "Returns Node<unknown> for an element node without type property",
-  t => {
-    const node: Element = {
-      children: [{
+test("Returns Node<unknown> for an element node without type property", t => {
+  const node: Element = {
+    children: [
+      {
         text: "Unknown node type"
-      }]
-    }
-
-    const expected = "Node<\"unknown\">"
-
-    // @ts-expect-error
-    const actual = getNodeType(node)
-
-    t.is(actual, expected)
+      }
+    ]
   }
-)
+
+  const expected = 'Node<"unknown">'
+
+  // @ts-expect-error
+  const actual = getNodeType(node)
+
+  t.is(actual, expected)
+})

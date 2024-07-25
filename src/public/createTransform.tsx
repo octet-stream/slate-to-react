@@ -10,8 +10,9 @@ import type {
 import type {Node} from "./Node.js"
 import type {TextNode} from "./TextNode.js"
 
-export type TransformImplementation<TNode extends Node | TextNode> =
-  (props: NodeProps<TNode>) => ReactElement
+export type TransformImplementation<TNode extends Node | TextNode> = (
+  props: NodeProps<TNode>
+) => ReactElement
 
 export interface NodeTransform<TNode extends Node | TextNode> {
   readonly matcher: NodeMatcher<TNode>

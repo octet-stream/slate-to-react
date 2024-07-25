@@ -2,7 +2,13 @@
   "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
   "linter": {
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "complexity": {
+        "noForEach": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off"
+      }
     }
   },
   "formatter": {
@@ -23,6 +29,6 @@
   },
   "files": {
     "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
-    "ignore": ["node_modules", ".tsimp", "coverage"]
+    "ignore": ["node_modules", ".tsimp", "coverage", "lib"]
   }
 }

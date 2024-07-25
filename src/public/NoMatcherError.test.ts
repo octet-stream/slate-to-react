@@ -13,9 +13,11 @@ test("Creates instance for Node", t => {
 
   const node: Blockquote = {
     type: ELEMENT_BLOCKQUOTE,
-    children: [{
-      text
-    }]
+    children: [
+      {
+        text
+      }
+    ]
   }
 
   const expectedMessage = `Cannot find transform for node ${getNodeType(node)}`

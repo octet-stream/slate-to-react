@@ -5,7 +5,7 @@ import {expectType} from "ts-expect"
 
 import type {Node} from "../../public/Node.js"
 
-import {Paragraph} from "./Paragraph.js"
+import type {Paragraph} from "./Paragraph.js"
 
 test("Paragraph type is assignable to Node type", t => {
   expectType<TypeOf<Node, Paragraph>>(true)

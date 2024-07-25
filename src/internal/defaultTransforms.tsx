@@ -9,7 +9,7 @@ import {
   isLink,
   isParagraph,
   isBlockquote,
-  isHeading,
+  isHeading
 } from "../public/matchers.js"
 
 import {isRichText, isPlainText, isEmptyText} from "./matchers.js"
@@ -65,7 +65,11 @@ export const RichText = createLeafTransform(
       element = <code>{element}</code>
     }
 
-    return <span {...attributes} key={key}>{element}</span>
+    return (
+      <span {...attributes} key={key}>
+        {element}
+      </span>
+    )
   }
 )
 
@@ -136,9 +140,8 @@ export const Blockquote = createElementTransform(
 export const Heading = createElementTransform(
   isHeading,
 
-  ({key, element, attributes, children}) => (
+  ({key, element, attributes, children}) =>
     createElement(element.type, {...attributes, key}, children)
-  )
 )
 
 /**

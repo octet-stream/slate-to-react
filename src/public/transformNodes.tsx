@@ -2,9 +2,7 @@ import {createElement, Fragment} from "react"
 import type {ReactElement} from "react"
 import {Element} from "slate"
 
-import type {
-  CreateNodePropsOptions
-} from "../internal/createNodeProps.js"
+import type {CreateNodePropsOptions} from "../internal/createNodeProps.js"
 import type {Descendant} from "../internal/type/Descendant.js"
 import type {TextNode} from "./TextNode.js"
 
@@ -41,7 +39,7 @@ export interface Transforms {
   elements?: ElementTransform<any>[] // FIXME: I give up for now, but this must be fixed.
 }
 
-type CompileNodesOptions = CreateNodePropsOptions & { }
+type CompileNodesOptions = CreateNodePropsOptions & {}
 
 export type TransformNodesOptions = CreateNodePropsOptions & {
   /**
@@ -103,7 +101,7 @@ function compileNodes(
   nodes: Descendant[],
   transforms: Required<Transforms>,
   options?: CompileNodesOptions,
-  isRootElement: boolean = false,
+  isRootElement = false
 ): ReactElement {
   const result: ReactElement[] = []
 

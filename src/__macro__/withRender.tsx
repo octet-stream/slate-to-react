@@ -1,5 +1,5 @@
 import type {RenderOptions, Queries, RenderResult} from "@testing-library/react"
-import {render, queries} from "@testing-library/react"
+import {render, type queries} from "@testing-library/react"
 import type {ExecutionContext} from "ava"
 import type {ReactElement} from "react"
 
@@ -30,9 +30,11 @@ export const withRender = test.macro(async (t, impl: Implementation) => {
   const isolatedRender = (
     ui: ReactElement,
     options: IsolatedRenderOptions = {}
-  ) => render(ui, {
-    ...options, container: createContainer()
-  })
+  ) =>
+    render(ui, {
+      ...options,
+      container: createContainer()
+    })
 
   try {
     await impl(t, isolatedRender)

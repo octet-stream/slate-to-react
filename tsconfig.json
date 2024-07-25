@@ -1,10 +1,12 @@
 {
   "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
+    "lib": ["dom"],
     "target": "esnext",
     "module": "nodenext",
     "strict": true,
     "noImplicitAny": true,
+    "skipLibCheck": true,
     "moduleResolution": "nodenext",
     "allowSyntheticDefaultImports": true,
     "outDir": "lib",

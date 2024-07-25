@@ -40,32 +40,27 @@ interface ElementWithChildren {
 export type ElementProps<T extends Node = Node> = Simplify<
   Replace<
     RenderElementProps,
-
-    ElementWithChildren
-      & {
-        element: T
-      }
-
-      & {
-        attributes: Simplify<
-          Omit<
-            RenderElementProps["attributes"],
-
-            "ref"
-          >
-        >
-      }
-  > & PropsWithKey
+    ElementWithChildren & {
+      element: T
+    } & {
+      attributes: Simplify<Omit<RenderElementProps["attributes"], "ref">>
+    }
+  > &
+    PropsWithKey
 >
 
 /**
  * @api private
  */
 export type LeafProps<T extends TextNode = TextNode> = Simplify<
-  Replace<RenderLeafProps, LeafWithChildren & {
-    leaf: T
-    text: T
-  }> & PropsWithKey
+  Replace<
+    RenderLeafProps,
+    LeafWithChildren & {
+      leaf: T
+      text: T
+    }
+  > &
+    PropsWithKey
 >
 
 /**
@@ -98,7 +93,7 @@ interface BaseOptions<TFlag extends boolean> {
   idKeyName?: string
 }
 
-export interface CreateNodeStrictOptions extends BaseOptions<true> { }
+export interface CreateNodeStrictOptions extends BaseOptions<true> {}
 
 export interface CreateNodeLooseOptions extends BaseOptions<false> {
   /**
@@ -208,7 +203,7 @@ export function createElementProps<T extends Node = Node>(
     children,
     element: node,
     attributes: {
-      "data-slate-node": "element",
+      "data-slate-node": "element"
     }
   }
 }

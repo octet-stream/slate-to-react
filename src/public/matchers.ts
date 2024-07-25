@@ -29,9 +29,7 @@ import {
  * @api public
  */
 export const isText = createLeafNodeMatcher<TextNode>(
-  (node): node is TextNode => (
-    typeof node.text === "string"
-  )
+  (node): node is TextNode => typeof node.text === "string"
 )
 
 /**
@@ -40,9 +38,8 @@ export const isText = createLeafNodeMatcher<TextNode>(
  * @api public
  */
 export const isLink = createElementNodeMatcher<Link>(
-  (node): node is Link => (
+  (node): node is Link =>
     node.type === ELEMENT_LINK && typeof node.url === "string"
-  )
 )
 
 /**
@@ -51,9 +48,7 @@ export const isLink = createElementNodeMatcher<Link>(
  * @api public
  */
 export const isParagraph = createElementNodeMatcher<Paragraph>(
-  (node): node is Paragraph => (
-    node.type === ELEMENT_PARAGRAPH
-  )
+  (node): node is Paragraph => node.type === ELEMENT_PARAGRAPH
 )
 
 /**
@@ -62,9 +57,7 @@ export const isParagraph = createElementNodeMatcher<Paragraph>(
  * @api public
  */
 export const isBlockquote = createElementNodeMatcher<Blockquote>(
-  (node): node is Blockquote => (
-    node.type === ELEMENT_BLOCKQUOTE
-  )
+  (node): node is Blockquote => node.type === ELEMENT_BLOCKQUOTE
 )
 
 /**
@@ -73,9 +66,7 @@ export const isBlockquote = createElementNodeMatcher<Blockquote>(
  * @api public
  */
 export const isHeading = createElementNodeMatcher<Heading>(
-  (node): node is Heading => (
-    HEADINGS_LIST.includes(node.type)
-  )
+  (node): node is Heading => HEADINGS_LIST.includes(node.type)
 )
 
 /**
@@ -84,9 +75,7 @@ export const isHeading = createElementNodeMatcher<Heading>(
  * @api public
  */
 export const isH1 = createElementNodeMatcher<Heading<typeof ELEMENT_H1>>(
-  (node): node is Heading<typeof ELEMENT_H1> => (
-    node.type === ELEMENT_H1
-  )
+  (node): node is Heading<typeof ELEMENT_H1> => node.type === ELEMENT_H1
 )
 
 /**
@@ -95,9 +84,7 @@ export const isH1 = createElementNodeMatcher<Heading<typeof ELEMENT_H1>>(
  * @api public
  */
 export const isH2 = createElementNodeMatcher<Heading<typeof ELEMENT_H2>>(
-  (node): node is Heading<typeof ELEMENT_H2> => (
-    node.type === ELEMENT_H2
-  )
+  (node): node is Heading<typeof ELEMENT_H2> => node.type === ELEMENT_H2
 )
 
 /**
@@ -106,9 +93,7 @@ export const isH2 = createElementNodeMatcher<Heading<typeof ELEMENT_H2>>(
  * @api public
  */
 export const isH3 = createElementNodeMatcher<Heading<typeof ELEMENT_H3>>(
-  (node): node is Heading<typeof ELEMENT_H3> => (
-    node.type === ELEMENT_H3
-  )
+  (node): node is Heading<typeof ELEMENT_H3> => node.type === ELEMENT_H3
 )
 
 /**
@@ -117,9 +102,7 @@ export const isH3 = createElementNodeMatcher<Heading<typeof ELEMENT_H3>>(
  * @api public
  */
 export const isH4 = createElementNodeMatcher<Heading<typeof ELEMENT_H4>>(
-  (node): node is Heading<typeof ELEMENT_H4> => (
-    node.type === ELEMENT_H4
-  )
+  (node): node is Heading<typeof ELEMENT_H4> => node.type === ELEMENT_H4
 )
 
 /**
@@ -128,9 +111,7 @@ export const isH4 = createElementNodeMatcher<Heading<typeof ELEMENT_H4>>(
  * @api public
  */
 export const isH5 = createElementNodeMatcher<Heading<typeof ELEMENT_H5>>(
-  (node): node is Heading<typeof ELEMENT_H5> => (
-    node.type === ELEMENT_H5
-  )
+  (node): node is Heading<typeof ELEMENT_H5> => node.type === ELEMENT_H5
 )
 
 /**
@@ -139,7 +120,5 @@ export const isH5 = createElementNodeMatcher<Heading<typeof ELEMENT_H5>>(
  * @api public
  */
 export const isH6 = createElementNodeMatcher<Heading<typeof ELEMENT_H6>>(
-  (node): node is Heading<typeof ELEMENT_H6> => (
-    node.type === ELEMENT_H6
-  )
+  (node): node is Heading<typeof ELEMENT_H6> => node.type === ELEMENT_H6
 )

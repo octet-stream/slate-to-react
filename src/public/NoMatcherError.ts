@@ -6,9 +6,9 @@ import {createErrorCode} from "../internal/createErrorCode.js"
 
 const code = createErrorCode("NO_MATCHER")
 
-export class NoMatcherError<
-  TNode extends Descendant
-> extends BaseError<typeof code> {
+export class NoMatcherError<TNode extends Descendant> extends BaseError<
+  typeof code
+> {
   constructor(node: TNode) {
     super({
       code,

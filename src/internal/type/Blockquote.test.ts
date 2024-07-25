@@ -5,7 +5,7 @@ import {expectType} from "ts-expect"
 
 import type {Node} from "../../public/Node.js"
 
-import {Blockquote} from "./Blockquote.js"
+import type {Blockquote} from "./Blockquote.js"
 
 test("Blockquote type is assignable to Node type", t => {
   expectType<TypeOf<Node, Blockquote>>(true)

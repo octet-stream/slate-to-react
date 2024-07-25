@@ -4,8 +4,12 @@ import type {Node} from "../../public/Node.js"
 import type {WithAlignment} from "./WithAlignment.js"
 import type {InlineDescendant} from "./InlineDescendant.js"
 
-import {ELEMENT_PARAGRAPH} from "../constants.js"
+import type {ELEMENT_PARAGRAPH} from "../constants.js"
 
-export type Paragraph = Replace<Node<typeof ELEMENT_PARAGRAPH>, {
-  children: InlineDescendant[]
-}> & WithAlignment
+export type Paragraph = Replace<
+  Node<typeof ELEMENT_PARAGRAPH>,
+  {
+    children: InlineDescendant[]
+  }
+> &
+  WithAlignment

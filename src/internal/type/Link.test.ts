@@ -5,7 +5,7 @@ import {expectType} from "ts-expect"
 
 import type {Node} from "../../public/Node.js"
 
-import {Link} from "./Link.js"
+import type {Link} from "./Link.js"
 
 test("Link type is assignable to Node type", t => {
   expectType<TypeOf<Node, Link>>(true)

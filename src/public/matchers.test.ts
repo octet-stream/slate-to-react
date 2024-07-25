@@ -22,7 +22,6 @@ import {
   isBlockquote,
   isHeading,
   isLink,
-
   isH1,
   isH2,
   isH3,
@@ -31,9 +30,8 @@ import {
   isH6
 } from "./matchers.js"
 
-const omitHeading = <T extends Headings>(type: T) => (
+const omitHeading = <T extends Headings>(type: T) =>
   HEADINGS_LIST.filter((h): h is Exclude<Headings, T> => h !== type)
-)
 
 test("isText matches any Text node", t => {
   const node: RichText = {
@@ -47,9 +45,11 @@ test("isText matches any Text node", t => {
 test("isParagraph matches paragraph node", t => {
   const node: Paragraph = {
     type: "p",
-    children: [{
-      text: "Some text"
-    }]
+    children: [
+      {
+        text: "Some text"
+      }
+    ]
   }
 
   const actual = isParagraph(node)
@@ -61,9 +61,11 @@ test("isLink matches link node", t => {
   const node: Link = {
     type: "a",
     url: "https://localhost:3000",
-    children: [{
-      text: "Example URL"
-    }]
+    children: [
+      {
+        text: "Example URL"
+      }
+    ]
   }
 
   const actual = isLink(node)
@@ -74,9 +76,11 @@ test("isLink matches link node", t => {
 test("isBlockquote matches blockquote node", t => {
   const node: Blockquote = {
     type: "blockquote",
-    children: [{
-      text: "Some blockquote"
-    }]
+    children: [
+      {
+        text: "Some blockquote"
+      }
+    ]
   }
 
   const actual = isBlockquote(node)
@@ -87,22 +91,27 @@ test("isBlockquote matches blockquote node", t => {
 test("isHeading matches any heading", t => {
   t.plan(HEADINGS_LIST.length)
 
-  HEADINGS_LIST
-    .map(heading => ({
-      type: heading,
-      children: [{
-        text: `Heading H${heading}`
-      }]
-    }) as Heading<typeof heading>)
-    .forEach(node => t.true(isHeading(node)))
+  HEADINGS_LIST.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading H${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  ).forEach(node => t.true(isHeading(node)))
 })
 
 test("isH1 matches H1 heading node", t => {
   const node: Heading<typeof ELEMENT_H1> = {
     type: ELEMENT_H1,
-    children: [{
-      text: "Heading H1"
-    }]
+    children: [
+      {
+        text: "Heading H1"
+      }
+    ]
   }
 
   t.true(isH1(node))
@@ -111,12 +120,17 @@ test("isH1 matches H1 heading node", t => {
 test("isH1 does not match other headings", t => {
   const headings = omitHeading(ELEMENT_H1)
 
-  const nodes = headings.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading H${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = headings.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading H${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   // @ts-expect-error
   t.false(nodes.every(isH1))
@@ -125,9 +139,11 @@ test("isH1 does not match other headings", t => {
 test("isH2 matches H2 heading node", t => {
   const node: Heading<typeof ELEMENT_H2> = {
     type: ELEMENT_H2,
-    children: [{
-      text: "Heading H2"
-    }]
+    children: [
+      {
+        text: "Heading H2"
+      }
+    ]
   }
 
   t.true(isH2(node))
@@ -136,12 +152,17 @@ test("isH2 matches H2 heading node", t => {
 test("isH2 does not match other headings", t => {
   const headings = omitHeading(ELEMENT_H2)
 
-  const nodes = headings.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading ${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = headings.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading ${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   // @ts-expect-error
   t.false(nodes.every(isH2))
@@ -150,9 +171,11 @@ test("isH2 does not match other headings", t => {
 test("isH3 matches H3 heading node", t => {
   const node: Heading<typeof ELEMENT_H3> = {
     type: ELEMENT_H3,
-    children: [{
-      text: "Heading H3"
-    }]
+    children: [
+      {
+        text: "Heading H3"
+      }
+    ]
   }
 
   t.true(isH3(node))
@@ -161,12 +184,17 @@ test("isH3 matches H3 heading node", t => {
 test("isH3 does not match other headings", t => {
   const headings = omitHeading(ELEMENT_H3)
 
-  const nodes = headings.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading ${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = headings.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading ${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   // @ts-expect-error
   t.false(nodes.every(isH3))
@@ -175,9 +203,11 @@ test("isH3 does not match other headings", t => {
 test("isH4 matches H4 heading node", t => {
   const node: Heading<typeof ELEMENT_H4> = {
     type: ELEMENT_H4,
-    children: [{
-      text: "Heading H4"
-    }]
+    children: [
+      {
+        text: "Heading H4"
+      }
+    ]
   }
 
   t.true(isH4(node))
@@ -186,12 +216,17 @@ test("isH4 matches H4 heading node", t => {
 test("isH4 does not match other headings", t => {
   const headings = omitHeading(ELEMENT_H4)
 
-  const nodes = headings.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading ${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = headings.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading ${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   // @ts-expect-error
   t.false(nodes.every(isH4))
@@ -200,9 +235,11 @@ test("isH4 does not match other headings", t => {
 test("isH5 matches H5 heading node", t => {
   const node: Heading<typeof ELEMENT_H5> = {
     type: ELEMENT_H5,
-    children: [{
-      text: "Heading H5"
-    }]
+    children: [
+      {
+        text: "Heading H5"
+      }
+    ]
   }
 
   t.true(isH5(node))
@@ -211,12 +248,17 @@ test("isH5 matches H5 heading node", t => {
 test("isH5 does not match other headings", t => {
   const headings = omitHeading(ELEMENT_H5)
 
-  const nodes = headings.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading ${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = headings.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading ${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   // @ts-expect-error
   t.false(nodes.every(isH5))
@@ -225,9 +267,11 @@ test("isH5 does not match other headings", t => {
 test("isH6 matches H6 heading node", t => {
   const node: Heading<typeof ELEMENT_H6> = {
     type: ELEMENT_H6,
-    children: [{
-      text: "Heading H6"
-    }]
+    children: [
+      {
+        text: "Heading H6"
+      }
+    ]
   }
 
   t.true(isH6(node))
@@ -236,12 +280,17 @@ test("isH6 matches H6 heading node", t => {
 test("isH6 does not match other headings", t => {
   const headings = omitHeading(ELEMENT_H6)
 
-  const nodes = headings.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading ${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = headings.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading ${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   // @ts-expect-error
   t.false(nodes.every(isH6))

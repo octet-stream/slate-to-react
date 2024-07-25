@@ -25,12 +25,16 @@ import {createElementTransform, createLeafTransform} from "./createTransform.js"
 import {transformNodes} from "./transformNodes.js"
 
 test("Renders a simple paragraph node", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Some text"
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Some text"
+        }
+      ]
+    }
+  ]
 
   const {findByText} = render(transformNodes(nodes))
 
@@ -42,65 +46,81 @@ test("Renders a simple paragraph node", withRender, async (t, render) => {
 
 test("Renders empty text nodes as <br />", withRender, async (t, render) => {
   const expected = ["span", "br", "span"] as const
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [
-      {
-        text: "A"
-      },
-      {
-        text: ""
-      },
-      {
-        text: "B"
-      }
-    ]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "A"
+        },
+        {
+          text: ""
+        },
+        {
+          text: "B"
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
-  t.true(expected.every(element => {
-    const actual = container.querySelector(element)
+  t.true(
+    expected.every(element => {
+      const actual = container.querySelector(element)
 
-    return actual && actual.tagName.toLowerCase() === element
-  }))
+      return actual && actual.tagName.toLowerCase() === element
+    })
+  )
 })
 
-test("Renders empty rich text nodes as <br />", withRender, async (t, render) => {
-  const expected = ["span", "br", "span"] as const
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [
+test(
+  "Renders empty rich text nodes as <br />",
+  withRender,
+  async (t, render) => {
+    const expected = ["span", "br", "span"] as const
+    const nodes: Paragraph[] = [
       {
-        text: "A"
-      },
-      {
-        text: "",
-        bold: true
-      },
-      {
-        text: "B"
+        type: ELEMENT_PARAGRAPH,
+        children: [
+          {
+            text: "A"
+          },
+          {
+            text: "",
+            bold: true
+          },
+          {
+            text: "B"
+          }
+        ]
       }
     ]
-  }]
 
-  const {container} = render(transformNodes(nodes))
+    const {container} = render(transformNodes(nodes))
 
-  t.true(expected.every(element => {
-    const actual = container.querySelector(element)
+    t.true(
+      expected.every(element => {
+        const actual = container.querySelector(element)
 
-    return actual && actual.tagName.toLowerCase() === element
-  }))
-})
+        return actual && actual.tagName.toLowerCase() === element
+      })
+    )
+  }
+)
 
 test("Renders bold rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Bold text",
-      bold: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Bold text",
+          bold: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -115,13 +135,17 @@ test("Renders bold rich text", withRender, async (t, render) => {
 })
 
 test("Renders italic rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Italic text",
-      italic: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Italic text",
+          italic: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -136,13 +160,17 @@ test("Renders italic rich text", withRender, async (t, render) => {
 })
 
 test("Renders underline rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Underline text",
-      underline: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Underline text",
+          underline: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -157,13 +185,17 @@ test("Renders underline rich text", withRender, async (t, render) => {
 })
 
 test("Renders strikethrough rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Strikethrough text",
-      strikethrough: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Strikethrough text",
+          strikethrough: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -178,13 +210,17 @@ test("Renders strikethrough rich text", withRender, async (t, render) => {
 })
 
 test("Renders superscript rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Superscript text",
-      superscript: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Superscript text",
+          superscript: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -199,13 +235,17 @@ test("Renders superscript rich text", withRender, async (t, render) => {
 })
 
 test("Renders subscript rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Subscript text",
-      subscript: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Subscript text",
+          subscript: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -220,13 +260,17 @@ test("Renders subscript rich text", withRender, async (t, render) => {
 })
 
 test("Renders code rich text", withRender, async (t, render) => {
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Code text",
-      code: true
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          text: "Code text",
+          code: true
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -244,16 +288,22 @@ test("Renders link element", withRender, async (t, render) => {
   const expectedUrl = "https://example.com/"
   const expectedText = "Example URL"
 
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      type: ELEMENT_LINK,
-      url: expectedUrl,
-      children: [{
-        text: expectedText
-      }]
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          type: ELEMENT_LINK,
+          url: expectedUrl,
+          children: [
+            {
+              text: expectedText
+            }
+          ]
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -271,12 +321,16 @@ test("Renders link element", withRender, async (t, render) => {
 test("Renders <blockquote> element", withRender, async (t, render) => {
   const expectedQuote = "On Soviet Moon landscape see binoculars through YOU"
 
-  const nodes: Blockquote[] = [{
-    type: ELEMENT_BLOCKQUOTE,
-    children: [{
-      text: expectedQuote
-    }]
-  }]
+  const nodes: Blockquote[] = [
+    {
+      type: ELEMENT_BLOCKQUOTE,
+      children: [
+        {
+          text: expectedQuote
+        }
+      ]
+    }
+  ]
 
   const {container} = render(transformNodes(nodes))
 
@@ -291,12 +345,17 @@ test("Renders <blockquote> element", withRender, async (t, render) => {
 })
 
 test("Renders headings", withRender, async (t, render) => {
-  const nodes = HEADINGS_LIST.map(heading => ({
-    type: heading,
-    children: [{
-      text: `Heading H${heading}`
-    }]
-  }) as Heading<typeof heading>)
+  const nodes = HEADINGS_LIST.map(
+    heading =>
+      ({
+        type: heading,
+        children: [
+          {
+            text: `Heading H${heading}`
+          }
+        ]
+      }) as Heading<typeof heading>
+  )
 
   const {container} = render(transformNodes(nodes))
 
@@ -305,28 +364,34 @@ test("Renders headings", withRender, async (t, render) => {
     element: container.querySelector(heading)
   }))
 
-  t.true(headings.every(({type, element}) => (
-    element instanceof HTMLHeadingElement
-      && element.nodeName.toLowerCase() === type
-      && element.textContent === `Heading H${type}`
-  )))
+  t.true(
+    headings.every(
+      ({type, element}) =>
+        element instanceof HTMLHeadingElement &&
+        element.nodeName.toLowerCase() === type &&
+        element.textContent === `Heading H${type}`
+    )
+  )
 })
 
 test("Renders nodes with custom transform", withRender, async (t, render) => {
   const expectedDataLink = "This was rendered with custom link transform"
   const expectedDataText = "This was rendered with custom Text transform"
-  const expectedDataRichText = (
+  const expectedDataRichText =
     "This was rendered with custom rich text transform"
-  )
-  const expectedDataParagraph = (
+  const expectedDataParagraph =
     "This was rendered with custom paragraph transform"
-  )
 
   const MyParagraph = createElementTransform(
     isParagraph,
 
     ({key, attributes, children}) => (
-      <p {...attributes} id="paragraph" data-paragraph={expectedDataParagraph} key={key}>
+      <p
+        {...attributes}
+        id="paragraph"
+        data-paragraph={expectedDataParagraph}
+        key={key}
+      >
         {children}
       </p>
     )
@@ -338,7 +403,6 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
     ({key, element, attributes, children}) => (
       <a
         {...attributes}
-
         key={key}
         href={element.url}
         id="link"
@@ -372,7 +436,6 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
       return (
         <span
           {...attributes}
-
           key={key}
           id="rich-text"
           data-rich-text={expectedDataRichText}
@@ -383,33 +446,38 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
     }
   )
 
-  const nodes: Paragraph[] = [{
-    type: ELEMENT_PARAGRAPH,
-    children: [
-      {
-        type: ELEMENT_LINK,
-        url: "https://example.com/",
-        children: [{
-          text: "Example URL"
-        }]
-      },
-      {
-        text: "Bold text",
-        bold: true
-      }
-    ]
-  }]
-
-  const {container} = render(transformNodes(nodes, {
-    transforms: {
-      elements: [MyParagraph, MyLink],
-      leaves: [MyPlainText, MyRichText]
+  const nodes: Paragraph[] = [
+    {
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          type: ELEMENT_LINK,
+          url: "https://example.com/",
+          children: [
+            {
+              text: "Example URL"
+            }
+          ]
+        },
+        {
+          text: "Bold text",
+          bold: true
+        }
+      ]
     }
-  }))
+  ]
 
-  const actualParagraph = container.querySelector<HTMLParagraphElement>(
-    "#paragraph"
+  const {container} = render(
+    transformNodes(nodes, {
+      transforms: {
+        elements: [MyParagraph, MyLink],
+        leaves: [MyPlainText, MyRichText]
+      }
+    })
   )
+
+  const actualParagraph =
+    container.querySelector<HTMLParagraphElement>("#paragraph")
 
   if (!actualParagraph) {
     return t.fail()
@@ -447,14 +515,18 @@ test("Renders nodes with custom transform", withRender, async (t, render) => {
 })
 
 test("Throws an error when rendering w/o transforms and defaults disabled", t => {
-  const nodes: Paragraph[] = [{
-    id: "1",
-    type: ELEMENT_PARAGRAPH,
-    children: [{
-      id: "2",
-      text: "Some text"
-    }]
-  }]
+  const nodes: Paragraph[] = [
+    {
+      id: "1",
+      type: ELEMENT_PARAGRAPH,
+      children: [
+        {
+          id: "2",
+          text: "Some text"
+        }
+      ]
+    }
+  ]
 
   const trap = () => transformNodes(nodes, {defaultTransforms: false})
 
@@ -465,9 +537,11 @@ test("Throws an error when rendering w/o transforms and defaults disabled", t =>
 })
 
 test("Throws an error for invalid root node type", t => {
-  const nodes: RichText[] = [{
-    text: "This is invalid root node"
-  }]
+  const nodes: RichText[] = [
+    {
+      text: "This is invalid root node"
+    }
+  ]
 
   // @ts-expect-error Expected to fail when called with invalid root nodes
   const trap = () => transformNodes(nodes)
@@ -481,12 +555,17 @@ test("Throws an error for invalid root node type", t => {
 test("Throws an error when no matches found for given node type", t => {
   const nodeType = "some-unknown-custom-tag"
 
-  const trap = () => transformNodes([{
-    type: "some-unknown-custom-tag",
-    children: [{
-      text: "This would fail"
-    }]
-  }])
+  const trap = () =>
+    transformNodes([
+      {
+        type: "some-unknown-custom-tag",
+        children: [
+          {
+            text: "This would fail"
+          }
+        ]
+      }
+    ])
 
   t.throws(trap, {
     instanceOf: NoMatcherError,

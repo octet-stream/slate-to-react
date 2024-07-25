@@ -47,9 +47,11 @@ test("createLeafProps creates valid props for leaf node", t => {
 test("createElementProps creates valid props for Element node", t => {
   const node: Node = {
     type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Some text"
-    }]
+    children: [
+      {
+        text: "Some text"
+      }
+    ]
   }
 
   const actual = createElementProps(
@@ -79,9 +81,11 @@ test("createElementProps Node's own id field has higher priority", t => {
   const node: Paragraph = {
     id: expected,
     type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Some text"
-    }]
+    children: [
+      {
+        text: "Some text"
+      }
+    ]
   }
 
   const actual = createElementProps(
@@ -93,21 +97,18 @@ test("createElementProps Node's own id field has higher priority", t => {
   t.is(actual.key, expected)
 })
 
-test(
-  "createLeafProps always generates id when forceGenerateId option is set",
-  t => {
-    const inputId = "some_id"
-    const node: TextNode = {
-      id: inputId,
-      text: "Some text"
-    }
-
-    const actual = createLeafProps(node, {forceGenerateId: true})
-
-    t.not(actual.key, inputId)
-    t.true(isNanoId(actual.key))
+test("createLeafProps always generates id when forceGenerateId option is set", t => {
+  const inputId = "some_id"
+  const node: TextNode = {
+    id: inputId,
+    text: "Some text"
   }
-)
+
+  const actual = createLeafProps(node, {forceGenerateId: true})
+
+  t.not(actual.key, inputId)
+  t.true(isNanoId(actual.key))
+})
 
 test("createLeafProps takes id from specified key", t => {
   const expected = "some_id"
@@ -126,9 +127,11 @@ test("createElementProps takes id from specified key", t => {
   const node: Omit<Node, "id"> & WithAlternateId = {
     alternateId: expected,
     type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Some text"
-    }]
+    children: [
+      {
+        text: "Some text"
+      }
+    ]
   }
 
   const actual = createElementProps(
@@ -160,9 +163,11 @@ test("createLeafProps generates id using given function", t => {
 test("createElementProps generates id using given function", t => {
   const node: Node = {
     type: ELEMENT_PARAGRAPH,
-    children: [{
-      text: "Some text"
-    }]
+    children: [
+      {
+        text: "Some text"
+      }
+    ]
   }
 
   const idGenerator = spy(() => v4())
@@ -181,41 +186,41 @@ test("createElementProps generates id using given function", t => {
   t.is(actual.key, idGenerator.firstCall.returnValue)
 })
 
-test(
-  "createElementProps always generates id when forceGenerateId option is set",
-  t => {
-    const inputId = "some_id"
-    const node: Paragraph = {
-      id: inputId,
-      type: ELEMENT_PARAGRAPH,
-      children: [{
-        text: "Some text"
-      }]
-    }
-
-    const actual = createElementProps(
-      node,
-
-      createElement("span", undefined, "Some text"),
-
+test("createElementProps always generates id when forceGenerateId option is set", t => {
+  const inputId = "some_id"
+  const node: Paragraph = {
+    id: inputId,
+    type: ELEMENT_PARAGRAPH,
+    children: [
       {
-        forceGenerateId: true
+        text: "Some text"
       }
-    )
-
-    t.not(actual.key, inputId)
-    t.true(isNanoId(actual.key))
+    ]
   }
-)
+
+  const actual = createElementProps(
+    node,
+
+    createElement("span", undefined, "Some text"),
+
+    {
+      forceGenerateId: true
+    }
+  )
+
+  t.not(actual.key, inputId)
+  t.true(isNanoId(actual.key))
+})
 
 test("createLeafProps throws error in strict mode for nodes w/0 id", t => {
   const node: TextNode = {
     text: "This text node is not valid in strict mode"
   }
 
-  const trap = () => createLeafProps(node, {
-    strict: true
-  })
+  const trap = () =>
+    createLeafProps(node, {
+      strict: true
+    })
 
   t.throws(trap, {
     instanceOf: NoIdFieldError,
@@ -226,29 +231,32 @@ test("createLeafProps throws error in strict mode for nodes w/0 id", t => {
 test("createElementProps throws error in strict mode for nodes w/o id", t => {
   const node: Paragraph = {
     type: ELEMENT_PARAGRAPH,
-    children: [{
-      id: "1",
-      text: "This paragraph is not valid in strict mode"
-    }]
+    children: [
+      {
+        id: "1",
+        text: "This paragraph is not valid in strict mode"
+      }
+    ]
   }
 
-  const trap = () => createElementProps(
-    node,
+  const trap = () =>
+    createElementProps(
+      node,
 
-    createElement(
-      "span",
+      createElement(
+        "span",
+
+        {
+          key: "1"
+        },
+
+        "This paragraph is not valid in strict mode"
+      ),
 
       {
-        key: "1"
-      },
-
-      "This paragraph is not valid in strict mode"
-    ),
-
-    {
-      strict: true
-    }
-  )
+        strict: true
+      }
+    )
 
   t.throws(trap, {
     instanceOf: NoIdFieldError,
@@ -257,8 +265,8 @@ test("createElementProps throws error in strict mode for nodes w/o id", t => {
 })
 
 test(
-  "LeafProps with specific type parameters is assignable "
-    + "to default parameter",
+  "LeafProps with specific type parameters is assignable " +
+    "to default parameter",
 
   t => {
     expectType<TypeOf<LeafProps, LeafProps<RichText>>>(true)
@@ -268,8 +276,8 @@ test(
 )
 
 test(
-  "ElementProps with specific type parameters is assignable "
-    + "to default parameter",
+  "ElementProps with specific type parameters is assignable " +
+    "to default parameter",
   t => {
     type Actual =
       | ElementProps<Link>
