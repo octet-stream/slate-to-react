@@ -50,7 +50,6 @@ const getTsimpArgs = () =>
     : ["--import", "tsimp"]
 
 export default {
-  timeout: "5m",
   failFast: true,
   workerThreads: isOlderThanTwentyDotSix() === false,
   require: "global-jsdom/register",
